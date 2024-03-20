@@ -74,7 +74,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             const userId = userListResponse[0].id;
             await clerkClient.users.updateUserMetadata(userId, {
-                publicMetadata: { role }
+                publicMetadata: { department, phoneNo, gender }
             });
 
             return res.json({ success: true });
