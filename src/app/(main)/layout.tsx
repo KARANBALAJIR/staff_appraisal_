@@ -5,23 +5,18 @@ import LoginCred from '../../components/LoginCred';
 
 const layout = ({children}: Readonly<{ children: React.ReactNode;}>) => {
   return (
-    <ClerkProvider>
-            
-                   <ClerkLoading>
-                        <h1>Loading</h1>
-                   </ClerkLoading>
-                   <ClerkLoaded>
-                        <SignedIn>
-                          
-                                {children}
-                        
-                        </SignedIn>
-                        <SignedOut>
-                            <LoginCred/>
-                        </SignedOut>
-                   </ClerkLoaded>
-      
-                
+          <ClerkProvider>
+               <ClerkLoading>
+                    <h1>Loading</h1>
+               </ClerkLoading>
+               <ClerkLoaded>
+                    <SignedIn>
+                         {children}
+                    </SignedIn>
+                    <SignedOut>
+                         <LoginCred/>
+                    </SignedOut>
+               </ClerkLoaded>
             </ClerkProvider>
   )
 }
