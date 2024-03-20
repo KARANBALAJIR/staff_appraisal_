@@ -1,19 +1,28 @@
 "use client";
-import React, { useEffect } from "react";
-import { UserButton, useAuth, useUser } from '@clerk/nextjs';
+import React, { useEffect, useState } from "react";
+import { UserButton, useAuth, useUser, clerkClient } from '@clerk/nextjs';
 import { validateStudentEmail } from "@/utils/emailValidate";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import NavBar from "@/components/NavBar";
 
 
 export default function SignedInLayout({children}: Readonly<{children:React.ReactNode}>){
-    const { isSignedIn, user, isLoaded } = useUser();   
+    const { isSignedIn, user, isLoaded } = useUser();
+    const [userId, setUserId] = useState(user?.id);   
     const router = useRouter();
     useEffect(()=>{
         checkStudentEmail()
-    },[])
+    },[userId])
 
-    function checkStudentEmail (){
+    async function checkStudentEmail (){
+        // console.log(userId)
+        // if(userId !== undefined){
+        //     console.log("check")
+        //     let user : any= await clerkClient.users.getUser("user_2d2izFNPuJAUdKnBHuoRv4xIHVy")
+        //     console.log('user',user)
+        // }
+        // router.push('/anonymous')
         // const {emailAddress} :{emailAddress : string}= user['emailAddresses'][0]
         // const email:string = emailAddress;
         // if(validateStudentEmail(email)){
@@ -26,6 +35,7 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
 
     return(
         <>
+        <NavBar/>
         {
             children
         }
