@@ -12,14 +12,25 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
     const { isSignedIn, user, isLoaded } = useUser();
     const [userId, setUserId] = useState(user?.id);   
     const router = useRouter();
-    useEffect(()=>{
-        checkStudentEmail()
-    },[userId])
 
     useEffect(()=>{
+        console.log("check")
         const checkUser = async() =>{
-            const response = await axios.get('/')
+            const response = await axios.get(`/api/user?userId=${userId}`,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+            if(response.data.role === undefined){
+                router.push('/anonymous')
+            }
+            else{
+                router.push(`/${response.data.role}`)
+            }
         }
+        checkUser();
     })
 
     const [isFirst, setIsFirst] = useState(true);
@@ -31,9 +42,9 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
         //     let user : any= await clerkClient.users.getUser("user_2d2izFNPuJAUdKnBHuoRv4xIHVy")
         //     console.log('user',user)
         // }
-        if(isFirst){
-            router.push('/form')
-        }
+        // if(isFirst){
+        //     router.push('/form')
+        // }
         // router.push('/anonymous')
         // const {emailAddress} :{emailAddress : string}= user['emailAddresses'][0]
         // const email:string = emailAddress;
