@@ -5,6 +5,7 @@ import { validateStudentEmail } from "@/utils/emailValidate";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import NavBar from "@/components/NavBar";
+import axios from "axios";
 
 
 export default function SignedInLayout({children}: Readonly<{children:React.ReactNode}>){
@@ -15,6 +16,14 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
         checkStudentEmail()
     },[userId])
 
+    useEffect(()=>{
+        const checkUser = async() =>{
+            const response = await axios.get('/')
+        }
+    })
+
+    const [isFirst, setIsFirst] = useState(true);
+
     async function checkStudentEmail (){
         // console.log(userId)
         // if(userId !== undefined){
@@ -22,6 +31,9 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
         //     let user : any= await clerkClient.users.getUser("user_2d2izFNPuJAUdKnBHuoRv4xIHVy")
         //     console.log('user',user)
         // }
+        if(isFirst){
+            router.push('/form')
+        }
         // router.push('/anonymous')
         // const {emailAddress} :{emailAddress : string}= user['emailAddresses'][0]
         // const email:string = emailAddress;
