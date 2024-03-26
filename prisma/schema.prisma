@@ -54,7 +54,6 @@ enum DepartmentType {
 
 model User{
   id String @id @default(auto()) @map("_id") @db.ObjectId
-
   username String? @default("")
   email String @unique
   password String
