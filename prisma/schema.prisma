@@ -21,7 +21,22 @@ enum DesignationType {
   ASSISTANT_PROFESSOR
   PROFESSOR
 }
+enum FormStatusType {
+  PENDING
+  APPROVED
+  REJECTED
+}
+enum StatusType {
+  ACTIVE
+  INACTIVE
+  BANNED
+}
 
+enum GenderType {
+  MALE
+  FEMALE
+  OTHER
+}
 
 enum DepartmentType {
   NONE
@@ -36,19 +51,20 @@ enum DepartmentType {
   CSBS
 }
 
+
 model User{
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   username String? @default("")
   email String @unique
   password String
-  role UserType? 
+  role UserType? @default(ANONYMOUS)
   designation DesignationType? @default(NONE)
   department DepartmentType? @default(NONE)
   phonenumber String? @default("000-000-0000")
-  gender String? 
-  formstatus String? @default("pending")
-  status String? 
+  gender GenderType? @default(OTHER)
+  formstatus FormStatusType? @default(PENDING)
+  status StatusType?  @default(INACTIVE)
   isfirst Boolean? @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
