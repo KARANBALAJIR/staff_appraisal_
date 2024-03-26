@@ -1,29 +1,32 @@
-import { ClerkLoaded,ClerkLoading, ClerkProvider, SignIn, SignUp, SignedIn, SignedOut } from '@clerk/nextjs'
-
-import React from 'react'
-import LoginCred from '../../components/LoginCred';
-import Loading from '@/components/Loading';
+'use client'
+import React, { useEffect } from 'react'
+import {getCookie} from '@/utils/cookie.service.ts'
+import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUserDetails } from '@/redux/userSlice'
+import { Provider } from 'react-redux'
+import store from "@/redux/store";  
 
 const layout = ({children}: Readonly<{ children: React.ReactNode;}>) => {
+
+  const router = useRouter();
+  // const dispatch = useDispatch();
+
+  useEffect(()=>{
+    const cookie = getCookie("muruga")
+    console.log("this is cookie", cookie)
+    if(cookie === null){
+      router.push('/login')
+    }
+  },[])
+
   return (
-    <ClerkProvider>
-            
-                   <ClerkLoading>
-                        <div className='flex h-screen w-screen justify-center items-center'>
-                              <Loading/>
-                        </div>
-                   </ClerkLoading>
-                   <ClerkLoaded>
-                        <SignedIn>
-                                {children}
-                        </SignedIn>
-                        <SignedOut>
-                            <LoginCred/>
-                        </SignedOut>
-                   </ClerkLoaded>
-      
-                
-            </ClerkProvider>
+    <>
+    <Provider store={store}>
+      {children}
+    </Provider>
+    </>
   )
 }
 

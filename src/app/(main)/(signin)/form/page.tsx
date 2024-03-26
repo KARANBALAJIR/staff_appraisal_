@@ -25,7 +25,7 @@ const UserDetailsforms = () => {
     };
     
   return (
-    <form onSubmit={handleSubmit} className='max-w-md mx-auto bg-white shadow-md rounded-md px-8 pt-6 pb-8 m-4'>
+    <form onSubmit={()=>handleSubmit} className='max-w-md mx-auto bg-white shadow-md rounded-md px-8 pt-6 pb-8 m-4'>
         <div className='mb-4'>
             <label className='block mb-2 '>
                 First Name:
