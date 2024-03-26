@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { UserButton, useAuth, useUser, clerkClient } from '@clerk/nextjs';
-import { validateStudentEmail } from "@/utils/emailValidate";
+import { validateStudentEmail } from "@/services/emailValidate";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import NavBar from "@/components/NavBar";
