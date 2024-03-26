@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  ANONYMOUS
+  STAFF
+  HOD
+  MASTER
+  ADMIN
+}
+
+enum DesignationType {
+  NONE
+  ASSOCIATE_PROFESSOR
+  ASSISTANT_PROFESSOR
+  PROFESSOR
+}
+enum FormStatusType {
+  PENDING
+  APPROVED
+  REJECTED
+}
+enum StatusType {
+  ACTIVE
+  INACTIVE
+  BANNED
+}
+
+enum GenderType {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum DepartmentType {
+  NONE
+  CSE
+  ECE
+  EEE
+  MECH
+  IT
+  AIDS
+  AIML
+  CCE
+  CSBS
+}
+
+
+model User{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  username String? @default("")
+  email String @unique
+  password String
+  role UserType? @default(ANONYMOUS)
+  designation DesignationType? @default(NONE)
+  department DepartmentType? @default(NONE)
+  phonenumber String? @default("000-000-0000")
+  gender GenderType? @default(OTHER)
+  formstatus FormStatusType? @default(PENDING)
+  status StatusType?  @default(INACTIVE)
+  isfirst Boolean? @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
