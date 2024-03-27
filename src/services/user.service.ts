@@ -46,4 +46,9 @@ async function hashPassword(params:string) : Promise<string> {
     return hashedPassword  
 }
 
-export { hashPassword, findUserByEmail, createUser, emailTest }
+async function isCorrectPassword(password: string, hashedPassword: string) : Promise<boolean>{
+    const result = await bcrypt.compare(password, hashedPassword)
+    return result;
+}
+
+export { hashPassword, findUserByEmail, createUser, emailTest, isCorrectPassword }
