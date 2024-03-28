@@ -2,15 +2,41 @@
 
 import Link from 'next/link'
 import React, { useState } from 'react'
+import '../../../components/Styles/LoginCredStyles.css'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+
 
 const Page = () => {
+  
+  const router = useRouter();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: Event) =>{
+  const handleSubmit = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault();
-    console.log(email,password)
+    try{
+      console.log(email,password)
+      const response = await axios.post(
+        `api/user/login`,
+        {email, password},
+        {
+          headers:{
+            "Content-Type": "application/json"
+          }
+        }
+      )
+      if(response.status === 200){
+        console.log(`userToken=${response.data.token}`)
+        document.cookie = (`userToken=${response.data.token}`)
+        router.push('/')
+      }
+      console.log(response);
+    }
+    catch(err:any){
+      console.log(err.message);
+    }
   }
 
   return (
@@ -20,21 +46,21 @@ const Page = () => {
             <div className="text-sm font-normal mb-4 text-center text-[#1e0e4b]">Log in to your account</div>
         <form className="flex flex-col gap-3">
             <div className="block relative"> 
-            <label for="email" className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">Email</label>
+            <label htmlFor="email" className="label">Email</label>
             <input 
               type="email" 
               id="email" 
-              className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
+              className="input"
               onChange={(e)=>{setEmail(e.target.value)}}
             />
             
             </div>
             <div className="block relative"> 
-            <label for="password" className="block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2">Password</label>
+            <label  htmlFor="password" className="label">Password</label>
             <input 
               type="password" 
               id="password" 
-              className="rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0"
+              className="input"
               onChange={(e)=>{setPassword(e.target.value)}}
             />
             
@@ -42,15 +68,15 @@ const Page = () => {
 
             <button 
               type="submit" 
-              className="bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"
+              className="button"
               onClick={(e)=>{handleSubmit(e)}}
             >
               Submit
             </button>
 
         </form>
-          <div className="text-sm text-center mt-[1.6rem]">Don’t have an account yet? 
-            <Link className="text-sm text-[#7747ff]" href={'/signup'} >Sign up for free!</Link>
+          <div className="text-sm text-center mt-[1.6rem]">Don&apos;t have an account yet?  
+            <Link className="text-sm text-[#7747ff]" href={'/signup'} > Sign up for free!</Link>
           </div>
         </div>
     </div>
