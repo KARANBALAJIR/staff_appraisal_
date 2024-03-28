@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
-import { createUser, findUserByEmail , hashPassword , emailTest} from '@/services/user.service'
-
+import { createUser, findUserByEmail , hashPassword , emailTest , generateToken} from '@/services/user.service'
+import jwt from 'jsonwebtoken'
 const prisma = new PrismaClient(); 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -27,9 +26,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             
             const hashedPassword = await hashPassword(password)
 
-            const newUser = await createUser(email,hashedPassword)
-
-            res.status(200).json({ success: true, message: 'user created successfully', user: newUser })
+            const user = await createUser(email,hashedPassword)
+            
+            if (user) {
+                const token = await generateToken({ email: user.email, role: user.role, designation: user.designation });
+                res.status(200).json({ success: true, message: 'user created successfully', user: user , accessToken: token })
+            } else {
+                res.status(500).json({ success: false, message: 'Failed to create user' })
+            }
         }
         catch(err){
             res.status(500).json({ success: false, message: 'Internal server error' })
