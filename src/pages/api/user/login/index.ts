@@ -36,9 +36,9 @@ export default async function handle( req: NextApiRequest, res: NextApiResponse 
                 return res.status(401).json({error:true, message:"Invalid Password"})
             }
 
-            const token = jwt.sign({email: user.email, role: user.role, designaiton: user.designation},process.env.SECRET_KEY)
+            const token = jwt.sign({email: user.email, role: user.role, designaiton: user.designation},process.env.SECRET_KEY as string)
 
-            return res.status(200).json({error:false, message:user})
+            return res.status(200).json({error:false, message:"Login successfull", token:token})
         }
         catch(err: any){
             return res.status(400).json({error: true, message: err.message})
