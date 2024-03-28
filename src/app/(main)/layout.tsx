@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
-import {getCookie} from '@/utils/cookie.service.ts'
+import {getCookie} from '@/service/cookie.service'
 import { useRouter } from 'next/navigation'
 import { redirect } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
@@ -27,6 +27,7 @@ const layout = ({children}: Readonly<{ children: React.ReactNode;}>) => {
       {children}
     </Provider>
     </>
+    
   )
 }
 
