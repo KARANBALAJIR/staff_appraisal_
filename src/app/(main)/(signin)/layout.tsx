@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect, useState } from "react";
 import { validateStudentEmail } from "@/utils/emailValidate";
 import Link from "next/link";
@@ -8,10 +9,12 @@ import axios from "axios";
 
 export default function SignedInLayout({children}: Readonly<{children:React.ReactNode}>){
 
-    // const [count, setCount] = useState(0);
+    // useEffect(()=>{
+    //     const response = axios.get
+    // })
 
     return(
-        <div className="flex">
+        <div className="flex justify-center">
         <LeftNavBar/>
             {
                 children
