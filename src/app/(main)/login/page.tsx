@@ -41,7 +41,7 @@ const Page = () => {
           'aria-live': 'polite',
         },
       });
-      setCookie('usertoken', response.data.message , 168);
+      setCookie('usertoken', response.data.token , 168);
       setLoading(false)
       router.push('/')
     }
