@@ -30,10 +30,9 @@ export default async function handle( req: NextApiRequest, res: NextApiResponse 
             }
 
             const checkedPassword = await isCorrectPassword(password, user.password)
-            console.log(checkedPassword)
 
             if(!checkedPassword){
-                return res.status(401).json({error:true, message:"Invalid Password"})
+                return res.status(401).json({error:true, message:"Incorrect Password"})
             }
 
             const token = jwt.sign({email: user.email, role: user.role, designaiton: user.designation},process.env.SECRET_KEY as string)

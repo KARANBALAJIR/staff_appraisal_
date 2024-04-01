@@ -5,7 +5,8 @@ import React, { useState } from 'react'
 import '../../../components/Styles/LoginCredStyles.css'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-
+import toast, { Toaster , ToastBar } from 'react-hot-toast';
+import { setCookie } from '@/services/cookie.service'
 
 const Page = () => {
   
@@ -13,11 +14,11 @@ const Page = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [loading,setLoading] = useState(false);
   const handleSubmit = async(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>{
     e.preventDefault();
+    setLoading(true)
     try{
-      console.log(email,password)
       const response = await axios.post(
         `api/user/login`,
         {email, password},
@@ -27,58 +28,87 @@ const Page = () => {
           }
         }
       )
-      if(response.status === 200){
-        console.log(`userToken=${response.data.token}`)
-        document.cookie = (`userToken=${response.data.token}`)
-        router.push('/')
-      }
-      console.log(response);
+      toast.success('Successfully Logged In !', {
+        duration: 4000,
+        position: 'top-right',
+        icon: '✅',
+        iconTheme: {
+          primary: '#000',
+          secondary: '#fff',
+        },
+        ariaProps: {
+          role: 'status',
+          'aria-live': 'polite',
+        },
+      });
+      setCookie('usertoken', response.data.message , 168);
+      setLoading(false)
+      router.push('/')
     }
     catch(err:any){
-      console.log(err.message);
+      setLoading(false)
+      toast.error(err.response.data.message,{
+          duration: 2000,
+          position: 'top-right',
+          style: {
+            minWidth: '250px',
+            minHeight: '60px',
+          },
+      });
     }
   }
 
   return (
     <div className='h-screen w-screen flex justify-center items-center bg-[#f3f3f3]'>
-        <div className="max-w-md relative flex flex-col p-4 rounded-md text-black bg-white shadow-md">
-            <div className="text-2xl font-bold mb-2 text-[#1e0e4b] text-center">Welcome back to <span className="text-[#7747ff]">App</span></div>
-            <div className="text-sm font-normal mb-4 text-center text-[#1e0e4b]">Log in to your account</div>
-        <form className="flex flex-col gap-3">
-            <div className="block relative"> 
-            <label htmlFor="email" className="label">Email</label>
-            <input 
-              type="email" 
-              id="email" 
-              className="input"
-              onChange={(e)=>{setEmail(e.target.value)}}
+      <Toaster reverseOrder={false} gutter={8} />
+      <div className="w-[25rem] relative flex flex-col p-8 rounded-xl text-black bg-white shadow-lg hover:shadow-md duration-200 ease-in">
+        <div className="text-3xl font-bold mb-4  text-[#1e0e4b] text-left">Create an <span className="text-blue-500"> account</span></div>
+        <form className="flex flex-col gap-4">
+          <div className="block relative">
+            <label htmlFor="email" className="block text-gray-600 cursor-text text-sm leading-[140%] font-medium mb-2">Email  <span className="text-red-500 text-bold">*</span></label>
+            <input
+              type="text"
+              id="email"
+              className="rounded border border-gray-200 text-md w-full 
+                    font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 
+                    p-[11px] outline-0 "
+              onChange={(e) => { setEmail(e.target.value) }}
             />
-            
-            </div>
-            <div className="block relative"> 
-            <label  htmlFor="password" className="label">Password</label>
-            <input 
-              type="password" 
-              id="password" 
-              className="input"
-              onChange={(e)=>{setPassword(e.target.value)}}
-            />
-            
-            </div>
 
-            <button 
-              type="submit" 
-              className="button"
-              onClick={(e)=>{handleSubmit(e)}}
-            >
-              Submit
-            </button>
+          </div>
+          <div className="block relative">
+            <label htmlFor="password" className="block text-gray-600 cursor-text text-sm leading-[140%] font-medium mb-2">Password <span className="text-red-500 text-bold">*</span></label>
+            <input
+              type="password"
+              id="password"
+              className="rounded border border-gray-200 text-md w-full font-normal leading-[18px] text-black 
+                        tracking-[0px] appearance-none block h-11 m-0 p-[11px]
+                        outline-0"
+              onChange={(e) => { setPassword(e.target.value) }}
+            />
+          </div>
+          {
+            (loading === false) ?
+              <button
+                type="submit"
+                className="buttonload bg-blue-500 p-2 rounded-xl text-white shadow-md hover:opacity-90 duration-200 ease-in-out"
+                onClick={(e) => { handleSubmit(e) }}
+              >
+                Submit
+              </button>
+              :
+              <button className="buttonload bg-blue-500 p-2 rounded-xl text-white shadow-md hover:opacity-90 duration-200 ease-in-out">
+                <i className="fa fa-circle-o-notch fa-spin"></i>
+              </button>
+          }
+
 
         </form>
-          <div className="text-sm text-center mt-[1.6rem]">Don&apos;t have an account yet?  
-            <Link className="text-sm text-[#7747ff]" href={'/signup'} > Sign up for free!</Link>
-          </div>
+        <div className="text-sm text-center mt-[1.6rem] flex flex-row gap-x-4 justify-around">
+          <label className='text-md font-semibold'>Don’t have an account yet? </label>
+          <Link className="text-md font-semibold text-blue-500" href={'/signup'} >Sign up for free!</Link>
         </div>
+      </div>
     </div>
   )
 }
