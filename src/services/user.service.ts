@@ -1,7 +1,7 @@
-import {User,UserType,FormStatusType} from '@prisma/client';
+import { User, UserType, FormStatusType, DesignationType } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
-
+import jwt from 'jsonwebtoken';
 const prisma = new PrismaClient();
 
 interface UserFromSignUp{
@@ -9,6 +9,13 @@ interface UserFromSignUp{
     role: UserType | null;
     formstatus: FormStatusType | null;
     isfirst: boolean | null;
+    designation:DesignationType | null;
+}
+
+interface JwtData{
+    email:string,
+    role:UserType | null,
+    designation:DesignationType | null,
 }
 
 async function createUser(email: string,password:string): Promise<UserFromSignUp | null> {
@@ -22,6 +29,7 @@ async function createUser(email: string,password:string): Promise<UserFromSignUp
             role: true,
             isfirst: true,
             formstatus: true,
+            designation:true,
         }
     })
     return newUser;
@@ -42,7 +50,7 @@ async function findUserByEmail(params: string) : Promise<User | null>{
 }
 
 async function hashPassword(params:string) : Promise<string> {
-    const hashedPassword = await bcrypt.hash(params, parseInt(process.env.SALT)); 
+    const hashedPassword = await bcrypt.hash(params,parseInt(process.env.SALT as string)); 
     return hashedPassword  
 }
 
@@ -51,4 +59,9 @@ async function isCorrectPassword(password: string, hashedPassword: string) : Pro
     return result;
 }
 
-export { hashPassword, findUserByEmail, createUser, emailTest, isCorrectPassword }
+async function generateToken(jwtData : JwtData ): Promise<string> {
+    const token =  jwt.sign(jwtData,process.env.SECRET_KEY as string)
+    return token;
+}
+
+export { hashPassword, findUserByEmail, createUser, emailTest, isCorrectPassword, generateToken }
