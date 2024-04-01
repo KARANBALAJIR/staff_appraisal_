@@ -106,7 +106,7 @@ const Page = () => {
         </form>
         <div className="text-sm text-center mt-[1.6rem] flex flex-row gap-x-4 justify-around">
           <label className='text-md font-semibold'>Don’t have an account yet? </label>
-          <Link className="text-md font-semibold text-blue-500" href={'/login'} >Sign up for free!</Link>
+          <Link className="text-md font-semibold text-blue-500" href={'/signup'} >Sign up for free!</Link>
         </div>
       </div>
     </div>
