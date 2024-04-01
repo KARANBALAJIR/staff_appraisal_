@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
-import {getCookie} from '@/utils/cookie.service.ts'
+import { getCookie } from '@/utils/cookie.service'
 import { useRouter } from 'next/navigation'
 import { redirect } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,7 +17,7 @@ const layout = ({children}: Readonly<{ children: React.ReactNode;}>) => {
     const cookie = getCookie("muruga")
     console.log("this is cookie", cookie)
     if(cookie === null){
-      router.push('/login')
+     //  router.push('/login')
     }
   },[])
 
