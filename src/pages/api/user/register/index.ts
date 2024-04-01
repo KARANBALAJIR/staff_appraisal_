@@ -34,7 +34,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         catch(err){
             res.status(500).json({ success: false, message: 'Internal server error' })
         }
-
     }
     return res.status(405).json({ message: "Invalid request method.." })
 }

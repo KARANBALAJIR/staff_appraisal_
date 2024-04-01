@@ -27,6 +27,7 @@ const SignupLayout = ({children}: Readonly<{ children: React.ReactNode;}>) => {
       {children}
     </Provider>
     </>
+    
   )
 }
 
