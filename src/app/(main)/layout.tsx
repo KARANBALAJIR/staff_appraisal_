@@ -14,7 +14,7 @@ const SignupLayout = ({children}: Readonly<{ children: React.ReactNode;}>) => {
     const cookie = getCookie("userToken")
     console.log("this is cookie", cookie)
     if(cookie === null){
-      router.push('/login')
+     //  router.push('/login')
     }
   },[])
 
