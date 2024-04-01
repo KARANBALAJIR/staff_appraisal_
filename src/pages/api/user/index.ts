@@ -4,7 +4,6 @@ import { PrismaClient , User } from '@prisma/client';
 import jwt from 'jsonwebtoken'
 const prisma = new PrismaClient();
 
-
 export async function checkAuthentication(req: NextApiRequest, res: NextApiResponse, next: Function) {
     if (!req.headers.authorization || req.headers.authorization === undefined || !req.headers.authorization?.startsWith('Bearer')) {
         return res.status(401).json({ success:false, message: 'Unauthorized' });

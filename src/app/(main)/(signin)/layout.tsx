@@ -1,22 +1,47 @@
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import LeftNavBar from "@/components/NavBar";
-import axios from "axios";
-import NavBar from "@/components/NavBar";
-import { getCookie } from "@/services/cookie.service";
+'use client'
 
+import React, { useEffect, useState } from "react";
+import { getCookie } from "@/services/cookie.service";
+import axios from "axios";
+import { updateUserDetails } from "@/redux/userSlice";
+import { useRouter } from "next/navigation";
 
 export default function SignedInLayout({children}: Readonly<{children:React.ReactNode}>){
 
-    return(
-        <div className="flex justify-center">
-        <LeftNavBar/>
-            <div className="w-[80rem] h-[90vh] flex justify-center items-center">
-                {
-                    children
+    useEffect(() => {
+        checkRole();
+    }, [])
+
+    const router = useRouter();
+
+    const checkRole = async () => {
+        try {
+            const token = getCookie('usertoken')
+            const response = await axios.get('/api/user', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Custom-Header': 'Custom-Value'
                 }
-            </div>
-        </div>
+            })
+
+            const userData = response.data.user;
+
+            console.log(userData);
+
+            updateUserDetails(userData);
+
+            router.push(userData.role.toLowerCase())
+
+        }
+        catch (err: any) {
+            console.log(err.message);
+        }
+    }
+    return(
+        <>
+            {
+                    children
+            }
+        </>
     )
 }
