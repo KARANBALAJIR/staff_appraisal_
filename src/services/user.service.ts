@@ -1,8 +1,10 @@
-import { User, UserType, FormStatusType, DesignationType } from '@prisma/client';
+import { User, UserType, FormStatusType, DesignationType, StatusType, DepartmentType , GenderType } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 const prisma = new PrismaClient();
+
+
 
 interface UserFromSignUp{
     email: string;
@@ -17,6 +19,30 @@ interface JwtData{
     role:UserType | null,
     designation:DesignationType | null,
 }
+// "username": "",
+//     "email": "mike@sece.ac.in",
+//         "role": "ANONYMOUS",
+//             "designation": "NONE",
+//                 "department": "NONE",
+//                     "phonenumber": "000-000-0000",
+//                         "gender": "OTHER",
+//                             "formstatus": "PENDING",
+//                                 "status": "INACTIVE",
+//                                     "isfirst": true
+
+export interface UserDetails {
+    username:string;
+    email: string;
+    role: UserType | null;
+    designation: DesignationType | null;
+    department: DepartmentType | null;
+    phonenumber:number | null;
+    formstatus: FormStatusType | null;
+    status: StatusType | null;
+    gender: GenderType | null;
+    isfirst: boolean | null;
+}
+
 
 async function createUser(email: string,password:string): Promise<UserFromSignUp | null> {
     const newUser =  await prisma.user.create({
@@ -44,7 +70,13 @@ async function findUserByEmail(params: string) : Promise<User | null>{
     const user = await prisma.user.findUnique({
         where: {
             email: params,
-        }
+        },
+        // select:{
+        //     password:false,
+        //     id:false,
+        //     createdAt:false,
+        //     updatedAt:false,
+        // }
     });
     return user;
 }
@@ -64,4 +96,15 @@ async function generateToken(jwtData : JwtData ): Promise<string> {
     return token;
 }
 
-export { hashPassword, findUserByEmail, createUser, emailTest, isCorrectPassword, generateToken }
+async function verifyToken(token:string) : Promise<string | jwt.JwtPayload | boolean> {
+    try{
+        const decoded = jwt.verify(token, process.env.SECRET_KEY as string);
+        return decoded;
+    } catch(err){
+        return false;
+    }
+
+}
+
+
+export { hashPassword, findUserByEmail, createUser, emailTest, isCorrectPassword, generateToken , verifyToken}
