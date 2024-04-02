@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import toast, { Toaster, ToastBar } from 'react-hot-toast';
 import axios from 'axios';
-import { setCookie } from '@/services/cookie.service';
+import { deleteCookie, setCookie } from '@/services/cookie.service';
 import { useRouter } from 'next/navigation';
 const Page = () => {    
     const router = useRouter();
@@ -38,6 +38,7 @@ const Page = () => {
                 },
             });
             setLoading(false)
+            deleteCookie('usertoken')
             setCookie('usertoken', response.data.accesstoken, 168);
             router.push('/')
         }

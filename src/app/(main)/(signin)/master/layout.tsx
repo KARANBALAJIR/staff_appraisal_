@@ -1,11 +1,18 @@
 import React from 'react'
+import MasterNavBar from '@/app/(main)/(signin)/master/masterNavbar'
+import '@/components/Styles/LeftNav.css'
 
-const layout = ({children}: Readonly<{children:React.ReactNode}>) => {
+const MasterLayout = ({children}: Readonly<{children:React.ReactNode}>) => {
   return (
-    <div>
-        {children}
-    </div>
+    <>
+      <div className="flex justify-center">
+        <MasterNavBar />
+        <div className="w-[80rem] h-[90vh] flex justify-center items-center">
+          {children}
+        </div>
+      </div>
+    </>
   )
 }
 
-export default layout
+export default MasterLayout
