@@ -12,7 +12,7 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
     return(
         <div className="flex justify-center">
         <LeftNavBar/>
-            <div className="w-[80rem] h-[90vh] flex justify-center items-center">
+            <div className="w-[80rem] h-screen flex justify-center items-center">
                 {
                     children
                 }
