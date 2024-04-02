@@ -5,7 +5,7 @@ import '@/components/Styles/LeftNav.css'
 
 const AdminNavBar = () => {
     return (
-        <div className='flex flex-col w-[18rem] h-[100vh] items-center p-4 shadow-md bg-[#f3f4f5] rounded-md m-1'>
+        <div className='flex flex-col w-[18rem] h-screen items-center p-4 shadow-md bg-[#f3f4f5] rounded-md m-1'>
             <div className='flex gap-4 items-center w-full border-solid border-b-2 border-[#c0c0c0] pb-2'>
                 <Image src={profileLogo} alt='profile logo' className='h-10 w-auto' />
                 <div>
@@ -14,9 +14,12 @@ const AdminNavBar = () => {
                 </div>
             </div>
             <div className='left-nav-selected'>
+                Form
+            </div>
+            <div className='left-nav'>
                 Approval
             </div>
-            <div className='left-nav-selected'>
+            <div className='left-nav'>
                 Approval
             </div>
         </div>

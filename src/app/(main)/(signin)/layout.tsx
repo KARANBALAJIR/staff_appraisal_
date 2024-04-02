@@ -5,6 +5,7 @@ import { getCookie } from "@/services/cookie.service";
 import axios from "axios";
 import { updateUserDetails } from "@/redux/userSlice";
 import { useRouter } from "next/navigation";
+import LeftNavBar from "@/components/NavBar";
 
 export default function SignedInLayout({children}: Readonly<{children:React.ReactNode}>){
 
@@ -41,9 +42,13 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
     }
     return(
         <>
-            {
-                    children
-            }
+            <div className="flex justify-center">
+                <div className="w-[80rem] h-screen flex justify-center items-center">
+                    {
+                        children
+                    }
+                </div>
+            </div>
         </>
     )
 }
