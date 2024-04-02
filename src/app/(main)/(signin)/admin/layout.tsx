@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminNavBar from '@/app/(main)/(signin)/admin-mangement/adminNavbar'
+import AdminNavBar from '@/app/(main)/(signin)/admin/adminNavbar'
 import '@/components/Styles/LeftNav.css'
 const AdminLayout = ({children}: Readonly<{children:React.ReactNode}>) => {
   return (

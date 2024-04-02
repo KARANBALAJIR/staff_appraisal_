@@ -14,12 +14,9 @@ const AdminNavBar = () => {
                 </div>
             </div>
             <div className='left-nav-selected'>
-                Form
-            </div>
-            <div className='left-nav'>
                 Approval
             </div>
-            <div className='left-nav'>
+            <div className='left-nav-selected'>
                 Approval
             </div>
         </div>

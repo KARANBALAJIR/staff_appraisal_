@@ -10,6 +10,7 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
 
     useEffect(() => {
         checkRole();
+        console.log('incoming')
     }, [])
 
     const router = useRouter();
@@ -17,6 +18,7 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
     const checkRole = async () => {
         try {
             const token = getCookie('usertoken')
+            console.log(token)
             const response = await axios.get('/api/user', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
