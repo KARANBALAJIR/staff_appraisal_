@@ -1,9 +1,17 @@
 import React from 'react'
-
-const layout = ({children}: Readonly<{children:React.ReactNode}>) => {
+import AdminNavBar from '@/app/(main)/(signin)/admin/adminNavbar'
+import '@/components/Styles/LeftNav.css'
+const AdminLayout = ({children}: Readonly<{children:React.ReactNode}>) => {
   return (
-    <>{children}</>
+    <>  
+      <div className="flex justify-center">
+        <AdminNavBar />
+        <div className="w-[80rem] h-screen flex justify-center items-center">
+          {children}
+        </div>
+      </div>
+    </>
   )
 }
 
-export default layout
+export default AdminLayout;

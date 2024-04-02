@@ -1,11 +1,16 @@
 import React from 'react'
-
-const layout = ({children}:Readonly<{ children: React.ReactNode;}>) => {
+import HodNavBar from '@/app/(main)/(signin)/hod/hodNavbar'
+const HodLayout = ({children}:Readonly<{ children: React.ReactNode;}>) => {
   return (
-    <div>
-        {children}
-    </div>
+    <>
+      <div className="flex justify-center">
+        <HodNavBar />
+        <div className="w-[80rem] h-[90vh] flex justify-center items-center">
+          {children}
+        </div>
+      </div>
+    </>
   )
 }
 
-export default layout
+export default HodLayout

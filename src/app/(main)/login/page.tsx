@@ -6,7 +6,7 @@ import '../../../components/Styles/LoginCredStyles.css'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import toast, { Toaster , ToastBar } from 'react-hot-toast';
-import { setCookie } from '@/services/cookie.service'
+import { deleteCookie, setCookie } from '@/services/cookie.service'
 
 const Page = () => {
   
@@ -41,6 +41,7 @@ const Page = () => {
           'aria-live': 'polite',
         },
       });
+      deleteCookie('usertoken')
       setCookie('usertoken', response.data.token , 168);
       setLoading(false)
       router.push('/')
