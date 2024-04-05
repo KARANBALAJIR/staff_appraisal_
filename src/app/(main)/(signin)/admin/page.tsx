@@ -14,11 +14,11 @@ interface User {
 
 const AdminDashboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([
-    { id: 1, name: 'Karan', email: 'karan@example.com', department: 'CSE', designation: 'Assistant Professor', status: 'Active', role: 'Admin', avatar: 'https://example.com/avatar1.jpg' },
-    { id: 2, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-    { id: 3, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-    { id: 4, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-    { id: 5, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
+    { id: 1, name: 'Karan Balaji', email: 'karan123@example.com', department: 'CSE', designation: 'Assistant Professor', status: 'Active', role: 'Anonymous', avatar: 'https://example.com/avatar1.jpg' },
+    { id: 2, name: 'CIBIYANNA', email: 'cibiYANNA123@example.com', department: 'ECE', designation: 'Professor', status: 'Active', role: 'Anonymous', avatar: 'https://example.com/avatar2.jpg' },
+    { id: 3, name: 'MURUGA PERUMAL', email: 'murugaperumal123@example.com', department: 'EEE', designation: 'Associate Professor', status: 'Active', role: 'Anonymous', avatar: 'https://example.com/avatar2.jpg' },
+    { id: 4, name: 'PRANAV HARSHAN S', email: 'pranavharshan123@example.com', department: 'IT', designation: 'Professor', status: 'Active', role: 'Anonymous', avatar: 'https://example.com/avatar2.jpg' },
+    { id: 5, name: 'MITHRESVAR MSA', email: 'mithresvar123@example.com', department: 'MECH', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
     { id: 6, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
     { id: 7, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
     { id: 8, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
@@ -118,16 +118,55 @@ const AdminDashboard: React.FC = () => {
           className="block w-full border border-gray-300 rounded px-2 py-1"
         />
       </div>
-      <button className="absolute top-4 right-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2" onClick={handleAddUser}>Add User</button>
+      <button className="absolute top-4 right-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={handleAddUser}>Add User</button>
       <table className="w-full border-collapse border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
             <th className="py-2 px-1 border border-gray-300 w-16">Serial No</th>
             <th className="py-2 px-1 border border-gray-300 w-32">Name</th>
             <th className="py-2 px-1 border border-gray-300 w-32">Email</th>
-            <th className="py-2 px-1 border border-gray-300 w-32">Department</th>
-            <th className="py-2 px-1 border border-gray-300 w-32">Designation</th>
-            <th className="py-2 px-1 border border-gray-300 w-32">Role</th>
+            <th className="py-2 px-1 border border-gray-300 w-32">
+            <select
+                value={departmentFilter}
+                onChange={(e) => setDepartmentFilter(e.target.value)}
+                className="block w-full border border-gray-300 rounded px-2 py-1"
+              >
+                <option value="">All Departments</option>
+                <option value="CSE">CSE</option>
+                <option value="ECE">ECE</option>
+                <option value="EEE">EEE</option>
+                <option value="IT">IT</option>
+                <option value="MECH">MECH</option>
+                <option value="CCE">CCE</option>
+                <option value="AIML">AIML</option>
+                <option value="AIDS">AIDS</option>
+              </select>
+            </th>
+            <th className="py-2 px-1 border border-gray-300 w-32">
+            <select
+                value={designationFilter}
+                onChange={(e) => setDesignationFilter(e.target.value)}
+                className="block w-full border border-gray-300 rounded px-2 py-1"
+              >
+                <option value="">All Designations</option>
+                <option value="Assistant Professor">Assistant Professor</option>
+                <option value="Associate Professor">Associate Professor</option>
+                <option value="Professor">Professor</option>
+              </select>
+            </th>
+            <th className="py-2 px-1 border border-gray-300 w-32">
+            <select
+                value={roleFilter}
+                onChange={(e) => setRoleFilter(e.target.value)}
+                className="block w-full border border-gray-300 rounded px-2 py-1"
+              >
+                <option value="">All Roles</option>
+                <option value="Anonymous">Anonymous</option>
+                <option value="Admin">Admin</option>
+                <option value="HOD">HOD</option>
+                <option value="Staff">Staff</option>
+              </select>
+            </th>
             <th className="py-2 px-1 border border-gray-300 w-24">Status</th>
             <th className="py-2 px-1 border border-gray-300 w-32">Actions</th>
           </tr>
@@ -135,7 +174,7 @@ const AdminDashboard: React.FC = () => {
         <tbody>
           {filteredUsers.map((user, index) => (
             <tr key={user.id}>
-              <td className="py-2 px-1 border-b border-gray-300 text-center">{index + 1}</td> {/* Serial number */}
+              <td className="py-2 px-1 border-b border-gray-300 text-center">{index + 1}</td>
               <td className="py-2 px-1 border-b border-gray-300 text-center">{user.name}</td>
               <td className="py-2 px-1 border-b border-gray-300 text-center">{user.email}</td>
               <td className="py-2 px-1 border-b border-gray-300 text-center">{user.department}</td>
