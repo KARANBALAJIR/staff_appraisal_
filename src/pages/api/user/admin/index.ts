@@ -9,9 +9,17 @@ import { checkAuthentication } from "..";
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     await checkAuthentication(req, res, async function () {
+        if(req?.user?.role !== 'ADMIN'){
+            return res.status(401).json({success:false, message:"Invalid user role"});
+        }
+
         if(req.method === 'GET'){
             try{
-                res.status(200).json(req.user)
+                const users = await prisma.user.findMany({
+                    take:10,
+                    skip:10*0,
+                });
+                return res.status(200).json(users)
             }
             catch(err : any){
                 console.log(err.message)
