@@ -15,10 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if(req.method === 'GET'){
             try{
-                const users = await prisma.user.findMany({
-                    take:10,
-                    skip:10*0,
-                });
+                const users = await prisma.user.findMany();
                 return res.status(200).json(users)
             }
             catch(err : any){
