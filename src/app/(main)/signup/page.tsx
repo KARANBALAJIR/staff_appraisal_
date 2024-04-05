@@ -39,7 +39,7 @@ const Page = () => {
             });
             setLoading(false)
             deleteCookie('usertoken')
-            setCookie('usertoken', response.data.accesstoken, 168);
+            setCookie('usertoken', response.data.accessToken, 168);
             router.push('/')
         }
         catch (err: any) {

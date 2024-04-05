@@ -6,11 +6,13 @@ import axios from "axios";
 import { updateUserDetails } from "@/redux/userSlice";
 import { useRouter } from "next/navigation";
 import LeftNavBar from "@/components/NavBar";
+import Loading from "@/components/Loading";
 
 export default function SignedInLayout({children}: Readonly<{children:React.ReactNode}>){
 
     useEffect(() => {
         checkRole();
+        console.log('incoming')
     }, [])
 
     const router = useRouter();
@@ -18,6 +20,7 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
     const checkRole = async () => {
         try {
             const token = getCookie('usertoken')
+            console.log(token)
             const response = await axios.get('/api/user', {
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -40,13 +43,9 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
     }
     return(
         <>
-            <div className="flex justify-center">
-                <div className="w-[80rem] h-screen flex justify-center items-center">
-                    {
-                        children
-                    }
-                </div>
-            </div>
+            {
+                children
+            }
         </>
     )
 }
