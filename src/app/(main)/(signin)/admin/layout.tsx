@@ -1,12 +1,18 @@
 import React from 'react'
 import AdminNavBar from '@/app/(main)/(signin)/admin/adminNavbar'
 import '@/components/Styles/LeftNav.css'
+import TopNavbar from '@/app/(main)/(signin)/admin/Topnavbar'
+import '@/components/Styles/index.css'
+
 const AdminLayout = ({children}: Readonly<{children:React.ReactNode}>) => {
   return (
     <>  
-      <div className="flex justify-center">
-        <AdminNavBar />
-        <div className="w-[80rem] h-screen flex justify-center items-center">
+      <div className="flex flex-row navbar" >
+        <div className='h-screen'>
+          <AdminNavBar />
+        </div>
+        <div className="h-screen flex-1">
+          <TopNavbar/>
           {children}
         </div>
       </div>

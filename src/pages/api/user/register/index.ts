@@ -30,9 +30,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             
             if (user) {
                 const token = await generateToken({ email: user.email, role: user.role, designation: user.designation });
-                res.status(200).json({ success: true, message: 'user created successfully', user: user , accessToken: token })
+                return res.status(200).json({ success: true, message: 'user created successfully', user: user , accessToken: token })
             } else {
-                res.status(500).json({ success: false, message: 'Failed to create user' })
+                return res.status(500).json({ success: false, message: 'Failed to create user' })
             }
         }
         catch(err){

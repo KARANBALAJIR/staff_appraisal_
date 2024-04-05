@@ -4,11 +4,12 @@ import { getCookie } from '@/services/cookie.service'
 import { useRouter } from 'next/navigation'
 import { Provider } from 'react-redux'
 import store from "@/redux/store";  
+import { Providers } from '../providers'
+
 
 const SignupLayout = ({children}: Readonly<{ children: React.ReactNode;}>) => {
 
   const router = useRouter();
-  // const dispatch = useDispatch();
 
   useEffect(()=>{
     const cookie = getCookie("usertoken")
@@ -21,7 +22,9 @@ const SignupLayout = ({children}: Readonly<{ children: React.ReactNode;}>) => {
   return (
     <>
     <Provider store={store}>
-      {children}
+
+        {children}
+
     </Provider>
     </>
     
