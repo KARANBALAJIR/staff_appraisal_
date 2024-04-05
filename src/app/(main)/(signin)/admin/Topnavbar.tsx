@@ -18,7 +18,7 @@ const TopNavbar = () =>{
                                 <span className="material-icons-sharp text-white">account_circle</span>
                             </button>
                             
-                            <div className={`${usericonClick === false ? 'opacity-0 -right-[400px]' : 'opacity-100'} overflow-hidden shadow-md shadow-blue-100  absolute top-[90px] right-[32px] bg-white z-20 rounded-2xl duration-200 ease-in` }>
+                        <div className={`${usericonClick === false ? 'opacity-0  -right-[400px]' : 'opacity-100   right-[15px]'} overflow-hidden top-[90px] shadow-md absolute  bg-white z-20 rounded-2xl duration-[0.3s] ease-in` }>
                                 <UserProfilePopUp />
                             </div>
                         </div>

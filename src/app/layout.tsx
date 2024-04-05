@@ -24,7 +24,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
         </head>
-        <body className="font-body max-w-[100vw] overflow-hidden">
+        <body className="font-body max-w-[100vw] overflow-x-hidden">
             {children}  
         </body>
       </html>

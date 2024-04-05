@@ -8,10 +8,10 @@ const AdminLayout = ({children}: Readonly<{children:React.ReactNode}>) => {
   return (
     <>  
       <div className="flex flex-row navbar" >
-        <div className=''>
+        <div className='h-screen'>
           <AdminNavBar />
         </div>
-        <div className="flex-1">
+        <div className="h-screen flex-1">
           <TopNavbar/>
           {children}
         </div>
