@@ -3,7 +3,7 @@ import '@/components/Styles/LeftNav.css'
 
 export default function Page() {
     return (
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center h-screen">
             <Loading />
         </div>
     )
