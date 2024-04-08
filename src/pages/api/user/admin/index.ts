@@ -61,7 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.status(200).json({success:true, message: "user updated successfully"})
             }
             catch(err : any){
-                return res.status(400).json({success: false, message: err.message});
+                return res.status(400).json({success: false, message: "invalid credentials"});
             }
         }
         else if(req.method === "DELETE"){
@@ -87,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.json({success: true, message:"User deleted successfully"});
             }
             catch(err : any){
-                return res.status(400).json({success: false, message: err.message});
+                return res.status(400).json({success: false, message: "invalid credentials"});
             }
         }
 
