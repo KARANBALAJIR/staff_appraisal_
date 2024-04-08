@@ -1,10 +1,12 @@
 "use client";
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getCookie } from '@/services/cookie.service';
 import toast, { Toaster, ToastBar } from 'react-hot-toast';
 import Loading from '@/components/Loading';
 import DeleteUser from './DeleteUser';
+import React, { useState, useEffect } from 'react';
+import SearchBar from '@/app/(main)/(signin)/user-management/SearchBar';
+import DepartmentFilter from '@/app/(main)/(signin)/user-management/DepartmentFilter';
 interface User {
     id: number;
     username: string;
@@ -24,7 +26,6 @@ interface deleteUserInterface{
 
 const AdminDashboard: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
-
     const [editUser, setEditUser] = useState<User | null>(null);
     const [editFormData, setEditFormData] = useState<User>({
         id: 0,
@@ -236,27 +237,28 @@ const AdminDashboard: React.FC = () => {
     },[])
 
     return (
-        <div className="container mx-auto p-4 relative">
+        <div className="mx-auto p-4 relative h-full ">
             <Toaster reverseOrder={false} gutter={8} />
-            <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-            <div className="mb-4 w-64">
-                <input
-                    type="text"
-                    placeholder="Search"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="block w-full border border-gray-300 rounded px-2 py-1"
-                />
+            <h1 className="text-2xl font-bold mb-4">Admin</h1>
+            <div className="mb-4 flex flex-row justify-between">
+                <div className="flex flex-row gap-x-[16px]">
+                    <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+                    <DepartmentFilter />
+                </div>
+                <div>
+
+                </div>
             </div>
             <button className="absolute top-4 right-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={handleAddUser}>Add User</button>
             <table className="w-full border-collapse border border-gray-300">
                 <thead>
                     <tr className="bg-gray-200">
-                        <th className="py-2 px-1 border border-gray-300 w-16">Serial No</th>
-                        <th className="py-2 px-1 border border-gray-300 w-32">Name</th>
-                        <th className="py-2 px-1 border border-gray-300 w-32">Email</th>
-                        <th className="py-2 px-1 border border-gray-300 w-32">
-                            <select
+                        <th className="py-2 px-1 border border-gray-300 ">Serial No</th>
+                        <th className="py-2 px-1 border border-gray-300 ">Name</th>
+                        <th className="py-2 px-1 border border-gray-300 ">Email</th>
+                        <th className="py-2 px-1 border border-gray-300 ">
+                            Department
+                            {/* <select
                                 value={departmentFilter}
                                 onChange={(e) => setDepartmentFilter(e.target.value)}
                                 className="block w-full border border-gray-300 rounded px-2 py-1"
@@ -270,22 +272,24 @@ const AdminDashboard: React.FC = () => {
                                 <option value="CCE">CCE</option>
                                 <option value="AIML">AIML</option>
                                 <option value="AIDS">AIDS</option>
-                            </select>
+                            </select> */}
                         </th>
-                        <th className="py-2 px-1 border border-gray-300 w-32">
-                            <select
+                        <th className="py-2 px-1 border border-gray-300 ">
+                            Designation
+                            {/* <select
                                 value={designationFilter}
                                 onChange={(e) => setDesignationFilter(e.target.value)}
                                 className="block w-full border border-gray-300 rounded px-2 py-1"
                             >
-                                <option value="NONE">All Designations</option>
-                                <option value="ASSISTANT_PROFESSOR">Assistant Professor</option>
-                                <option value="ASSOCIATE_PROFESSOR">Associate Professor</option>
-                                <option value="PROFESSOR">Professor</option>
-                            </select>
+                                <option value="">All Designations</option>
+                                <option value="Assistant Professor">Assistant Professor</option>
+                                <option value="Associate Professor">Associate Professor</option>
+                                <option value="Professor">Professor</option>
+                            </select> */}
                         </th>
-                        <th className="py-2 px-1 border border-gray-300 w-32">
-                            <select
+                        <th className="py-2 px-1 border border-gray-300 ">
+                            Role
+                            {/* <select
                                 value={roleFilter}
                                 onChange={(e) => setRoleFilter(e.target.value)}
                                 className="block w-full border border-gray-300 rounded px-2 py-1"
@@ -294,14 +298,14 @@ const AdminDashboard: React.FC = () => {
                                 <option value="ANONYMOUS">Anonymous</option>
                                 <option value="ADMIN">Admin</option>
                                 <option value="HOD">HOD</option>
-                                <option value="STAFF">Staff</option>
-                            </select>
+                                <option value="Staff">Staff</option>
+                            </select> */}
                         </th>
-                        <th className="py-2 px-1 border border-gray-300 w-24">Status</th>
-                        <th className="py-2 px-1 border border-gray-300 w-32">Actions</th>
+                        <th className="py-2 px-1 border border-gray-300 ">Status</th>
+                        <th className="py-2 px-1 border border-gray-300 ">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className='text-[14px]'>
                     {filteredUsers.map((user, index) => (
                         <tr key={index}>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">{index + 1}</td>

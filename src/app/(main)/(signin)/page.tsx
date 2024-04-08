@@ -1,10 +1,9 @@
-import Loading from "@/components/Loading";
-import '@/components/Styles/LeftNav.css'
+import LoadingSkeleton from "@/components/Loading";
 
-export default function Page() {
-    return (
-        <div className="flex justify-center items-center h-screen">
-            <Loading />
-        </div>
+export default function Mainpage(){
+    return(
+        <>
+            <LoadingSkeleton/>
+        </>
     )
 }

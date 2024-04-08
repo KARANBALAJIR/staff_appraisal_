@@ -1,7 +1,7 @@
 'use client'
-import UserProfilePopUp from "@/app/(main)/(signin)/admin/(default)/userPopup";
+import UserProfilePopUp from "@/app/(main)/(signin)/user-management/userPopup";
 import { useState } from "react";
-
+import '@/components/Styles/index.css'
 const TopNavbar = () =>{
 
     const [usericonClick , setUserIconClick] = useState(false);
