@@ -1,10 +1,15 @@
 "use client";
-import React, { useState } from 'react';
+import axios from 'axios';
+import { getCookie } from '@/services/cookie.service';
+import toast, { Toaster, ToastBar } from 'react-hot-toast';
+import Loading from '@/components/Loading';
+import DeleteUser from './DeleteUser';
+import React, { useState, useEffect } from 'react';
 import SearchBar from '@/app/(main)/(signin)/user-management/SearchBar';
 import DepartmentFilter from '@/app/(main)/(signin)/user-management/DepartmentFilter';
 interface User {
     id: number;
-    name: string;
+    username: string;
     email: string;
     department: string;
     designation: string;
@@ -13,28 +18,18 @@ interface User {
     avatar: string;
 }
 
-const AdminDashboard: React.FC = () => {
-    const [users, setUsers] = useState<User[]>([
-        { id: 1, name: 'Karan Balaji', email: 'karan123@example.com', department: 'CSE', designation: 'Assistant Professor', status: 'Active', role: 'Anonymous', avatar: 'https://example.com/avatar1.jpg' },
-        { id: 2, name: 'CIBIYANNA', email: 'cibiYANNA123@example.com', department: 'ECE', designation: 'Professor', status: 'Active', role: 'Anonymous', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 3, name: 'MURUGA PERUMAL', email: 'murugaperumal123@example.com', department: 'EEE', designation: 'Associate Professor', status: 'Active', role: 'Anonymous', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 4, name: 'PRANAV HARSHAN S', email: 'pranavharshan123@example.com', department: 'IT', designation: 'Professor', status: 'Active', role: 'Anonymous', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 5, name: 'MITHRESVAR MSA', email: 'mithresvar123@example.com', department: 'MECH', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 6, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 7, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 8, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 9, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 5, name: 'MITHRESVAR MSA', email: 'mithresvar123@example.com', department: 'MECH', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 6, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 7, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 8, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-        { id: 9, name: 'CIBI', email: 'cibi@example.com', department: 'CSE', designation: 'Professor', status: 'Active', role: 'User', avatar: 'https://example.com/avatar2.jpg' },
-    ]);
+interface deleteUserInterface{
+    show: boolean;
+    username: string;
+    email: string;
+}
 
+const AdminDashboard: React.FC = () => {
+    const [users, setUsers] = useState<User[]>([]);
     const [editUser, setEditUser] = useState<User | null>(null);
     const [editFormData, setEditFormData] = useState<User>({
         id: 0,
-        name: '',
+        username: '',
         email: '',
         department: '',
         designation: '',
@@ -47,6 +42,14 @@ const AdminDashboard: React.FC = () => {
     const [departmentFilter, setDepartmentFilter] = useState<string>('');
     const [designationFilter, setDesignationFilter] = useState<string>('');
     const [roleFilter, setRoleFilter] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [tableDataLoading, setTableDataLoading] = useState<boolean>(true);
+    const [deleteUserPopUP, setDeleteUserPopUP] = useState<deleteUserInterface>({
+        show: false,
+        username: '',
+        email: '',
+    });
+
 
     const handleEditClick = (user: User) => {
         setEditUser(user);
@@ -61,33 +64,133 @@ const AdminDashboard: React.FC = () => {
         }));
     };
 
-    const handleEditFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleEditFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        setLoading(true);
         const updatedUsers = users.map(user => {
-            if (user.id === editFormData.id) {
+            console.log("user : ",user);
+            console.log("editdata : ",editFormData);
+            if (user.email === editFormData.email) {
                 return editFormData;
             }
             return user;
         });
-
+        console.log(updatedUsers);
+        try{
+            const token = getCookie('usertoken')
+            const response = await axios.patch('/api/user/admin', editFormData,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Custom-Header': 'Custom-Value'
+                },
+            })
+            if(response.status === 200){
+                toast.success('user updated successfully!', {
+                    duration: 2000,
+                    position: 'top-right',
+                    icon: '✅',
+                    iconTheme: {
+                        primary: '#000',
+                        secondary: '#fff',
+                    },
+                    ariaProps: {
+                        role: 'status',
+                        'aria-live': 'polite',
+                    },
+                });
+            }
+            else{
+                toast.error(response.data.message, {
+                    duration: 2000,
+                    position: 'top-right',
+                    style: {
+                        minWidth: '250px',
+                        minHeight: '60px',
+                    },
+                });
+            }
+        }
+        catch (err: any) {
+            toast.error(err.message, {
+                duration: 2000,
+                position: 'top-right',
+                style: {
+                    minWidth: '250px',
+                    minHeight: '60px',
+                },
+            });
+        }
         setUsers(updatedUsers);
         setEditUser(null);
+        setLoading(false);
     };
 
     const getStatusColor = (status: string) => {
-        return status === 'Active' ? 'text-green-500' : 'text-red-500';
+        return status === 'ACTIVE' ? 'text-green-500' : 'text-red-500';
     };
 
-    const handleDeleteUser = (user: User) => {
-        const updatedUsers = users.filter(u => u.id !== user.id);
+    const handleDeleteUser = async (user: deleteUserInterface) => {
+        setLoading(true);
+        try{
+            const token = getCookie('usertoken')
+            const response = await axios.delete(`/api/user/admin?email=`+user.email,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Custom-Header': 'Custom-Value'
+                },
+            })
+            if(response.status === 200){
+                toast.success('user Deleted successfully!', {
+                    duration: 2000,
+                    position: 'top-right',
+                    icon: '✅',
+                    iconTheme: {
+                        primary: '#000',
+                        secondary: '#fff',
+                    },
+                    ariaProps: {
+                        role: 'status',
+                        'aria-live': 'polite',
+                    },
+                });
+            }
+            else{
+                toast.error(response.data.message, {
+                    duration: 2000,
+                    position: 'top-right',
+                    style: {
+                        minWidth: '250px',
+                        minHeight: '60px',
+                    },
+                });
+            }
+        }
+        catch (err: any) {
+            toast.error(err.message, {
+                duration: 2000,
+                position: 'top-right',
+                style: {
+                    minWidth: '250px',
+                    minHeight: '60px',
+                },
+            });
+        }
+        setDeleteUserPopUP({
+            show: false,
+            username: '',
+            email: '',
+        })
+        const updatedUsers = users.filter(u => u.email !== user.email);
         setUsers(updatedUsers);
+        setLoading(false);
     };
 
     const handleAddUser = () => {
         const newUser: User = {
             id: users.length + 1,
-            name: 'New User',
+            username: 'New User',
             email: '',
             department: '',
             designation: '',
@@ -101,7 +204,7 @@ const AdminDashboard: React.FC = () => {
     };
 
     const filteredUsers = users.filter(user =>
-        (user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
             user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
             user.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
             user.designation.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -112,8 +215,30 @@ const AdminDashboard: React.FC = () => {
         (roleFilter === '' || user.role === roleFilter)
     );
 
+    const fetchUsers = async() =>{
+        try{
+            const token = getCookie('usertoken')
+            const response = await axios.get('/api/user/admin', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Custom-Header': 'Custom-Value'
+                }
+            })
+            setUsers(response.data.message)
+        }
+        catch(err : any){
+            console.log(err.message);
+        }
+    }
+
+    useEffect(()=>{
+        fetchUsers();
+        setTableDataLoading(false);
+    },[])
+
     return (
         <div className="mx-auto p-4 relative h-full ">
+            <Toaster reverseOrder={false} gutter={8} />
             <h1 className="text-2xl font-bold mb-4">Admin</h1>
             <div className="mb-4 flex flex-row justify-between">
                 <div className="flex flex-row gap-x-[16px]">
@@ -170,8 +295,8 @@ const AdminDashboard: React.FC = () => {
                                 className="block w-full border border-gray-300 rounded px-2 py-1"
                             >
                                 <option value="">All Roles</option>
-                                <option value="Anonymous">Anonymous</option>
-                                <option value="Admin">Admin</option>
+                                <option value="ANONYMOUS">Anonymous</option>
+                                <option value="ADMIN">Admin</option>
                                 <option value="HOD">HOD</option>
                                 <option value="Staff">Staff</option>
                             </select> */}
@@ -182,9 +307,9 @@ const AdminDashboard: React.FC = () => {
                 </thead>
                 <tbody className='text-[14px]'>
                     {filteredUsers.map((user, index) => (
-                        <tr key={user.id}>
+                        <tr key={index}>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">{index + 1}</td>
-                            <td className="py-2 px-1 border-b border-gray-300 text-center">{user.name}</td>
+                            <td className="py-2 px-1 border-b border-gray-300 text-center">{user.username}</td>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">{user.email}</td>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">{user.department}</td>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">{user.designation}</td>
@@ -192,19 +317,34 @@ const AdminDashboard: React.FC = () => {
                             <td className={`py-2 px-1 border-b border-gray-300 text-center ${getStatusColor(user.status)}`}>{user.status}</td>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">
                                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleEditClick(user)}>Edit</button>
-                                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" onClick={() => handleDeleteUser(user)}>Delete</button>
+                                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded" onClick={() => {
+                                    setDeleteUserPopUP({
+                                        show: true,
+                                        username: user.username,
+                                        email: user.email
+                                    })
+                                }}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-
+            {
+                (deleteUserPopUP.show && (
+                    <DeleteUser 
+                        userData = {deleteUserPopUP}
+                        loading = {loading}
+                        setDeleteUserPopUP = {setDeleteUserPopUP}
+                        handleDeleteUser = {handleDeleteUser}
+                    />
+                ))
+            }
             {editUser && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-8 rounded shadow-lg w-full max-w-md">
                         <h2 className="text-lg font-bold mb-4">Edit User</h2>
                         <form onSubmit={handleEditFormSubmit}>
-                            <input type="text" name="name" value={editFormData.name} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
+                            <input type="text" name="username" value={editFormData.username} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
                             <input type="text" name="email" value={editFormData.email} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
                             <select name="department" value={editFormData.department} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
                                 <option value="Select Option">Select Option</option>
@@ -218,25 +358,31 @@ const AdminDashboard: React.FC = () => {
                                 <option value="AIDS">AIDS</option>
                             </select>
                             <select name="designation" value={editFormData.designation} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
-                                <option value="Select Option">Select Option</option>
-                                <option value="Assistant Professor">Assistant Professor</option>
-                                <option value="Associate Professor">Associate Professor</option>
-                                <option value="Professor">Professor</option>
+                                <option value="NONE">Select Option</option>
+                                <option value="ASSISTANT_PROFESSOR">Assistant Professor</option>
+                                <option value="ASSOCIATE_PROFESSOR">Associate Professor</option>
+                                <option value="PROFESSOR">Professor</option>
                             </select>
                             <select name="role" value={editFormData.role} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
                                 <option value="Select Option">Select Option</option>
-                                <option value="Anonymous">Anonymous</option>
-                                <option value="Admin">Admin</option>
+                                <option value="ANONYMOUS">Anonymous</option>
+                                <option value="ADMIN">Admin</option>
                                 <option value="HOD">HOD</option>
-                                <option value="Staff">Staff</option>
+                                <option value="MASTER">Master</option>
+                                <option value="STAFF">Staff</option>
                             </select>
                             <select name="status" value={editFormData.status} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
-                                <option value="Active" style={{ color: 'green' }}>Active</option>
-                                <option value="Suspended" style={{ color: 'red' }}>Suspended</option>
+                                <option value="ACTIVE" style={{ color: 'green' }}>ACTIVE</option>
+                                <option value="INACTIVE" style={{ color: 'yellow' }}>INACTIVE</option>
+                                <option value="BANNED" style={{ color: 'red' }}>BANNED</option>
                             </select>
                             <div className="flex justify-center">
-                                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2">Save</button>
-                                <button onClick={() => setEditUser(null)} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded">Cancel</button>
+                                <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-md mr-2 w-24">
+                                    {
+                                        (loading === false)? 'Update': <i className="fa fa-circle-o-notch fa-spin"></i>
+                                    }
+                                </button>
+                                <button onClick={() => setEditUser(null)} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-md">Cancel</button>
                             </div>
                         </form>
                     </div>
