@@ -190,7 +190,7 @@ const AdminDashboard: React.FC = () => {
     const handleAddUser = () => {
         const newUser: User = {
             id: users.length + 1,
-            username: 'New User',
+            username: '',
             email: '',
             department: '',
             designation: '',
@@ -198,7 +198,7 @@ const AdminDashboard: React.FC = () => {
             role: '',
             avatar: ''
         };
-        setUsers(prevUsers => [...prevUsers, newUser]);
+        // setUsers(prevUsers => [...prevUsers, newUser]);   // This will add new user to the end of the list when i click on add user button // This is not required
         setEditUser(newUser);
         setEditFormData(newUser);
     };
@@ -342,45 +342,62 @@ const AdminDashboard: React.FC = () => {
             {editUser && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-8 rounded shadow-lg w-full max-w-md">
-                        <h2 className="text-lg font-bold mb-4">Edit User</h2>
+                        <h2 className="text-lg font-bold mb-4">User Form</h2>
                         <form onSubmit={handleEditFormSubmit}>
-                            <input type="text" name="username" value={editFormData.username} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
-                            <input type="text" name="email" value={editFormData.email} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
-                            <select name="department" value={editFormData.department} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
-                                <option value="Select Option">Select Option</option>
-                                <option value="CSE">CSE</option>
-                                <option value="ECE">ECE</option>
-                                <option value="EEE">EEE</option>
-                                <option value="IT">IT</option>
-                                <option value="MECH">MECH</option>
-                                <option value="CCE">CCE</option>
-                                <option value="AIML">AIML</option>
-                                <option value="AIDS">AIDS</option>
-                            </select>
-                            <select name="designation" value={editFormData.designation} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
-                                <option value="NONE">Select Option</option>
-                                <option value="ASSISTANT_PROFESSOR">Assistant Professor</option>
-                                <option value="ASSOCIATE_PROFESSOR">Associate Professor</option>
-                                <option value="PROFESSOR">Professor</option>
-                            </select>
-                            <select name="role" value={editFormData.role} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
-                                <option value="Select Option">Select Option</option>
-                                <option value="ANONYMOUS">Anonymous</option>
-                                <option value="ADMIN">Admin</option>
-                                <option value="HOD">HOD</option>
-                                <option value="MASTER">Master</option>
-                                <option value="STAFF">Staff</option>
-                            </select>
-                            <select name="status" value={editFormData.status} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
-                                <option value="ACTIVE" style={{ color: 'green' }}>ACTIVE</option>
-                                <option value="INACTIVE" style={{ color: 'yellow' }}>INACTIVE</option>
-                                <option value="BANNED" style={{ color: 'red' }}>BANNED</option>
-                            </select>
+                            <div className="mb-2">
+                                <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+                                <input type="text" id="username" name="username" placeholder='Enter Username' value={editFormData.username} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
+                            </div>
+                            <div className="mb-2">
+                                {/* <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label> */}
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email <span className="text-red-500">*</span></label>
+                                <input type="email" id="email" name="email" placeholder='Enter mail id' value={editFormData.email} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
+                            </div>
+                            <div className="mb-2">
+                                <label htmlFor="department" className="block text-sm font-medium text-gray-700">Department</label>
+                                <select id="department" name="department" value={editFormData.department} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
+                                    <option value="Select Option">Select Option</option>
+                                    <option value="CSE">CSE</option>
+                                    <option value="ECE">ECE</option>
+                                    <option value="EEE">EEE</option>
+                                    <option value="IT">IT</option>
+                                    <option value="MECH">MECH</option>
+                                    <option value="CCE">CCE</option>
+                                    <option value="AIML">AIML</option>
+                                    <option value="AIDS">AIDS</option>
+                                </select>
+                            </div>
+                            <div className="mb-2">
+                                <label htmlFor="designation" className="block text-sm font-medium text-gray-700">Designation</label>
+                                <select id="designation" name="designation" value={editFormData.designation} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
+                                    <option value="NONE">Select Option</option>
+                                    <option value="ASSISTANT_PROFESSOR">Assistant Professor</option>
+                                    <option value="ASSOCIATE_PROFESSOR">Associate Professor</option>
+                                    <option value="PROFESSOR">Professor</option>
+                                </select>
+                            </div>
+                            <div className="mb-2">
+                                <label htmlFor="role" className="block text-sm font-medium text-gray-700">Role</label>
+                                <select id="role" name="role" value={editFormData.role} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
+                                    <option value="Select Option">Select Option</option>
+                                    <option value="ANONYMOUS">Anonymous</option>
+                                    <option value="ADMIN">Admin</option>
+                                    <option value="HOD">HOD</option>
+                                    <option value="MASTER">Master</option>
+                                    <option value="STAFF">Staff</option>
+                                </select>
+                            </div>
+                            <div className="mb-2">
+                                <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status</label>
+                                <select id="status" name="status" value={editFormData.status} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2">
+                                    <option value="ACTIVE" style={{ color: 'green' }}>ACTIVE</option>
+                                    <option value="INACTIVE" style={{ color: 'yellow' }}>INACTIVE</option>
+                                    <option value="BANNED" style={{ color: 'red' }}>BANNED</option>
+                                </select>
+                            </div>
                             <div className="flex justify-center">
                                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-md mr-2 w-24">
-                                    {
-                                        (loading === false)? 'Update': <i className="fa fa-circle-o-notch fa-spin"></i>
-                                    }
+                                    {(loading === false) ? 'Update' : <i className="fa fa-circle-o-notch fa-spin"></i>}
                                 </button>
                                 <button onClick={() => setEditUser(null)} className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-md">Cancel</button>
                             </div>
@@ -391,6 +408,5 @@ const AdminDashboard: React.FC = () => {
         </div>
     );
 };
-
 
 export default AdminDashboard;
