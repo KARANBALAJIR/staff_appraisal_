@@ -29,7 +29,38 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.status(200).json({success: true, message:users})
             }
             catch(err : any){
-                return res.status(400).json({success: false, message: err.message});
+                return res.status(409).json({success: false, message: err.message});
+            }
+        }
+        else if(req.method === 'POST'){
+            try{
+                const {email, username, department, designation, role, status} = req.body;
+                if(!email){
+                    return res.status(400).json({sucess:false, message: "invalid email"});
+                }
+                const user = await prisma.user.findFirst({
+                    where:{
+                        email:email
+                    }
+                })
+                if(user){
+                    return res.status(400).json({success: false, message: "user already exists"});
+                }
+                const doc = await prisma.user.create({
+                    data:{
+                        email: email,
+                        username: username,
+                        department: department,
+                        designation: designation,
+                        role: role,
+                        password: "SECE",
+                        status: status
+                    }
+                })
+                return res.status(200).json({success:true, message: "user created successfully"})
+            }
+            catch(err : any){
+                return res.status(409).json({success: false, message: "invalid credentials"});
             }
         }
         else if(req.method === 'PATCH'){
@@ -58,10 +89,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         status: status
                     }
                 })
-                return res.status(200).json({success:true, message: "user updated successfully"})
+                return res.status(201).json({success:true, message: "user updated successfully"})
             }
             catch(err : any){
-                return res.status(400).json({success: false, message: "invalid credentials"});
+                return res.status(409).json({success: false, message: "invalid credentials"});
             }
         }
         else if(req.method === "DELETE"){
@@ -87,7 +118,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.json({success: true, message:"User deleted successfully"});
             }
             catch(err : any){
-                return res.status(400).json({success: false, message: "invalid credentials"});
+                return res.status(409).json({success: false, message: "invalid credentials"});
             }
         }
 
