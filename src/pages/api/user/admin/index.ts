@@ -60,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.status(200).json({success:true, message: "user created successfully"})
             }
             catch(err : any){
-                return res.status(409).json({success: false, message: "invalid credentials"});
+                return res.status(409).json({success: false, message: err.message});
             }
         }
         else if(req.method === 'PATCH'){
