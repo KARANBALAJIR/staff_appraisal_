@@ -4,8 +4,7 @@ import Table from '@/components/Table'
 function Page() {
   return (
       <>
-        <Table/>
-        {/* <AdminDashboard /> */}
+        <AdminDashboard />
       </>
     );
 }

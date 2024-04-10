@@ -7,6 +7,10 @@ import DeleteUser from './DeleteUser';
 import React, { useState, useEffect } from 'react';
 import SearchBar from '@/app/(main)/(signin)/user-management/SearchBar';
 import DepartmentFilter from '@/app/(main)/(signin)/user-management/DepartmentFilter';
+import DesignationFilter from '@/app/(main)/(signin)/user-management/DesignationFilter';
+import RoleFilter from '@/app/(main)/(signin)/user-management/RoleFilter';
+
+
 interface User {
     id: number;
     username: string;
@@ -243,7 +247,9 @@ const AdminDashboard: React.FC = () => {
             <div className="mb-4 flex flex-row justify-between">
                 <div className="flex flex-row gap-x-[16px]">
                     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-                    <DepartmentFilter />
+                    <DepartmentFilter departmentFilter={departmentFilter} setDepartmentFilter={setDepartmentFilter} />
+                    <DesignationFilter designationFilter={designationFilter} setDesignationFilter={setDesignationFilter}/>
+                    <RoleFilter roleFilter={roleFilter} setRoleFilter={setRoleFilter}/>
                 </div>
                 <div>
 
@@ -258,48 +264,13 @@ const AdminDashboard: React.FC = () => {
                         <th className="py-2 px-1 border border-gray-300 ">Email</th>
                         <th className="py-2 px-1 border border-gray-300 ">
                             Department
-                            {/* <select
-                                value={departmentFilter}
-                                onChange={(e) => setDepartmentFilter(e.target.value)}
-                                className="block w-full border border-gray-300 rounded px-2 py-1"
-                            >
-                                <option value="">All Departments</option>
-                                <option value="CSE">CSE</option>
-                                <option value="ECE">ECE</option>
-                                <option value="EEE">EEE</option>
-                                <option value="IT">IT</option>
-                                <option value="MECH">MECH</option>
-                                <option value="CCE">CCE</option>
-                                <option value="AIML">AIML</option>
-                                <option value="AIDS">AIDS</option>
-                            </select> */}
                         </th>
                         <th className="py-2 px-1 border border-gray-300 ">
                             Designation
-                            {/* <select
-                                value={designationFilter}
-                                onChange={(e) => setDesignationFilter(e.target.value)}
-                                className="block w-full border border-gray-300 rounded px-2 py-1"
-                            >
-                                <option value="">All Designations</option>
-                                <option value="Assistant Professor">Assistant Professor</option>
-                                <option value="Associate Professor">Associate Professor</option>
-                                <option value="Professor">Professor</option>
-                            </select> */}
+                            
                         </th>
                         <th className="py-2 px-1 border border-gray-300 ">
                             Role
-                            {/* <select
-                                value={roleFilter}
-                                onChange={(e) => setRoleFilter(e.target.value)}
-                                className="block w-full border border-gray-300 rounded px-2 py-1"
-                            >
-                                <option value="">All Roles</option>
-                                <option value="ANONYMOUS">Anonymous</option>
-                                <option value="ADMIN">Admin</option>
-                                <option value="HOD">HOD</option>
-                                <option value="Staff">Staff</option>
-                            </select> */}
                         </th>
                         <th className="py-2 px-1 border border-gray-300 ">Status</th>
                         <th className="py-2 px-1 border border-gray-300 ">Actions</th>
