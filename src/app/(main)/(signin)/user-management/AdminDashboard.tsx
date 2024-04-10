@@ -53,6 +53,7 @@ const AdminDashboard: React.FC = () => {
         username: '',
         email: '',
     });
+    const [isAddUser, setIsAddUser] = useState(false);
 
 
     const handleEditClick = (user: User) => {
@@ -68,29 +69,21 @@ const AdminDashboard: React.FC = () => {
         }));
     };
 
-    const handleEditFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleAddFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        const updatedUsers = users.map(user => {
-            console.log("user : ",user);
-            console.log("editdata : ",editFormData);
-            if (user.email === editFormData.email) {
-                return editFormData;
-            }
-            return user;
-        });
-        console.log(updatedUsers);
         try{
             const token = getCookie('usertoken')
-            const response = await axios.patch('/api/user/admin', editFormData,
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Custom-Header': 'Custom-Value'
-                },
-            })
-            if(response.status === 200){
-                toast.success('user updated successfully!', {
+            const response = await axios.post('/api/user/admin',editFormData,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Custom-Header': 'Custom-Value'
+                    },
+                }
+            )
+            if(response.data.success){
+                toast.success('user created successfully!', {
                     duration: 2000,
                     position: 'top-right',
                     icon: '✅',
@@ -105,6 +98,69 @@ const AdminDashboard: React.FC = () => {
                 });
             }
             else{
+                console.log(response);
+                toast.error(response.data.message, {
+                    duration: 2000,
+                    position: 'top-right',
+                    style: {
+                        minWidth: '250px',
+                        minHeight: '60px',
+                    },
+                });
+            }
+        }
+        catch(err: any){
+            toast.error("invalid credentials", {
+                duration: 2000,
+                position: 'top-right',
+                style: {
+                    minWidth: '250px',
+                    minHeight: '60px',
+                },
+            });
+        }
+        setEditUser(null);
+        setIsAddUser(false);
+        setLoading(false)
+    }
+
+    const handleEditFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        try{
+            const token = getCookie('usertoken')
+            const response = await axios.patch('/api/user/admin', editFormData,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Custom-Header': 'Custom-Value'
+                },
+            })
+            if(response.status === 201){
+                toast.success('user updated successfully!', {
+                    duration: 2000,
+                    position: 'top-right',
+                    icon: '✅',
+                    iconTheme: {
+                        primary: '#000',
+                        secondary: '#fff',
+                    },
+                    ariaProps: {
+                        role: 'status',
+                        'aria-live': 'polite',
+                    },
+                });
+                const updatedUsers = users.map(user => {
+                    console.log("user : ",user);
+                    console.log("editdata : ",editFormData);
+                    if (user.email === editFormData.email) {
+                        return editFormData;
+                    }
+                    return user;
+                });
+                setUsers(updatedUsers);
+            }
+            else{
                 toast.error(response.data.message, {
                     duration: 2000,
                     position: 'top-right',
@@ -116,7 +172,7 @@ const AdminDashboard: React.FC = () => {
             }
         }
         catch (err: any) {
-            toast.error(err.message, {
+            toast.error("invaid credentials", {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -125,10 +181,18 @@ const AdminDashboard: React.FC = () => {
                 },
             });
         }
-        setUsers(updatedUsers);
         setEditUser(null);
         setLoading(false);
     };
+
+    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
+        if(isAddUser){
+            handleAddFormSubmit(e);
+        }
+        else{
+            handleEditFormSubmit(e);
+        }
+    }
 
     const getStatusColor = (status: string) => {
         return status === 'ACTIVE' ? 'text-green-500' : 'text-red-500';
@@ -145,7 +209,7 @@ const AdminDashboard: React.FC = () => {
                     'Custom-Header': 'Custom-Value'
                 },
             })
-            if(response.status === 200){
+            if(response.status === 201){
                 toast.success('user Deleted successfully!', {
                     duration: 2000,
                     position: 'top-right',
@@ -255,7 +319,10 @@ const AdminDashboard: React.FC = () => {
 
                 </div>
             </div>
-            <button className="absolute top-4 right-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={handleAddUser}>Add User</button>
+            <button className="absolute top-4 right-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={()=>{
+                setIsAddUser(true)
+                handleAddUser()
+            }}>Add User</button>
             <table className="w-full border-collapse border border-gray-300">
                 <thead>
                     <tr className="bg-gray-200">
@@ -314,7 +381,7 @@ const AdminDashboard: React.FC = () => {
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
                     <div className="bg-white p-8 rounded shadow-lg w-full max-w-md">
                         <h2 className="text-lg font-bold mb-4">User Form</h2>
-                        <form onSubmit={handleEditFormSubmit}>
+                        <form onSubmit={handleSubmit}>
                             <div className="mb-2">
                                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
                                 <input type="text" id="username" name="username" placeholder='Enter Username' value={editFormData.username} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
