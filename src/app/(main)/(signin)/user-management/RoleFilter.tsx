@@ -17,7 +17,8 @@ const RoleFilter = (props: RoleFilterType) => {
                     <option value="ANONYMOUS">Anonymous</option>
                     <option value="ADMIN">Admin</option>
                     <option value="HOD">HOD</option>
-                    <option value="Staff">Staff</option>
+                    <option value="STAFF">Staff</option>
+                    <option value="MASTER">Master</option>
                 </select>
             </div>
         </>
