@@ -97,6 +97,8 @@ const AdminDashboard: React.FC = () => {
                         'aria-live': 'polite',
                     },
                 });
+                console.log(users);
+                setUsers([...users, editFormData])
             }
             else{
                 console.log(response);
@@ -111,7 +113,8 @@ const AdminDashboard: React.FC = () => {
             }
         }
         catch(err: any){
-            toast.error("invalid credentials", {
+            console.log(err);
+            toast.error(err.response.data.message, {
                 duration: 2000,
                 position: 'top-right',
                 style: {
@@ -210,7 +213,7 @@ const AdminDashboard: React.FC = () => {
                     'Custom-Header': 'Custom-Value'
                 },
             })
-            if(response.status === 201){
+            if(response.status === 200){
                 toast.success('user Deleted successfully!', {
                     duration: 2000,
                     position: 'top-right',
@@ -261,10 +264,10 @@ const AdminDashboard: React.FC = () => {
             id: users.length + 1,
             username: '',
             email: '',
-            department: '',
-            designation: '',
-            status: '',
-            role: '',
+            department: 'NONE',
+            designation: 'NONE',
+            status: 'ACTIVE',
+            role: 'ANONYMOUS',
             avatar: ''
         };
         // setUsers(prevUsers => [...prevUsers, newUser]);   // This will add new user to the end of the list when i click on add user button // This is not required
