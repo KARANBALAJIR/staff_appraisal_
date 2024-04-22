@@ -74,11 +74,12 @@ const AdminDashboard: React.FC = () => {
         setLoading(true);
         try{
             const token = getCookie('usertoken')
+            console.log(token)
             const response = await axios.post('/api/user/admin',editFormData,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,
-                        'Custom-Header': 'Custom-Value'
+                        // 'Custom-Header': 'Custom-Value'
                     },
                 }
             )
