@@ -54,6 +54,9 @@ const AdminDashboard: React.FC = () => {
         email: '',
     });
     const [isAddUser, setIsAddUser] = useState(false);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const perPage: number = 9;
+    
 
 
     const handleEditClick = (user: User) => {
@@ -254,6 +257,12 @@ const AdminDashboard: React.FC = () => {
         })
         const updatedUsers = users.filter(u => u.email !== user.email);
         setUsers(updatedUsers);
+
+        const remainingUsersCount = updatedUsers.length;
+        const pagesCount = Math.ceil(remainingUsersCount / perPage);
+        if (currentPage > pagesCount) {
+            setCurrentPage(pagesCount);
+        }
         setLoading(false);
     };
 
@@ -272,7 +281,6 @@ const AdminDashboard: React.FC = () => {
         setEditUser(newUser);
         setEditFormData(newUser);
     };
-
     const filteredUsers = users.filter(user =>
         (user.username.toLowerCase().includes(searchTerm.toLowerCase()) ||
             user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -284,6 +292,11 @@ const AdminDashboard: React.FC = () => {
         (designationFilter === '' || user.designation === designationFilter) &&
         (roleFilter === '' || user.role === roleFilter)
     );
+    const indexofLastUser = currentPage * perPage;
+    const indexofFirstUser = indexofLastUser - perPage;
+    const currentUsers = filteredUsers.slice(indexofFirstUser, indexofLastUser);
+    const nextPage = () => setCurrentPage(currentPage + 1);
+    const prevPage = () => setCurrentPage(currentPage - 1);
 
     const fetchUsers = async() =>{
         try{
@@ -346,9 +359,10 @@ const AdminDashboard: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody className='text-[14px]'>
-                    {filteredUsers.map((user, index) => (
+                    {currentUsers.map((user, index) => (
                         <tr key={index}>
-                            <td className="py-2 px-1 border-b border-gray-300 text-center">{index + 1}</td>
+                            {/* <td className="py-2 px-1 border-b border-gray-300 text-center">{index + 1}</td> */}
+                            <td className="py-2 px-1 border-b border-gray-300 text-center">{(currentPage - 1) * perPage + index + 1}</td>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">{user.username}</td>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">{user.email}</td>
                             <td className="py-2 px-1 border-b border-gray-300 text-center">{user.department}</td>
@@ -369,6 +383,26 @@ const AdminDashboard: React.FC = () => {
                     ))}
                 </tbody>
             </table>
+            {filteredUsers.length > perPage && (
+                <div className="flex justify-end items-center mt-4">
+                    <button
+                        onClick={prevPage}
+                        disabled={currentPage === 1}
+                        className={`px-2 py-1 rounded-md mr-2 ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'} `}
+                    >
+                        Previous
+                    </button>
+                    <button
+                        onClick={nextPage}
+                        disabled={indexofLastUser >= filteredUsers.length}
+                        className={`px-2 py-1 rounded-md ${indexofLastUser >= filteredUsers.length ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700 text-white'} `}
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
+            
+
             {
                 (deleteUserPopUP.show && (
                     <DeleteUser 
@@ -391,7 +425,7 @@ const AdminDashboard: React.FC = () => {
                             <div className="mb-2">
                                 {/* <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label> */}
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email <span className="text-red-500">*</span></label>
-                                <input type="email" id="email" name="email" placeholder='Enter mail id' value={editFormData.email} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" />
+                                <input type="email" id="email" name="email" placeholder='Enter mail id' value={editFormData.email} onChange={handleEditFormChange} className="block w-full border border-gray-300 rounded px-2 py-1 mb-2" required />
                             </div>
                             <div className="mb-2">
                                 <label htmlFor="department" className="block text-sm font-medium text-gray-700">Department</label>

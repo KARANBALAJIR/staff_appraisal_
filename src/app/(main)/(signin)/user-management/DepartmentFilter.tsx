@@ -14,6 +14,7 @@ const DepartmentFilter = (props : DepartmentFilterType) =>{
                     className="block w-full h-full border border-gray-300 rounded px-2 py-1"
                 >
                     <option value="">All Departments</option>
+                    <option value="NONE">None</option>
                     <option value="CSE">CSE</option>
                     <option value="ECE">ECE</option>
                     <option value="EEE">EEE</option>

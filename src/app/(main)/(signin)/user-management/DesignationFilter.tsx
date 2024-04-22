@@ -9,14 +9,15 @@ const DesignationFilter = (props: DesignationFilterType) => {
         <>
             <div className="">
                 <select
-                    value={designationFilter}
+                    value={designationFilter}   
                     onChange={(e) => setDesignationFilter(e.target.value)}
                     className="block w-full h-full border border-gray-300 rounded px-2 py-1"
                 >
                     <option value="">All Designations</option>
-                    <option value="Assistant Professor">Assistant Professor</option>
-                    <option value="Associate Professor">Associate Professor</option>
-                    <option value="Professor">Professor</option>
+                    <option value="NONE">None</option>
+                    <option value="ASSISTANT_PROFESSOR">Assistant Professor</option>
+                    <option value="ASSOCIATE_PROFESSOR">Associate Professor</option>
+                    <option value="PROFESSOR">Professor</option>
                 </select>
             </div>
         </>
