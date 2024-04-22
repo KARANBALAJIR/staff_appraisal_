@@ -112,7 +112,8 @@ const AdminDashboard: React.FC = () => {
             }
         }
         catch(err: any){
-            toast.error("invalid credentials", {
+            console.log(err);
+            toast.error(err.response.data.message, {
                 duration: 2000,
                 position: 'top-right',
                 style: {
