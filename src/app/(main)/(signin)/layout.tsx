@@ -37,7 +37,7 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
         router.push(`${userAccess[0]}`)
     },[role])
 
-     const checkRole = async () => {
+    const checkRole = async () => {
         try {
             const token = getCookie('usertoken')
             console.log(token)
@@ -56,6 +56,7 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
             console.log(err.message);
         }
     }
+    
     return(
         <>
                 <div className="flex flex-row bg-white" >

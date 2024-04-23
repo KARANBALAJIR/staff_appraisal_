@@ -138,10 +138,10 @@ const TabN1 = () => {
   );
 
   return (
-    <section className="py-1 bg-blueGray-50">
+    <section className="py-[10px] bg-blueGray-50">
       <h1 className="font-semibold text-3xl text-blueGray-700 text-center">ACADEMICS-1</h1>
 
-      <div className="w-full px-4 mt-24 rounded-lg border border-gray-200 shadow-md" style={{ width: '100%', boxShadow: '0px 12px 32px rgba(149, 157, 165, 0.3)' }}>
+      <div className="w-full px-4 mt-[20px] rounded-lg border border-gray-200 shadow-md py-[20px]" style={{ width: '100%', boxShadow: '0px 12px 32px rgba(149, 157, 165, 0.3)' }}>
         <div className="relative flex flex-col min-w-0 break-words bg-white rounded-lg" style={{ borderRadius: '8rem' }}>
           {tableData.slice(0, 5).map((table, index) => renderTable(table, index))}
           <div className="AdditionalTables pt-4">
