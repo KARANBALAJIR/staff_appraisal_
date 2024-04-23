@@ -3,7 +3,6 @@ import Associate_form from "@/components/associate/Associate_form"
 import TabN14 from "@/components/associate/TabN1"
 
 
-
 export default function Appraisal_Page() {
     return (
         <div className="flex flex-col justify-between p-[10px]">
