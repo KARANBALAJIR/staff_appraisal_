@@ -61,8 +61,8 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
         <>
                 <div className="flex flex-row bg-white" >
                     <div className='h-screen'>
-                        <div className={`${sideBarOpen === true ? ' w-[14rem]' : 'w-[6rem]'}   transition-all duration-200 ease-in relative `}>
-                            <div className='h-[5rem] flex  items-center'>
+                        <div className={`${sideBarOpen === true ? ' w-[12.5rem]' : 'w-[5.5rem]'}   transition-all duration-200 ease-in relative `}>
+                            <div className='h-[60px] flex  items-center'>
                                 <div className="flex pl-[10px] items-center w-full h-[50px]">
                                     <button
                                     className='flex items-center w-[50px] h-[50px] justify-center rounded-full hover:bg-gray-200 duration-200 ease-in'
@@ -120,7 +120,7 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
                         </div>
                     </div>
                     <div className="h-screen flex-1">
-                    <div className="h-[80px]">
+                    <div className="h-[60px]">
                             <div className="flex h-full items-center justify-between z-10">
                                 <div className="ml-[20px]">
                                     <h1 className="text-xl font-semibold ">STAFF APPRAISAL</h1>
@@ -139,8 +139,8 @@ export default function SignedInLayout({children}: Readonly<{children:React.Reac
                                 </div>
                             </div>
                         </div>
-                    <div className='rounded-tl-3xl h-[89.30vh] overflow-hidden p-6 shadow-inner home no-scrollbar duration-200 ease-in bg-gray-100 scroll-smooth z-10'>
-                        <div className="bg-white rounded-xl h-[calc(89.30vh-24px)] overflow-y-auto no-scrollbar">
+                    <div className='rounded-tl-3xl h-[calc(100vh-60px)] overflow-hidden p-[15px] pb-0 shadow-inner home no-scrollbar duration-200 ease-in bg-gray-100 scroll-smooth z-10'>
+                        <div className="bg-white rounded-xl h-full overflow-y-auto no-scrollbar">
                           {children}
                         </div>
                     </div>
