@@ -55,7 +55,7 @@ const AdminDashboard: React.FC = () => {
     });
     const [isAddUser, setIsAddUser] = useState(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const perPage: number = 9;
+    const perPage: number = 11;
 
     const handleEditClick = (user: User) => {
         setEditUser(user);
