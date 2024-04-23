@@ -22,7 +22,7 @@ interface User {
     avatar: string;
 }
 
-interface deleteUserInterface{
+interface deleteUserInterface {
     show: boolean;
     username: string;
     email: string;
@@ -56,8 +56,6 @@ const AdminDashboard: React.FC = () => {
     const [isAddUser, setIsAddUser] = useState(false);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const perPage: number = 9;
-    
-
 
     const handleEditClick = (user: User) => {
         setEditUser(user);
@@ -72,13 +70,13 @@ const AdminDashboard: React.FC = () => {
         }));
     };
 
-    const handleAddFormSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+    const handleAddFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        try{
+        try {
             const token = getCookie('usertoken')
             console.log(token)
-            const response = await axios.post('/api/user/admin',editFormData,
+            const response = await axios.post('/api/user/admin', editFormData,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -86,7 +84,7 @@ const AdminDashboard: React.FC = () => {
                     },
                 }
             )
-            if(response.data.success){
+            if (response.data.success) {
                 toast.success('user created successfully!', {
                     duration: 2000,
                     position: 'top-right',
@@ -103,7 +101,7 @@ const AdminDashboard: React.FC = () => {
                 console.log(users);
                 setUsers([...users, editFormData])
             }
-            else{
+            else {
                 console.log(response);
                 toast.error(response.data.message, {
                     duration: 2000,
@@ -115,7 +113,7 @@ const AdminDashboard: React.FC = () => {
                 });
             }
         }
-        catch(err: any){
+        catch (err: any) {
             console.log(err);
             toast.error(err.response.data.message, {
                 duration: 2000,
@@ -134,16 +132,16 @@ const AdminDashboard: React.FC = () => {
     const handleEditFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
-        try{
+        try {
             const token = getCookie('usertoken')
             const response = await axios.patch('/api/user/admin', editFormData,
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Custom-Header': 'Custom-Value'
-                },
-            })
-            if(response.status === 201){
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Custom-Header': 'Custom-Value'
+                    },
+                })
+            if (response.status === 201) {
                 toast.success('user updated successfully!', {
                     duration: 2000,
                     position: 'top-right',
@@ -158,8 +156,8 @@ const AdminDashboard: React.FC = () => {
                     },
                 });
                 const updatedUsers = users.map(user => {
-                    console.log("user : ",user);
-                    console.log("editdata : ",editFormData);
+                    console.log("user : ", user);
+                    console.log("editdata : ", editFormData);
                     if (user.email === editFormData.email) {
                         return editFormData;
                     }
@@ -167,7 +165,7 @@ const AdminDashboard: React.FC = () => {
                 });
                 setUsers(updatedUsers);
             }
-            else{
+            else {
                 toast.error(response.data.message, {
                     duration: 2000,
                     position: 'top-right',
@@ -192,31 +190,40 @@ const AdminDashboard: React.FC = () => {
         setLoading(false);
     };
 
-    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
-        if(isAddUser){
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        if (isAddUser) {
             handleAddFormSubmit(e);
         }
-        else{
+        else {
             handleEditFormSubmit(e);
         }
     }
 
     const getStatusColor = (status: string) => {
-        return status === 'ACTIVE' ? 'text-green-500' : 'text-red-500';
+        if (status === 'ACTIVE') {
+            return 'text-green-500';
+        }
+        else if (status === 'INACTIVE') {
+            return 'text-yellow-500';
+        }
+        else if (status === 'BANNED') {
+            return 'text-red-500';
+        }
+        
     };
 
     const handleDeleteUser = async (user: deleteUserInterface) => {
         setLoading(true);
-        try{
+        try {
             const token = getCookie('usertoken')
-            const response = await axios.delete(`/api/user/admin?email=`+user.email,
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Custom-Header': 'Custom-Value'
-                },
-            })
-            if(response.status === 200){
+            const response = await axios.delete(`/api/user/admin?email=` + user.email,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Custom-Header': 'Custom-Value'
+                    },
+                })
+            if (response.status === 200) {
                 toast.success('user Deleted successfully!', {
                     duration: 2000,
                     position: 'top-right',
@@ -231,7 +238,7 @@ const AdminDashboard: React.FC = () => {
                     },
                 });
             }
-            else{
+            else {
                 toast.error(response.data.message, {
                     duration: 2000,
                     position: 'top-right',
@@ -300,8 +307,8 @@ const AdminDashboard: React.FC = () => {
     const nextPage = () => setCurrentPage(currentPage + 1);
     const prevPage = () => setCurrentPage(currentPage - 1);
 
-    const fetchUsers = async() =>{
-        try{
+    const fetchUsers = async () => {
+        try {
             const token = getCookie('usertoken')
             const response = await axios.get('/api/user/admin', {
                 headers: {
@@ -311,15 +318,19 @@ const AdminDashboard: React.FC = () => {
             })
             setUsers(response.data.message)
         }
-        catch(err : any){
+        catch (err: any) {
             console.log(err.message);
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchUsers();
         setTableDataLoading(false);
-    },[])
+    }, [])
+
+    useEffect(() => {
+        setCurrentPage(1); // it will reset to page 1 when filters change
+    }, [searchTerm, departmentFilter, designationFilter, roleFilter]);
 
     return (
         <div className="mx-auto p-4 relative h-full ">
@@ -329,14 +340,14 @@ const AdminDashboard: React.FC = () => {
                 <div className="flex flex-row gap-x-[16px]">
                     <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
                     <DepartmentFilter departmentFilter={departmentFilter} setDepartmentFilter={setDepartmentFilter} />
-                    <DesignationFilter designationFilter={designationFilter} setDesignationFilter={setDesignationFilter}/>
-                    <RoleFilter roleFilter={roleFilter} setRoleFilter={setRoleFilter}/>
+                    <DesignationFilter designationFilter={designationFilter} setDesignationFilter={setDesignationFilter} />
+                    <RoleFilter roleFilter={roleFilter} setRoleFilter={setRoleFilter} />
                 </div>
                 <div>
 
                 </div>
             </div>
-            <button className="absolute top-4 right-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={()=>{
+            <button className="absolute top-4 right-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-1" onClick={() => {
                 setIsAddUser(true)
                 handleAddUser()
             }}>Add User</button>
@@ -351,7 +362,7 @@ const AdminDashboard: React.FC = () => {
                         </th>
                         <th className="py-2 px-1 border border-gray-300 ">
                             Designation
-                            
+
                         </th>
                         <th className="py-2 px-1 border border-gray-300 ">
                             Role
@@ -403,15 +414,15 @@ const AdminDashboard: React.FC = () => {
                     </button>
                 </div>
             )}
-            
+
 
             {
                 (deleteUserPopUP.show && (
-                    <DeleteUser 
-                        userData = {deleteUserPopUP}
-                        loading = {loading}
-                        setDeleteUserPopUP = {setDeleteUserPopUP}
-                        handleDeleteUser = {handleDeleteUser}
+                    <DeleteUser
+                        userData={deleteUserPopUP}
+                        loading={loading}
+                        setDeleteUserPopUP={setDeleteUserPopUP}
+                        handleDeleteUser={handleDeleteUser}
                     />
                 ))
             }
