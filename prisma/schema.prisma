@@ -96,6 +96,7 @@ model AssociateProfessor{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   email String
   academics Academics? 
+  research Research?
 }
 
 
@@ -376,5 +377,304 @@ model ResponsibilitiesHeld_Table {
   responsibilitiesHeldId String @unique @db.ObjectId
   nameOfResponsibilityHeld String
   points Int
+}
+
+
+//-------- research object --------
+
+model Research{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  associate_research AssociateProfessor @relation(fields: [formId], references: [id])
+  formId String @unique @db.ObjectId
+  paperPublishedInSCI PaperPublishedInSCI? // paper published in SCI
+  paperPublishedInSCOPUS PaperPublishedInSCOPUS? // paper published in SCOPUS
+  bookPublication BookPublication? // book publication
+  publicationOfBookChapters PublicationOfBookChapters? // publication of book chapters
+  patentsFiled PatentsFiled? // patents filed
+  increaseInHIndex IncreaseInHIndex? // increase in h-index
+  increaseInITenIndex IncreaseInITenIndex? // increase in i-10 index
+  increaseInCitations IncreaseInCitations? // increase in citations
+  fundedResearchProjects FundedResearchProjects? // funded research projects
+  consultancyWork ConsultancyWork? // consultancy projects
+  researchScholarsGuiding ResearchScholarsGuiding? // number of research scholars guiding / completed
+  collaborationForeginUniversities CollaborationForeginUniversities? // collaboration with foreign universities
+  establishmentOfALaboratory EstablishmentOfALaboratory? // establishment of a laboratory
+}
+
+model PaperPublishedInSCI {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_paperpublishedinsci Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  paperPulishedInSCI_Table PaperPulishedInSCI_Table[]
+}
+
+model PaperPulishedInSCI_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    paperpublishedinsci_table PaperPublishedInSCI @relation(fields: [paperPublishedInSciId], references: [id])
+    paperPublishedInSciId String @unique @db.ObjectId
+    journalName String 
+    titleOfthePaper String
+    authorPosition String
+    monthYearPublication DateTime
+    points String
+}
+
+model PaperPublishedInSCOPUS {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_paperpublishedinSCOPUS Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  PaperPublishedInSCOPUS_Table PaperPublishedInSCOPUS_Table[]
+}
+
+model PaperPublishedInSCOPUS_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    paperPublishedInSCOPUS_table PaperPublishedInSCOPUS @relation(fields: [paperPublishedInSCOPUSId], references: [id])
+    paperPublishedInSCOPUSId String @unique @db.ObjectId
+    journalName String 
+    titleOfthePaper String
+    authorPosition String
+    monthYearPublication DateTime
+    points String
+}
+
+model BookPublication {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_bookpublication Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  bookPublication_Table BookPublication_Table[]
+}
+
+model BookPublication_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    bookPublication_table BookPublication @relation(fields: [paperPublishedInSCOPUSId], references: [id])
+    paperPublishedInSCOPUSId String @unique @db.ObjectId
+    journalName String 
+    titleOfthePaper String
+    publisherName String
+    IsbnNo String
+    monthYearPublication DateTime
+}
+
+model PublicationOfBookChapters {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_publicationofbookchapters Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  publicationOfBookChapters_Table PublicationOfBookChapters_Table[]
+}
+
+model PublicationOfBookChapters_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    publicationOfBookChapters_table PublicationOfBookChapters @relation(fields: [publicationOfBookChaptersId], references: [id])
+    publicationOfBookChaptersId String @unique @db.ObjectId
+    titleOfBookChapter String 
+    scopusJournalName String
+    monthYearPublication DateTime
+}
+
+model PatentsFiled {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_patentsfiled Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  patentsFiled_Table PatentsFiled_Table[]
+}
+
+model PatentsFiled_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    patentsFiled_table PatentsFiled @relation(fields: [patentsFiledId], references: [id])
+    patentsFiledId String @unique @db.ObjectId
+    titleOfBookPatent String 
+    published String  // filed / published / granted
+    monthYearPublication DateTime
+    points Int
+}
+
+model IncreaseInHIndex {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_increaseinhindex Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  hIndex Int
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+}
+
+model IncreaseInITenIndex {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_increaseinitenindex Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  iTenIndex Int
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+}
+
+model IncreaseInCitations {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_increaseincitations Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  citationsCount Int
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+}
+
+model FundedResearchProjects {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_fundedresearchprojects Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  fundedResearchProjects_Table FundedResearchProjects_Table[]
+}
+
+model FundedResearchProjects_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    fundedResearchProjects_table FundedResearchProjects @relation(fields: [fundedResearchProjectsId], references: [id])
+    fundedResearchProjectsId String @unique @db.ObjectId
+    titleOfResearchProject String 
+    fundingAgency String  // filed / published / granted
+    monthYearPublication DateTime
+    grantSantioned Int
+}
+
+model ConsultancyWork {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_consultancywork Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  consultancyWork_Table ConsultancyWork_Table[]
+}
+
+model ConsultancyWork_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    consultancyWork_table ConsultancyWork @relation(fields: [consultancyWorkId], references: [id])
+    consultancyWorkId String @unique @db.ObjectId
+    titleOfConsultancyWork String 
+    industryName String  // filed / published / granted
+    dateOfCompletion DateTime
+    fundGenerated Int
+}
+
+
+model ResearchScholarsGuiding {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_researchscholarsguiding Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  researchScholarsGuiding_Table ResearchScholarsGuiding_Table[]
+
+}
+model ResearchScholarsGuiding_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    researchScholarsGuiding_table ResearchScholarsGuiding @relation(fields: [researchScholarsGuidingId], references: [id])
+    researchScholarsGuidingId String @unique @db.ObjectId
+    researchScholarName String 
+    registrationNo Int  // filed / published / granted
+    dateOfRegistration DateTime
+    dateOfCompletion DateTime
+    points Int
+}
+
+
+model CollaborationForeginUniversities {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_collaborationFuniversities Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  collaborationForeginUniversities_Table CollaborationForeginUniversities_Table[]
+}
+
+model CollaborationForeginUniversities_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    collaborationForeginUniversities_table CollaborationForeginUniversities @relation(fields: [collaborationForeginUniversitiesId], references: [id])
+    collaborationForeginUniversitiesId String @unique @db.ObjectId
+    jointProjectPublication String 
+    professorName String  // filed / published / granted
+    foreignUniversity String
+    dateOfPublication DateTime
+}
+
+
+model EstablishmentOfALaboratory {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  research_establishmentOfLaboratory Research @relation(fields: [researchId], references: [id])
+  researchId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  establishmentOfALaboratory_Table EstablishmentOfALaboratory_Table[]
+
+}
+
+model EstablishmentOfALaboratory_Table {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    establishmentOfALaboratory_table EstablishmentOfALaboratory @relation(fields: [establishmentOfALaboratoryId], references: [id])
+    establishmentOfALaboratoryId String @unique @db.ObjectId
+    NameOfTheLabEstablished String 
+    FundingAgency String  // filed / published / granted
+    dateOfSanction String
+    amountSanctioned DateTime
+    points Int
 }
 
