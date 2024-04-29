@@ -97,6 +97,10 @@ model AssociateProfessor{
   email String
   academics Academics? 
   research Research?
+  service Service?
+  grantTotal1 Int
+  grantTotal2 Int
+  continuousImprovement String
 }
 
 
@@ -676,5 +680,144 @@ model EstablishmentOfALaboratory_Table {
     dateOfSanction String
     amountSanctioned DateTime
     points Int
+}
+
+// ----------- services object ----------------
+
+
+model Service {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  associate_service AssociateProfessor @relation(fields: [formId], references: [id])
+  formId String @unique @db.ObjectId
+  inchargesForAccreditationActivities InchargesForAccreditationActivities?
+  brandingOfInstitution BrandingOfInstitution?
+  membershipInProfessionalBodies MembershipInProfessionalBodies?
+  cocurricularOutreachProgramme CocurricularOutreachProgramme?
+  assistanceInGeneralAdministration AssistanceInGeneralAdministration?
+  organizingHandlingTrainingProgramme OrganizingHandlingTrainingProgramme?
+}   
+
+model InchargesForAccreditationActivities {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  service_inchargesforaccreditationactivities Service @relation(fields: [serviceId], references: [id])
+  serviceId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  inchargesForAccreditationActivities_Table InchargesForAccreditationActivities_Table[]
+}
+
+model InchargesForAccreditationActivities_Table {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  inchargesForAccreditationActivities_table InchargesForAccreditationActivities @relation(fields: [inchargesForAccreditationActivitiesId], references: [id])
+  inchargesForAccreditationActivitiesId String @unique @db.ObjectId
+  inchargeOfTheActivity String
+  points Int
+}
+
+model BrandingOfInstitution {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  service_brandingofinstitution Service @relation(fields: [serviceId], references: [id])
+  serviceId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  brandingOfInstitution_Table BrandingOfInstitution_Table[]
+}
+
+model  BrandingOfInstitution_Table {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  brandingOfInstitution_table BrandingOfInstitution @relation(fields: [brandingOfInstitutionId], references: [id])
+  brandingOfInstitutionId String @unique @db.ObjectId
+  nameOftheActivity String
+  maxMarks Int
+  points String
+}
+
+model MembershipInProfessionalBodies {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  service_membershipinprofessionalbodies Service @relation(fields: [serviceId], references: [id])
+  serviceId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  membershipInProfessionalBodies_Table MembershipInProfessionalBodies_Table[]
+}
+
+model  MembershipInProfessionalBodies_Table {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  membershipInProfessionalBodies_table MembershipInProfessionalBodies @relation(fields: [membershipInProfessionalBodiesid], references: [id])
+  membershipInProfessionalBodiesid String @unique @db.ObjectId
+  nameOfProfessionalBody String
+  validityStatus String
+  points Int
+  total Int
+}
+
+
+model CocurricularOutreachProgramme {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  service_cocurricularoutreachprogramme Service @relation(fields: [serviceId], references: [id])
+  serviceId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  cocurricularOutreachProgramme_Table CocurricularOutreachProgramme_Table[]
+}
+
+
+model  CocurricularOutreachProgramme_Table {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  membershipInProfessionalBodies_table CocurricularOutreachProgramme @relation(fields: [cocurricularOutreachProgrammeid], references: [id])
+  cocurricularOutreachProgrammeid String @unique @db.ObjectId
+  date DateTime
+  nameOfTheProgram String
+  organizedby String
+  actedAsResourcePerson String
+}
+
+model AssistanceInGeneralAdministration {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  service_assistanceingeneraladministration Service @relation(fields: [serviceId], references: [id])
+  serviceId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
+  assistanceInGeneralAdministration_Table AssistanceInGeneralAdministration_Table[]
+
+}
+
+model AssistanceInGeneralAdministration_Table {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  assistanceInGeneralAdministration_table AssistanceInGeneralAdministration @relation(fields: [assistanceInGeneralAdministrationId], references: [id])
+  assistanceInGeneralAdministrationId String @unique @db.ObjectId
+  nameOfTask String
+}
+
+model OrganizingHandlingTrainingProgramme {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  service_organizinghandlingtrainingprogramme Service @relation(fields: [serviceId], references: [id])
+  serviceId String @unique @db.ObjectId
+  proofrequired String
+  erpproof String
+  maxpoint Int
+  selfevaluation Int
+  hrevaluation HrEvaluation? @default(NOTSUBMITTED)
+  hrcomments String
 }
 
