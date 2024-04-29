@@ -96,6 +96,7 @@ model AssociateProfessor{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   email String
   academics Academics? 
+  // research Research?
 }
 
 
@@ -377,4 +378,13 @@ model ResponsibilitiesHeld_Table {
   nameOfResponsibilityHeld String
   points Int
 }
+
+
+// -------- research object ---------
+
+// model Research {
+//   id String @id @default(auto()) @map("_id") @db.ObjectId
+//  responsibilitiesHeldTable AssociateProfessor @relation(fields: [responsibilitiesHeldId], references: [id])
+//   responsibilitiesHeldId String @unique @db.ObjectId
+// }
 
