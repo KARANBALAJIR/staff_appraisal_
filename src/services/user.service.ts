@@ -2,6 +2,8 @@ import { User, UserType, FormStatusType, DesignationType, StatusType, Department
 import bcrypt from 'bcrypt';
 import { PrismaClient } from '@prisma/client';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import toast from 'react-hot-toast';
+
 const prisma = new PrismaClient();
 
 
@@ -106,5 +108,17 @@ async function verifyToken(token:string) : Promise<string | jwt.JwtPayload | boo
 
 }
 
+// const toastSuccess = (message: string) => {
+//     toast.success(message)
+// }
 
-export { hashPassword, findUserByEmail, createUser, emailTest, isCorrectPassword, generateToken , verifyToken}
+
+// const toastWarning = (message: string) => {
+//     // toast.warning(message)
+// }
+
+// const toastError = (message: string) => {
+//     toast.error(message)
+// }
+
+export { hashPassword, findUserByEmail, createUser, emailTest, isCorrectPassword, generateToken , verifyToken }

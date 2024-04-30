@@ -1,26 +1,10 @@
 "use client"
 import '@/styles/global.css'
+import { useState , useRef } from 'react';
+import Associate_from from '@/app/(main)/(signin)/appraisal-form/Associate_form'
+import toast , { Toaster } from 'react-hot-toast';
 
-interface AccordianProps {
-    title: string;
-    children: React.ReactNode;
-    isOpen: boolean;
-    setIsOpen: (value: boolean) => void;
-}
-
-const Accordian = (props : AccordianProps) => {
-    return(
-        <>
-            <div className="p-[12px] bg-zinc-200 flex flex-row justify-between rounded-[12px] items-center">
-                <div className="text-md font-normal hover:underline cursor-pointer">Teaching Assignment</div>
-                <button className="flex items-center"><span className="material-icons-sharp">expand_more</span></button>
-                {/* <span className="material-icons-sharp hidden">expand_less</span> */}
-            </div>
-        </>
-    )
-}
-
-const Table = () => {
+export const Table = () => {
     return(
         <>
             <form>
@@ -61,43 +45,56 @@ const Table = () => {
 }
 
 export default function Appraisal_Page() {
+
+    const [pagination, setPagination] = useState(1);
+
+    function handleBack() {
+        if(pagination > 1){
+            setPagination(pagination - 1)
+        }else{
+            toast.error('You are already on the first page', {
+                duration: 2000,
+                position: 'top-right',
+                style: {
+                    minWidth: '250px',
+                    minHeight: '50px',
+                    padding: '10px',
+                }
+            })
+        }
+    }
+
+    function handleNext(){
+        if(pagination < 3 ){
+            setPagination(pagination + 1 , )
+        }else{
+            toast.error('You are already on the last page', {
+                duration: 2000,
+                position: 'top-right',
+                style: {
+                    minWidth: '250px',
+                    minHeight: '50px',
+                    padding: '10px',
+                }
+            })
+        }
+    }
     return (
         <div className="flex flex-col justify-between h-full">
+            <Toaster/>
             <div className="">
                 <div className="p-[12px] text-center border-b-1 border-b-gray-400 text-2xl font-semibold">Assistant Professor Form</div>
-                <div className="p-[12px] h-[calc(100vh-125px)] overflow-y-auto">
-                    <div className="text-xl font-semibold mb-[16px] px-[12px]">Academic</div>
-                    <div className="flex flex-col gap-[16px]">
-                        <div className="border-1 shadow-md p-[16px] rounded-[12px] flex flex-col gap-[16px]">
-                            <div className="flex flex-row justify-between items-center pb-[5px] border-b-2 border-zinc-300">
-                                <div className="text-md font-normal hover:underline cursor-pointer">Teaching Assignment</div>
-                                <button className="flex items-center"><span className="material-icons-sharp">expand_more</span></button>
-                                {/* <span className="material-icons-sharp hidden">expand_less</span> */}
-                            </div>
-                            {/* <div className="">
-                                <Table/>
-                            </div> */}
-                        </div> 
-                        <div className="border-1 shadow-md p-[16px] rounded-[12px] flex flex-col gap-[16px]">
-                            <div className="flex flex-row justify-between items-center pb-[5px] border-b-2 border-zinc-300">
-                                <div className="text-md font-normal hover:underline cursor-pointer">Teaching Assignment</div>
-                                <button className="flex items-center"><span className="material-icons-sharp">expand_more</span></button>
-                                {/* <span className="material-icons-sharp hidden">expand_less</span> */}
-                            </div>
-                            {/* <div className="">
-                                <Table/>
-                            </div> */}
-                        </div> 
+                <div className="p-[12px] h-[calc(100vh-125px)] overflow-y-auto no-scrollbar">
 
-                    </div>
-                    
+                    <Associate_from pagination={pagination}/>
+
                 </div>
             </div>
            
             <div className="border-t-1 border-t-gray-400">
                 <div className="flex justify-between items-center p-[10px]">
-                    <button className="rounded-xl border-2 border-blue-400  px-[15px] py-[10px]">back</button>
-                    <button className="bg-blue-400 text-white px-[15px] py-[10px] rounded-xl">next</button>
+                    <button className="rounded-xl border-2 hover:bg-gray-100 border-blue-400  px-[15px] py-[10px]" onClick={handleBack}>back</button>
+                    <button className="bg-blue-400 hover:bg-blue-500 text-white px-[15px] py-[10px] rounded-xl" onClick={handleNext}>next</button>
                 </div>
            </div>
         </div>
