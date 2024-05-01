@@ -684,7 +684,6 @@ model EstablishmentOfALaboratory_Table {
 
 // ----------- services object ----------------
 
-
 model Service {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   associate_service AssociateProfessor @relation(fields: [formId], references: [id])

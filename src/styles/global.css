@@ -17,3 +17,24 @@
         /* Firefox */
     }
 }
+
+
+@layer utilities{
+    
+    table{
+        @apply border-collapse w-full
+    }
+
+    table th, table td{
+        @apply !h-[40px] border-2 border-gray-500 
+    }
+
+    tbody tr td input{
+        @apply h-full outline-0 focus:outline-0 w-[90%]
+    }
+
+    table thead{
+        @apply bg-blue-300
+    }
+
+}

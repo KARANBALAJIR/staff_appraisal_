@@ -119,7 +119,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                 </div>
                 <div className="h-screen flex-1">
                     <div className=' h-[calc(100vh)] overflow-hidden p-[15px] py-0 shadow-inner home no-scrollbar duration-200 ease-in bg-gray-100 scroll-smooth z-10'>
-                        <div className="bg-white rounded-xl h-full overflow-y-auto no-scrollbar">
+                        <div className="bg-white h-full overflow-y-auto no-scrollbar">
                             {children}
                         </div>
                     </div>
