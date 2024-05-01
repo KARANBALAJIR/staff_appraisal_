@@ -66,7 +66,7 @@ export default function Appraisal_Page() {
 
     function handleNext(){
         if(pagination < 3 ){
-            setPagination(pagination + 1 , )
+            setPagination(pagination + 1 )
         }else{
             toast.error('You are already on the last page', {
                 duration: 2000,
