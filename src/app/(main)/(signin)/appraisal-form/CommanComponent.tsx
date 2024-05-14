@@ -12,7 +12,7 @@ interface AssociateResearchProps {
 }
 
 const CommonComponent = (props: AssociateResearchProps) => {
-    const { tableData, handleInputChange, handleToggle, handleAddRow, handleRemoveRow , field } = props;
+    const { tableData, handleInputChange, handleToggle, handleAddRow, handleRemoveRow , field , handleValidationChange } = props;
 
     const [assoResData, setAssoResData] = useState<Array<Object>>(tableData as Array<Object>);
     const [showProjectDetails, setShowProjectDetails] = useState(false);
@@ -68,13 +68,23 @@ const CommonComponent = (props: AssociateResearchProps) => {
                                     </tr>
                                 ))}
                             </tbody>
+
                         </table>
                         <div className='grid grid-cols-3 gap-[16px] p-[12px]'>
-                            <div className='flex flex-row gap-[20px]'>
-                                <label className=''>Proof Required</label>
-                                <input type="text" aria-label="Proof Required" />
-                            </div>
-                            <div className='flex flex-row gap-[20px]'>
+                        {
+
+                                    table.fields.map((field: any, index: number) => (
+                                        <div className='flex flex-row gap-[20px]' key={index}>
+                                            <label>{field}</label>
+                                            <input type="text" name={field} value={table['validation'][field]} onChange={(e)=>handleValidationChange("academics",tableIndex,field,e.target.value)} aria-label={field} />
+                                        </div>
+                                    ))
+                                   
+                        }
+                        </div>
+                    
+                            
+                            {/* <div className='flex flex-row gap-[20px]'>
                                 <label>ERP Proof</label>
                                 <input type="text" aria-label="ERP Proof" />
                             </div>
@@ -94,7 +104,7 @@ const CommonComponent = (props: AssociateResearchProps) => {
                                 <label>HR Comment</label>
                                 <input type="text" aria-label="HR Comment" />
                             </div>
-                        </div>
+                     */}
                     </div>
                     <div className="relative w-full px-2 sm:px-4 max-w-full flex-grow flex-1 text-right pt-4">
                         <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs sm:text-sm font-bold uppercase px-2 sm:px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 sm:mr-2 sm:mb-2 ease-linear transition-all duration-150"
