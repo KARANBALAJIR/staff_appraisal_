@@ -469,7 +469,7 @@ model BookPublication {
 model BookPublication_Table {
     id String @id @default(auto()) @map("_id") @db.ObjectId
     bookPublication_table BookPublication @relation(fields: [bookPublicationId], references: [id])
-    paperPublishedInSCOPUSId String @unique @db.ObjectId
+    bookPublicationId String @unique @db.ObjectId
     journalName String 
     titleOfthePaper String
     publisherName String
