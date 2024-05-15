@@ -1,48 +1,10 @@
 "use client"
 import '@/styles/global.css'
-import { useState , useRef } from 'react';
+import { useState , useRef, useEffect } from 'react';
 import Associate_from from '@/app/(main)/(signin)/appraisal-form/Associate_form'
 import toast , { Toaster } from 'react-hot-toast';
+import Associate_form from '@/components/associate/Associate_form';
 
-export const Table = () => {
-    return(
-        <>
-            <form>
-                <table className="table-auto  mx-auto">
-                    <thead className="table-head">  
-                        <tr className="border-seperate table-auto w-full">
-                            <th>S.no</th>
-                            <th>Sememter & Branch Section</th>
-                            <th>Course Title</th>
-                            <th>Number Of Credit</th>
-                            <th>Points</th>
-                            <th>Student Feedback</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td className=''><input className='' placeholder='Semester, Branch section' type='text'></input></td>
-                            <td><input className='' placeholder='Course Title' type='text'></input></td>
-                            <td><input className='' placeholder='Number Of Credit' type='text'></input></td>
-                            <td><input className='' placeholder='Points' type='text'></input></td>
-                            <td><input className='' placeholder='Student Feedback' type='text'></input></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td className=''><input className='' placeholder='Semester, Branch section' type='text'></input></td>
-                            <td><input className='' placeholder='Course Title' type='text'></input></td>
-                            <td><input className='' placeholder='Number Of Credit' type='text'></input></td>
-                            <td><input className='' placeholder='Points' type='text'></input></td>
-                            <td><input className='' placeholder='Student Feedback' type='text'></input></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </form>
-            
-        </>
-    )
-}
 
 export default function Appraisal_Page() {
 
@@ -66,7 +28,7 @@ export default function Appraisal_Page() {
 
     function handleNext(){
         if(pagination < 3 ){
-            setPagination(pagination + 1 , )
+            setPagination(pagination + 1 )
         }else{
             toast.error('You are already on the last page', {
                 duration: 2000,
@@ -87,6 +49,7 @@ export default function Appraisal_Page() {
                 <div className="p-[12px] h-[calc(100vh-125px)] overflow-y-auto no-scrollbar">
 
                     <Associate_from pagination={pagination}/>
+                    {/* <Associate_form/> */}
 
                 </div>
             </div>

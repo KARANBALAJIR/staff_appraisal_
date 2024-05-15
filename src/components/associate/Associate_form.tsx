@@ -9,10 +9,10 @@ const Associate_form = () =>{
     return(
         <>
             <TabN1/>
-            <TabN2/>
+            {/* <TabN2/>
             <TabN3/>
             <TabN4/>
-            <TabN5/>
+            <TabN5/> */}
         </>
     )
 }
