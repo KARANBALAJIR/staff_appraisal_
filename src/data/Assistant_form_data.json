@@ -1,0 +1,248 @@
+{
+    "academics": [
+        {
+            "title": "1. Teaching Assignment (No of credits per subject taught) 3 Credit-1 Point, 4 Credit-2 Point || Max 4 Points (Subject Handled in Even Sem 2021 -2022)",
+            "headers" : ["Sl. No", "Semester", "Course Title", "Number of Credit", "Points", "Feedback%"],
+            "data": [
+                { "slno": 1, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" },
+                { "slno": 2, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" },
+                { "slno": 3, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" }
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "2. Pass Percentage (Average) 100% - Points || 90-99% - 2 Points || 75-89% - 1 Point",
+            "headers" : ["Sl. No", "Academic Year", "Name of the Subject", "Pass %"],
+            "data": [
+                { "slno": 1, "acdyear": "", "subname": "", "passpercentage": ""},
+                { "slno": 2, "acdyear": "", "subname": "", "passpercentage": ""},
+                { "slno": 3, "acdyear": "", "subname": "", "passpercentage": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "3. Student Feedback (Average) 100% - Points || 90-99% - 2 Points || 75-89% - 1 Point",
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "4. Teaching Resource Creation Innovation in Classroom Teaching / Lab with proof - 2 Points",
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "5. Organizing Guest Lectures/Visiting Faculty for respective subjects with National and International Level Experts - 2 Points",
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "6. Student Projects Guided",
+            "headers" : ["Sl. No", "Name of Programme", "Year of Study", "Date of Completion", "Points"],
+            "data": [
+                { "slno": 1, "Name of Programme": "", "Year of Study": "", "Date of Completion": "", "Points":0},
+                { "slno": 1, "Name of Programme": "", "Year of Study": "", "Date of Completion": "", "Points":0},
+                { "slno": 1, "Name of Programme": "", "Year of Study": "", "Date of Completion": "", "Points":0}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "7. Student Publication Guided",
+            "headers" : ["Sl. No", "Paper Title", "Journal Name", "SCI/SCOPUS/WoS", "Month & Year of Publication"],
+            "data": [
+                { "slno": 1, "Paper Title": "", "Journal Name": "", "SCI/SCOPUS/WoS": "", "Month & Year of Publication":""},
+                { "slno": 1, "Paper Title": "", "Journal Name": "", "SCI/SCOPUS/WoS": "", "Month & Year of Publication":""},
+                { "slno": 1, "Paper Title": "", "Journal Name": "", "SCI/SCOPUS/WoS": "", "Month & Year of Publication":""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "8. Faculty Development Programme/Seminar/Workshop/Conference organized",
+            "headers" : ["Sl. No", "Category of Event", "Title of the Event", "Date of Sanction", "Fund received from Agency", "Grant Sanctioned"],
+            "data": [
+                { "slno": 1, "Category of Event": "", "Title of the Event": "", "Date of Sanction": "", "Fund received from Agency":"", "Grant Sanctioned":""},
+                { "slno": 1, "Category of Event": "", "Title of the Event": "", "Date of Sanction": "", "Fund received from Agency":"", "Grant Sanctioned":""},
+                { "slno": 1, "Category of Event": "", "Title of the Event": "", "Date of Sanction": "", "Fund received from Agency":"", "Grant Sanctioned":""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "9. Involvement in High Level Competition/Innovative Projects",
+            "headers" : ["Sl. No", "Competition Name", "Name of the Project mentored", "Date of participation", "Prize won", "Cash Award (if any)"],
+            "data": [
+                { "slno": 1, "Competition Name": "", "Name of the Project mentored": "", "Date of participation": "", "Prize won":"", "Cash Award (if any)":""},
+                { "slno": 1, "Competition Name": "", "Name of the Project mentored": "", "Date of participation": "", "Prize won":"", "Cash Award (if any)":""},
+                { "slno": 1, "Competition Name": "", "Name of the Project mentored": "", "Date of participation": "", "Prize won":"", "Cash Award (if any)":""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "10. MoU Signed and Activity conducted with Industries – 2 Points",
+            "headers" : ["Sl. No", "MoU Signed / Activity Conducted", "Name of Company", "Date"],
+            "data": [
+                { "slno": 1, "MoU Signed / Activity Conducted": "", "Name of Company": "", "Date": ""},
+                { "slno": 1, "MoU Signed / Activity Conducted": "", "Name of Company": "", "Date": ""},
+                { "slno": 1, "MoU Signed / Activity Conducted": "", "Name of Company": "", "Date": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "Tutor Ward Meeting",
+            "headers" : ["Sl. No", "Date of Meeting", "Value addition brought in students's life"],
+            "data": [
+                { "slno": 1, "Date of Meeting": "", "Value addition brought in students's life": ""},
+                { "slno": 1, "Date of Meeting": "", "Value addition brought in students's life": ""},
+                { "slno": 1, "Date of Meeting": "", "Value addition brought in students's life": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "Responsibilities Held",
+            "headers" : ["Sl. No", "Name of the Responsibility held", "Points"],
+            "data": [
+                { "slno": 1, "Name of the Responsibility held": "", "Points": ""},
+                { "slno": 1, "Name of the Responsibility held": "", "Points": ""},
+                { "slno": 1, "Name of the Responsibility held": "", "Points": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        }
+    ],
+    "research": [
+        {
+            "title": "1. Papers Published in SCI Indexed Journals",
+            "headers" : ["Sl. No", "Semester", "Course Title", "Number of Credit", "Points", "Feedback%"],
+            "data": [
+                { "slno": 1, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" },
+                { "slno": 2, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" },
+                { "slno": 3, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" }
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        }
+    ]
+}
