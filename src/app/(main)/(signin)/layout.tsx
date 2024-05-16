@@ -65,7 +65,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                         <div className='h-[60px] flex  items-center'>
                             <div className="flex pl-[10px] items-center w-full h-[50px]">
                                 <button
-                                    className='flex items-center w-[50px] h-[50px] justify-center rounded-full hover:bg-gray-200 duration-200 ease-in'
+                                    className='flex items-center w-[50px] h-[50px] justify-center rounded-full duration-200 ease-in'
                                     onClick={() =>
                                         setSideBarOpen(!sideBarOpen)
                                     }><span className="material-icons-sharp rounded-full ">
@@ -82,27 +82,27 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                                         return (
                                             <>
                                                 {(item === 'user-management') ?
-                                                    <Link title="user-management" key={index} href='/user-management' onClick={() => { }} className={`px-[16px] py-[8px] ${pathname === '/user-management' ? 'bg-blue-400 text-white' : 'bg-gray-100 text-gray-700'} rounded-tr-xl rounded-br-xl w-full flex flex-row gap-4 items-center duration-200 ease-in`}>
+                                                    <Link title="user-management" key={index} href='/user-management' onClick={() => { }} className={`px-[16px] py-[8px] ${pathname === '/user-management' ? 'bg-impButton-default hover:bg-impButton-hover text-white duration-0' : 'bg-gray-100 text-gray-700'} rounded-tr-xl rounded-br-xl w-full flex flex-row gap-4 items-center duration-200 ease-in`}>
                                                         <span className={`${sideBarOpen === false ? '' : ''} material-icons-sharp `}>manage_accounts</span>
                                                         <text className={` text-lg font-normal duration-200 ease-in ${sideBarOpen === true ? ' opacity-100' : ' opacity-0'}`}>manage</text>
                                                     </Link>
                                                     : <></>
                                                 }
                                                 {(item === 'approval-form') ?
-                                                    <Link title="form-approval" key={index} href='/approval-form' onClick={() => { }} className={` px-[16px] py-[8px]  ${pathname === '/approval-form' ? 'bg-blue-400 text-white' : 'bg-gray-100 text-gray-700'}  rounded-tr-xl rounded-br-xl w-full  flex flex-row gap-4 items-center duration-200 ease-in`}>
+                                                    <Link title="form-approval" key={index} href='/approval-form' onClick={() => { }} className={` px-[16px] py-[8px]  ${pathname === '/approval-form' ? 'bg-impButton-default hover:bg-impButton-hover text-white' : 'bg-gray-100 text-gray-700'}  rounded-tr-xl rounded-br-xl w-full  flex flex-row gap-4 items-center duration-200 ease-in`}>
                                                         <span className={`${sideBarOpen === false ? '' : ''} material-icons-sharp `}>approval</span>
                                                         <text className={`  text-lg font-normal duration-200 ease-in ${sideBarOpen === true ? ' opacity-100' : ' opacity-0'}`}>Approval</text>
                                                     </Link>
                                                     : <></>
                                                 }
                                                 {(item === 'appraisal-form') ?
-                                                    <Link title="appraisal form" key={index} href="/appraisal-form" className={`px-[16px] py-[8px] 3 rounded-tr-xl rounded-br-xl  ${pathname === '/appraisal-form' ? 'bg-blue-400 text-white' : 'bg-gray-100 text-gray-700'}   w-full flex flex-row gap-4 items-center duration-200 ease-in text-black`}>
+                                                    <Link title="appraisal form" key={index} href="/appraisal-form" className={`px-[16px] py-[8px] 3 rounded-tr-xl rounded-br-xl  ${pathname === '/appraisal-form' ? 'bg-impButton-default hover:bg-impButton-hover text-white' : 'bg-gray-100 text-gray-700'}   w-full flex flex-row gap-4 items-center duration-200 ease-in text-black`}>
                                                         <span className="material-icons-sharp">insert_drive_file</span>
                                                         <text className={` text-lg font-normal duration-200 ease-in ${sideBarOpen === true ? ' opacity-100 ' : ' opacity-0 '}`}>Form</text>
                                                     </Link> : <></>
                                                 }
                                                 {(item === 'anonymous') ?
-                                                    <Link title="anonymous" key={index} href="/anonymous" className={`px-[16px] py-[8px] 3 rounded-tr-xl rounded-br-xl  ${pathname === '/anonymous' ? 'bg-blue-400 text-white' : 'bg-gray-100 text-gray-700'}   w-full flex flex-row gap-4 items-center duration-200 ease-in text-black`}>
+                                                    <Link title="anonymous" key={index} href="/anonymous" className={`px-[16px] py-[8px] 3 rounded-tr-xl rounded-br-xl  ${pathname === '/anonymous' ? 'bg-impButton-default hover:bg-impButton-hover text-white' : 'bg-gray-100 text-gray-700'}   w-full flex flex-row gap-4 items-center duration-200 ease-in text-black`}>
                                                         <span className="material-icons-sharp">no_accounts</span>
                                                         <text className={` text-lg font-normal duration-200 ease-in ${sideBarOpen === true ? ' opacity-100 ' : ' opacity-0 '}`}>Anonymous</text>
                                                     </Link> : <></>
@@ -117,9 +117,9 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                         </div>
                     </div>
                 </div>
-                <div className="h-screen flex-1">
-                    <div className=' h-[calc(100vh)] overflow-hidden p-[15px] py-0 shadow-inner home no-scrollbar duration-200 ease-in bg-gray-100 scroll-smooth z-10'>
-                        <div className="bg-white h-full overflow-y-auto no-scrollbar">
+                <div className="h-screen flex-1 ">
+                    <div className=' h-[calc(100vh)] overflow-hidden home no-scrollbar duration-200 ease-in scroll-smooth'>
+                        <div className="h-full overflow-y-auto no-scrollbar">
                             {children}
                         </div>
                     </div>
