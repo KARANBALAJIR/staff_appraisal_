@@ -426,5 +426,126 @@
             "maxPoint": 5,
             "flag": false
         }
+    ],
+    "service":[
+        {
+            "title": "Incharges for Accreditation Activities - NAAC,NBA, UGC, NIRF, AU etc.,",
+            "headers" : ["Sl. No", "Incharge of the Activity / File", "Points"],
+            "data": [
+                { "slno": 1, "incharge": "","points":""},
+                { "slno": 1, "incharge": "","points":""},
+                { "slno": 1, "incharge": "","points":""}
+            ],
+            "total":0,
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 5,
+            "flag": false
+        },
+        {
+            "title": "Branding of Institution",
+            "headers" : ["Sl. No", "Name of the Activity/Achievement", "Max. Marks","Points"],
+            "data": [
+                { "slno": 1, "activityName": "","maxMark":3,"points":""},
+                { "slno": 1, "activityName": "","maxMark":2,"points":""},
+                { "slno": 1, "activityName": "","maxMark":2,"points":""}
+            ],
+            "total":0,
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 5,
+            "flag": false
+        },
+        {
+            "title": "Membership in Professional Bodies - 2 Points",
+            "headers" : ["Sl. No", "Name of the Professional body", "Validity Status","Points"],
+            "data": [
+                { "slno": 1, "professionalBodyName": "","validityStatus":"","points":""},
+                { "slno": 1, "professionalBodyName": "","validityStatus":"","points":""},
+                { "slno": 1, "professionalBodyName": "","validityStatus":"","points":""}
+            ],
+            "total":0,
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 5,
+            "flag": false
+        },
+        {
+            "title": "Co-curricular and Outreach Programme",
+            "headers" : ["Sl. No", "date", "Name of the Program","Organized by","Acted as Resource person/ Participant"],
+            "data": [
+                { "slno": 1, "programName": "","organizedBy":"","actedAs":"", "date":""},
+                { "slno": 1, "programName": "","organizedBy":"","actedAs":"", "date":""},
+                { "slno": 1, "programName": "","organizedBy":"","actedAs":"", "date":""}
+            ],
+            "total":0,
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 5,
+            "flag": false
+        },
+        {
+            "title": "Assistance in General Administration (Assessed by HOD/Principal)",
+            "headers" : ["Sl. No","Name of Task"],
+            "data": [
+                { "slno": 1, "taskName": ""},
+                { "slno": 1, "taskName": ""},
+                { "slno": 1, "taskName": ""}
+            ],
+            "total":0,
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 5,
+            "flag": false
+        },
+        {
+            "title": "Organizing/Handling Training Programme for External Participants",
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 5,
+            "flag": false
+        }
     ]
 }
