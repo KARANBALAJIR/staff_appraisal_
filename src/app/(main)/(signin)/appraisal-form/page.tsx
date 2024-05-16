@@ -7,7 +7,7 @@ import Link from "next/link";
 const TempCard = ({ formId } : {formId : number}) =>{
     return(
         <Link href={'/appraisal-form/'+formId}>
-            <div className='w-[300px] h-[300px] rounded-[8px] shadow-md bg-gray-100 opacity-50 hover:shadow-none duration-200 ease-in'>
+            <div className='w-[300px] h-[300px] rounded-[8px] shadow-md bg-white opacity-50 hover:shadow-none duration-200 ease-in'>
 
             </div>
         </Link>
