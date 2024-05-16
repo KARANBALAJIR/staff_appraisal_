@@ -13,7 +13,6 @@ interface AssociateResearchProps {
 
 const CommonComponent = (props: AssociateResearchProps) => {
     const { tableData, handleInputChange, handleToggle, handleAddRow, handleRemoveRow , field , handleValidationChange } = props;
-
     const [assoResData, setAssoResData] = useState<Array<Object>>(tableData as Array<Object>);
     const [showProjectDetails, setShowProjectDetails] = useState(false);
     const [showPublicationDetails, setShowPublicationDetails] = useState(false);
@@ -30,7 +29,6 @@ const CommonComponent = (props: AssociateResearchProps) => {
                     handleToggle(field, tableIndex)
                     // handleResToggle(tableIndex)
                 }} className="flex items-center"><span className="material-icons-sharp">{table.flag == 0 ? 'expand_more' : 'expand_less'}</span></button>
-
             </div>
             <div className={`${table.flag == 1 ? '' : 'hidden'}`}>
                 <div key={tableIndex} className="Table pt-4">
@@ -82,29 +80,6 @@ const CommonComponent = (props: AssociateResearchProps) => {
                                    
                         }
                         </div>
-                    
-                            
-                            {/* <div className='flex flex-row gap-[20px]'>
-                                <label>ERP Proof</label>
-                                <input type="text" aria-label="ERP Proof" />
-                            </div>
-                            <div className='flex flex-row gap-[20px]'>
-                                <label>Max Point</label>
-                                            <input type="text" aria-label="Max Point" />
-                                        </div>
-                            <div className='flex flex-row gap-[20px]'>
-                                <label>Self Evaluation</label>
-                                <input type="text" aria-label="Self Evaluation" />
-                            </div>
-                            <div className='flex flex-row gap-[20px]'>
-                                <label>HR Evaluation</label>
-                                <input type="text" aria-label="HR Evaluation" />
-                            </div>
-                            <div className='flex flex-row gap-[20px]'>
-                                <label>HR Comment</label>
-                                <input type="text" aria-label="HR Comment" />
-                            </div>
-                     */}
                     </div>
                     <div className="relative w-full px-2 sm:px-4 max-w-full flex-grow flex-1 text-right pt-4">
                         <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs sm:text-sm font-bold uppercase px-2 sm:px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 sm:mr-2 sm:mb-2 ease-linear transition-all duration-150"

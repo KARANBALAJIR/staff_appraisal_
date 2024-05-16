@@ -1,10 +1,19 @@
 "use client"
 import '@/styles/global.css'
-import { useState , useRef, useEffect } from 'react';
-import Associate_from from '@/app/(main)/(signin)/appraisal-form/Associate_form'
+import { Fragment, useState } from 'react';
 import toast , { Toaster } from 'react-hot-toast';
-import Associate_form from '@/components/associate/Associate_form';
+import Link from "next/link";
 
+const TempCard = ({ formId } : {formId : number}) =>{
+    return(
+        <Link href={'/appraisal-form/'+formId}>
+            <div className='w-[300px] h-[300px] rounded-[8px] shadow-md bg-gray-100 opacity-50 hover:shadow-none duration-200 ease-in'>
+
+            </div>
+        </Link>
+    )
+}
+ 
 
 export default function Appraisal_Page() {
 
@@ -42,24 +51,36 @@ export default function Appraisal_Page() {
         }
     }
     return (
-        <div className="flex flex-col justify-between h-full">
-            <Toaster/>
-            <div className="">
-                <div className="p-[12px] text-center border-b-1 border-b-gray-400 text-2xl font-semibold">Assistant Professor Form</div>
-                <div className="p-[12px] h-[calc(100vh-125px)] overflow-y-auto no-scrollbar">
+        <div className='flex flex-col gap-[16px]'>
+            <div className='flex justify-end p-[12px]'>
+                <div className='flex flex-row gap-[20px] items-center'>
+                    <span className="material-icons-sharp">
+                        notifications
+                    </span>
+                    <div className='flex flex-row gap-[10px] items-center justify-center'>
+                        <div className='w-[40px] h-[40px] rounded-full bg-gray-400'>
 
-                    <Associate_from pagination={pagination}/>
-                    {/* <Associate_form/> */}
-
+                        </div>
+                        <h1 className='font-semibold'>Cibiyanna P</h1>
+                        <button className='flex items-center'><span className="material-icons-sharp">expand_more</span></button>
+                    </div>
                 </div>
             </div>
-           
-            <div className="border-t-1 border-t-gray-400">
-                <div className="flex justify-between items-center p-[10px]">
-                    <button className="rounded-xl border-2 hover:bg-gray-100 border-blue-400  px-[15px] py-[10px]" onClick={handleBack}>back</button>
-                    <button className="bg-blue-400 hover:bg-blue-500 text-white px-[15px] py-[10px] rounded-xl" onClick={handleNext}>next</button>
+            <div className='flex flex-col gap-[16px] p-[12px]'>
+                <h1 className='font-semibold text-xl'>Forms</h1>
+                <div className='flex flex-row gap-[16px] flex-wrap'>
+                    {
+                        [1,2,3,4,5,6,7,8,9].map((item, index) => {
+                            return(
+                                <>
+                                    <TempCard key={index} formId={index} />
+                                </>
+                            )
+                        })
+                    }
                 </div>
-           </div>
+            </div>
+
         </div>
     )
 }
