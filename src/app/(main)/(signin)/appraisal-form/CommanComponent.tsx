@@ -23,54 +23,70 @@ const CommonComponent = (props: formComponentProps) => {
     },[tableData])
 
     const renderTable = (table: any, tableIndex: number) => (
-        <div>
-            <div onClick={() => {
-                handleToggle(field, tableIndex)
-                // handleResToggle(tableIndex)
-            }}>
-                <div className="shadow-md hover:shadow-none bg-white p-[16px] rounded-[12px] flex flex-col gap-[16px] duration-200 ease-in-out">
-                    <div className="flex flex-row justify-between items-center">
-                        <div className="text-md font-normal cursor-pointer">{table.title}</div>
-                        <div className="flex items-center"><span className="material-icons-sharp">{table.flag == 0 ? 'expand_more' : 'expand_less'}</span></div>
+        <div className="border-1 shadow-sm p-[16px] rounded-[12px] duration-200 ease-in hover:shadow-none flex flex-col gap-[16px] bg-white">
+            <div className="flex flex-row justify-between items-center">
+                <div className="text-md font-normal cursor-pointer">{table.title}</div>
+                <button onClick={() => {
+                    handleToggle(field, tableIndex)
+                    // handleResToggle(tableIndex)
+                }} className="flex items-center"><span className="material-icons-sharp">{table.flag == 0 ? 'expand_more' : 'expand_less'}</span></button>
+            </div>
+            <div className={`${table.flag == 1 ? '' : 'hidden'}`}>
+                <div key={tableIndex} className="Table pt-4">
+                    <div className="overflow-x-auto">
+                        <table className="items-center bg-transparent w-full border-collapse">
+
+                            <thead>
+                                <tr>
+                                    {(table as { headers: any })?.headers?.map((header: any, index: number) => (
+                                        <th key={index} className={`border px-2 sm:px-4 py-3 text-sm sm:text-base uppercase font-semibold text-center ${index === 0 ? 'w-12 sm:w-16' : ''} ${index === table.headers.length - 1 ? 'w-8 sm:w-16 dean-column' : ''} ${index === table.headers.length - 2 ? 'w-8 sm:w-16 hod-column' : ''} ${header === 'Total Points' ? 'w-16 sm:w-24 total-points-column' : ''}`}>
+                                            {header}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {(table as { data: any })?.data?.map((rowData: any, rowIndex: number) => (
+                                    <tr key={rowIndex} className={rowIndex % 2 === 0 ? "bg-white" : "bg-slate-100"}>
+                                        {Object.keys(rowData).map((key, colIndex) => (
+                                            <td key={colIndex} className={`border px-2 py-2 ${rowIndex % 2 === 0 ? "bg-white" : "bg-slate-100"} ${colIndex === Object.keys(rowData).length - 1 ? 'w-8 sm:w-16 dean-column' : ''} ${colIndex === Object.keys(rowData).length - 2 ? 'w-8 sm:w-16 hod-column' : ''} ${colIndex === Object.keys(rowData).length - 3 ? 'w-16 sm:w-24 total-points-column' : ''} whitespace-normal`}>
+                                                {key === 'slno' ? (rowIndex + 1) : (
+                                                    <input
+                                                        type="text"
+                                                        value={rowData[key]}
+                                                        onChange={e => {
+                                                            handleInputChange(field, tableIndex, rowIndex, key, e.target.value)
+                                                            // handleResInputChange(tableIndex,rowIndex,key, e.target.value)
+                                                        }}
+                                                        className="bg-transparent w-full"
+                                                    />
+                                                )}
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+
+                        </table>
+                        <div className='grid grid-cols-3 gap-[16px] p-[12px]'>
+                        {
+
+                                    table.fields.map((field: any, index: number) => (
+                                        <div className='flex flex-row gap-[20px]' key={index}>
+                                            <label>{field}</label>
+                                            <input type="text" name={field} value={table['validation'][field]} onChange={(e)=>handleValidationChange("academics",tableIndex,field,e.target.value)} aria-label={field} />
+                                        </div>
+                                    ))
+                                   
+                        }
+                        </div>
                     </div>
                     <div className={`${table.flag == 1 ? '' : 'hidden'}`}>
                         <div key={tableIndex} className="Table pt-4">
                             <div className="overflow-x-auto">
-                                <table className="items-center bg-transparent w-full border-collapse">
-                                    <thead>
-                                        <tr>
-                                            {(table as { headers: any })?.headers?.map((header: any, index: number) => (
-                                                <th key={index} className={`border px-2 sm:px-4 py-3 text-sm sm:text-base uppercase font-semibold text-center ${index === 0 ? 'w-12 sm:w-16' : ''} ${index === table.headers.length - 1 ? 'w-8 sm:w-16 dean-column' : ''} ${index === table.headers.length - 2 ? 'w-8 sm:w-16 hod-column' : ''} ${header === 'Total Points' ? 'w-16 sm:w-24 total-points-column' : ''}`}>
-                                                    {header}
-                                                </th>
-                                            ))}
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        {(table as { data: any })?.data?.map((rowData: any, rowIndex: number) => (
-                                            <tr key={rowIndex} className={rowIndex % 2 === 0 ? "bg-white" : "bg-slate-100"}>
-                                                {Object.keys(rowData).map((key, colIndex) => (
-                                                    <td key={colIndex} className={`border px-2 py-2 ${rowIndex % 2 === 0 ? "bg-white" : "bg-slate-100"} ${colIndex === Object.keys(rowData).length - 1 ? 'w-8 sm:w-16 dean-column' : ''} ${colIndex === Object.keys(rowData).length - 2 ? 'w-8 sm:w-16 hod-column' : ''} ${colIndex === Object.keys(rowData).length - 3 ? 'w-16 sm:w-24 total-points-column' : ''} whitespace-normal`}>
-                                                        {key === 'slno' ? (rowIndex + 1) : (
-                                                            <input
-                                                                type="text"
-                                                                value={rowData[key]}
-                                                                onChange={e => {
-                                                                    handleInputChange(field, tableIndex, rowIndex, key, e.target.value)
-                                                                    // handleResInputChange(tableIndex,rowIndex,key, e.target.value)
-                                                                }}
-                                                                className="bg-transparent w-full"
-                                                            />
-                                                        )}
-                                                    </td>
-                                                ))}
-                                            </tr>
-                                        ))}
-                                    </tbody>
-
-                                </table>
-                                <div className='grid grid-cols-3 gap-[16px] p-[12px]'>
+                                
+                                {/* <div className='grid grid-cols-3 gap-[16px] p-[12px]'>
                                 {
 
                                             table.fields.map((field: any, index: number) => (
@@ -81,7 +97,7 @@ const CommonComponent = (props: formComponentProps) => {
                                             ))
                                         
                                 }
-                                </div>
+                                </div> */}
                             
                                     
                                     {/* <div className='flex flex-row gap-[20px]'>
