@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CommonComponent from '@/app/(main)/(signin)/appraisal-form/CommanComponent';
-import assoStru from '@/lib/associateStructure.json'
+import assoStru from '@/lib/data/associateStructure.json'
 
 interface Associate_formProps {
     pagination: number;

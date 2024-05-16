@@ -23,12 +23,9 @@ const CommonComponent = (props: formComponentProps) => {
     },[tableData])
 
     const renderTable = (table: any, tableIndex: number) => (
-        <div className="border-1 shadow-md p-[16px] rounded-[12px] flex flex-col gap-[16px]" onClick={() => {
-            handleToggle(field, tableIndex)
-            // handleResToggle(tableIndex)
-        }}>
-            <div className="flex flex-row justify-between items-center pb-[5px] border-b-2 border-zinc-300">
-                <div className="text-md font-normal hover:underline cursor-pointer">{table.title}</div>
+        <div className="border-1 shadow-md p-[16px] rounded-[12px] flex flex-col gap-[16px] bg-white">
+            <div className="flex flex-row justify-between items-center">
+                <div className="text-md font-normal cursor-pointer">{table.title}</div>
                 <button onClick={() => {
                     handleToggle(field, tableIndex)
                     // handleResToggle(tableIndex)
