@@ -57,7 +57,7 @@ export default function Appraisal_Page() {
             <div className="border-t-1 border-t-gray-400">
                 <div className="flex justify-between items-center p-[10px]">
                     <button className="rounded-xl border-2 hover:bg-gray-100 border-blue-400  px-[15px] py-[10px]" onClick={handleBack}>back</button>
-                    <button className="bg-blue-400 hover:bg-blue-500 text-white px-[15px] py-[10px] rounded-xl" onClick={handleNext}>next</button>
+                    <button className="bg-impButton-default hover:bg-impButton-hover text-white px-[15px] py-[10px] rounded-xl" onClick={handleNext}>next</button>
                 </div>
            </div>
         </div>
