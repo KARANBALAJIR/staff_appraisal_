@@ -163,7 +163,7 @@
             "flag": false
         },
         {
-            "title": "10. MoU Signed and Activity conducted with Industries – 2 Points",
+            "title": "10. MoU Signed and Activity conducted with Industries - 2 Points",
             "headers" : ["Sl. No", "MoU Signed / Activity Conducted", "Name of Company", "Date"],
             "data": [
                 { "slno": 1, "MoU Signed / Activity Conducted": "", "Name of Company": "", "Date": ""},
@@ -226,11 +226,11 @@
     "research": [
         {
             "title": "1. Papers Published in SCI Indexed Journals",
-            "headers" : ["Sl. No", "Semester", "Course Title", "Number of Credit", "Points", "Feedback%"],
+            "headers" : ["Sl. No", "Journal Name", "Title of the paper", "Author Position", "Month & Year of Publication", "Points"],
             "data": [
-                { "slno": 1, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" },
-                { "slno": 2, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" },
-                { "slno": 3, "semester": "", "courseTitle": "", "numOfCredit": "", "points": "", "feedback": "" }
+                { "slno": 1, "journalName": "", "paperTitle": "", "authorPosition": "", "monthAndYearOfPublication": "", "points": "" },
+                { "slno": 2, "journalName": "", "paperTitle": "", "authorPosition": "", "monthAndYearOfPublication": "", "points": "" },
+                { "slno": 3, "journalName": "", "paperTitle": "", "authorPosition": "", "monthAndYearOfPublication": "", "points": "" }
             ],
             "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
             "validation":{
@@ -242,6 +242,188 @@
                 "totalScore": 0
             },
             "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "2. Papers Published in SCOPUS/SCIE/WoS Indexed Journals",
+            "headers" : ["Sl. No", "Journal Name", "Title of the paper", "Author Position", "Month & Year of Publication", "Points"],
+            "data": [
+                { "slno": 1, "journalName": "", "paperTitle": "", "authorPosition": "", "monthAndYearOfPublication": "", "points": "" },
+                { "slno": 2, "journalName": "", "paperTitle": "", "authorPosition": "", "monthAndYearOfPublication": "", "points": "" },
+                { "slno": 3, "journalName": "", "paperTitle": "", "authorPosition": "", "monthAndYearOfPublication": "", "points": "" }
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "3. Book Publication -2 points | Book Chapters / Conference Proceedings - 2 Points (Scopus/Wos indexed  only)- 2 Point ",
+            "headers" : ["Sl. No", "Title of the book | Chapter", "Publisher Name & ISBN No.", "Scopus/WoS Journal name", "Month & Year of Publication"],
+            "data": [
+                { "slno": 1, "bookTitle": "", "bookPublisher": "", "journalName": "", "monthAndYear": ""},
+                { "slno": 2, "bookTitle": "", "bookPublisher": "", "journalName": "", "monthAndYear": ""},
+                { "slno": 3, "bookTitle": "", "bookPublisher": "", "journalName": "", "monthAndYear": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 4,
+            "flag": false
+        },
+        {
+            "title": "4. Patents Filed - 1 point  | Patents published - 2 points | Patents Granted - 3 points",
+            "headers" : ["Sl. No", "Title of the patent", "Filed/Published/Granted", "Date", "Points"],
+            "data": [
+                { "slno": 1, "patentTitle": "", "status": "", "date": "", "point": ""},
+                { "slno": 2, "patentTitle": "", "status": "", "date": "", "point": ""},
+                { "slno": 3, "patentTitle": "", "status": "", "date": "", "point": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 3,
+            "flag": false
+        },
+        {
+            "title": "5. Increase in h Index - 3 Points (1 - 1 Point | 2 to 3 - 2 points | 4 & above -3 Points)",
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 1,
+            "flag": false
+        },
+        {
+            "title": "6. Increase in i10 Index - 3 Points (1 - 1 Point | 2 to 3 - 2 Points | 4 & above -3 Points))",
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 1,
+            "flag": false
+        },
+        {
+            "title": "8. Increase in Citations - 2 Points (Less than 50 - 1 Point | Above 50 - 2 Points)",
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 1,
+            "flag": false
+        },
+        {
+            "title": "9. Funded Research Projects - 5 Points (Projects Sanctioned during appraisal period will only be considered)",
+            "headers" : ["Sl. No", "Title of the Research Project", "Funding Agency", "Date of Sanction", "Grant Sanctioned (Rs.)"],
+            "data": [
+                { "slno": 1, "titleOfResearch": "", "fundingAgency": "", "date": "", "grantSanction": ""},
+                { "slno": 2, "titleOfResearch": "", "fundingAgency": "", "date": "", "grantSanction": ""},
+                { "slno": 3, "titleOfResearch": "", "fundingAgency": "", "date": "", "grantSanction": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 2,
+            "flag": false
+        },
+        {
+            "title": "10. Consultancy work  - 3 Points",
+            "headers" : ["Sl. No", "Title of the Consultancy Work", "Industry Name", "Date of Completion", "Fund Generated (Rs.)"],
+            "data": [
+                { "slno": 1, "titleOfWork": "", "industryName": "", "date": "", "fundGenerated": ""},
+                { "slno": 2, "titleOfWork": "", "industryName": "", "date": "", "fundGenerated": ""},
+                { "slno": 3, "titleOfWork": "", "industryName": "", "date": "", "fundGenerated": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 3,
+            "flag": false
+        },
+        {
+            "title": "11 .Collaboration with foreign Universities ",
+            "headers" : ["Sl. No", "Joint Project / Publication", "Name of the Professor and Foreign university", "Date of Publication / project"],
+            "data": [
+                { "slno": 1, "joinProjectPublication": "", "nameOfTheProfessorAndForeignUniversity": "", "date": ""},
+                { "slno": 2, "joinProjectPublication": "", "nameOfTheProfessorAndForeignUniversity": "", "date": ""},
+                { "slno": 3, "joinProjectPublication": "", "nameOfTheProfessorAndForeignUniversity": "", "date": ""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 2,
+            "flag": false
+        },
+        {
+            "title": "12 .Establishment of a Laboratory in collaboration with an Industry / Funding agency - 2 Points",
+            "headers" : ["Sl. No", "Name of the Lab", "Funding Agency / Industry", "Date of Sanction","Amount Sanctioned","points"],
+            "data": [
+                { "slno": 1, "labName": "", "fundAgencyIndustry": "", "date": "", "amountSanctioned":"", "points":""},
+                { "slno": 1, "labName": "", "fundAgencyIndustry": "", "date": "", "amountSanctioned":"", "points":""},
+                { "slno": 1, "labName": "", "fundAgencyIndustry": "", "date": "", "amountSanctioned":"", "points":""}
+            ],
+            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
+            "validation":{
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": 0
+            },
+            "maxPoint": 5,
             "flag": false
         }
     ]
