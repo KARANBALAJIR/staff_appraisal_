@@ -1,3 +1,4 @@
+
 {
     "academics": [
         {
@@ -169,46 +170,6 @@
                 { "slno": 1, "mou/activity": "", "companyName": "", "date": ""},
                 { "slno": 1, "mou/activity": "", "companyName": "", "date": ""},
                 { "slno": 1, "mou/activity": "", "companyName": "", "date": ""}
-            ],
-            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
-            "validation":{
-                "proofRequired": "",
-                "erpProof": "",
-                "selfEvaluation": "",
-                "hrEvaluation": "",
-                "hrComment": "",
-                "totalScore": 0
-            },
-            "maxPoint": 4,
-            "flag": false
-        },
-        {
-            "title": "Tutor Ward Meeting",
-            "headers" : ["Sl. No", "Date of Meeting", "Value addition brought in students's life"],
-            "data": [
-                { "slno": 1, "date": "", "valueAdded": ""},
-                { "slno": 1, "date": "", "valueAdded": ""},
-                { "slno": 1, "date": "", "valueAdded": ""}
-            ],
-            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
-            "validation":{
-                "proofRequired": "",
-                "erpProof": "",
-                "selfEvaluation": "",
-                "hrEvaluation": "",
-                "hrComment": "",
-                "totalScore": 0
-            },
-            "maxPoint": 4,
-            "flag": false
-        },
-        {
-            "title": "Responsibilities Held",
-            "headers" : ["Sl. No", "Name of the Responsibility held", "Points"],
-            "data": [
-                { "slno": 1, "responsibilityName": "", "points": ""},
-                { "slno": 1, "responsibilityName": "", "points": ""},
-                { "slno": 1, "responsibilityName": "", "points": ""}
             ],
             "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
             "validation":{
