@@ -13,6 +13,16 @@ export async function checkAuthentication(req: NextApiRequest, res: NextApiRespo
     if(!verification){
         return res.status(401).json({success:false,message:'Provide a valid jwt token'})
     }
+
+    const BlackListToken =await prisma.blackListToken.findUnique({
+        where:{
+            token,
+        }
+    })
+    if(BlackListToken){
+        return res.status(401).json({ status: "failed", message: 'Your session is expired , kindly Login' })
+    }
+
     const email : string = (verification as jwt.JwtPayload).email;
     const user = await findUserByEmail(email);
     req.user = user as User;

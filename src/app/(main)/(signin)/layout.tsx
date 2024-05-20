@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import { getCookie } from "@/services/cookie.service";
+import { deleteCookie, getCookie } from "@/services/cookie.service";
 import axios from "axios";
 import { updateUserDetails } from "@/redux/userSlice";
 import { useRouter } from "next/navigation";
@@ -19,7 +19,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
     const router = useRouter();
     const pathname = usePathname();
     const [defaultIndex, setDefaultIndex] = useState(0);
-
+    const [loggedIn , setLoggedIn] = useState("loggedOut");
     const allRoles: Record<UserType, string[]> = {
         'ANONYMOUS': ['anonymous'],
         'STAFF': ['appraisal-form'],
@@ -40,6 +40,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
 
     const checkRole = async () => {
         try {
+            setLoggedIn("loggedOut")
             const token = getCookie('usertoken')
             console.log(token)
             const response = await axios.get('/api/user', {
@@ -51,10 +52,34 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
 
             const userData = response.data.user;
             setRole(userData.role)
+            setLoggedIn("loggedIn")
             updateUserDetails(userData);
         }
         catch (err: any) {
-            console.log(err.message);
+            setLoggedIn("loggedOut")
+            router.push('/login')
+        }
+    }
+
+    const handleLogout = async () => {
+        try {
+            const token = getCookie('usertoken');
+            setLoggedIn("pending")
+            const response = await axios.post('/api/user/logout', {
+                token
+            },{
+                headers:{
+                    'Authorization': `Bearer ${token}`,
+                    'Custom-Header': 'Custom-Value'
+                }
+            })
+            setLoggedIn("loggedOut")
+            console.log(response.data)
+            deleteCookie('usertoken')
+            router.push('/login')
+        }catch(err:any){
+            setLoggedIn('loggedIn')
+            console.log(err.message)
         }
     }
 
@@ -138,11 +163,30 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                                             </button>
                                         </div>
                                         <div className='flex flex-row gap-[8px] items-center justify-center'>
-                                            <button className='flex items-center' title="logout">
-                                                <span className="material-icons-sharp">
-                                                    logout
-                                                </span>
-                                            </button>
+                                           
+                                           {
+                                                loggedIn === "loggedIn" ? 
+                                                    <button className='flex items-center' title="logout" onClick={handleLogout}>
+                                                        <span className="material-icons-sharp">
+                                                            logout
+                                                        </span>
+
+                                                    </button>
+                                                :
+                                                loggedIn === "pending" ?
+                                                        <i className="fa fa-circle-o-notch fa-spin"></i>
+                                                :
+                                                <>
+                                                            <button className='flex items-center' title="logout" onClick={()=>router.push('/login')}>
+                                                                login
+                                                            </button>
+                                                </>
+                                           }
+                                           
+                                            
+                                            
+
+                                            
                                         </div>
                                     </div>
                                 </div>
