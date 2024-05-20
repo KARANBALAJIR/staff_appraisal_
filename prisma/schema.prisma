@@ -92,6 +92,14 @@ model User{
   updatedAt DateTime @updatedAt
 }
 
+model BlackListToken {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  token String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
 model AssociateProfessor{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   email String
