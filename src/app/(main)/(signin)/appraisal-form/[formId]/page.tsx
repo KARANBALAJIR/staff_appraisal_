@@ -42,10 +42,12 @@ export default function Page( { params } : { params: { formId : string } } ) {
         }
     }
     return (
-        <div className="flex flex-col justify-between h-full">
+        <div className=" h-full p-[12px]">
             <Toaster />
             <div className="">
-                <div className="p-[12px] text-center border-b-1 border-b-gray-400 text-2xl font-semibold">Assistant Professor Form</div>
+                <div className="p-[12px] text-2xl font-semibold">
+                    Assistant Professor Form
+                    </div>
                 <div className="p-[12px] h-[calc(100vh-125px)] overflow-y-auto no-scrollbar">
                     <Associate_from pagination={pagination} />
                 </div>
