@@ -19,10 +19,11 @@ export default function RootLayout({
       <html lang="en">
         <head>
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-        <link
-          href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp&amp;display=swap"
-          rel="stylesheet"
-        />
+          <link
+            href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp&amp;display=swap"
+            rel="stylesheet"
+          />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         </head>
         <body className="font-body max-w-[100vw] overflow-x-hidden">
             {children}  
