@@ -99,6 +99,19 @@ model BlackListToken {
   updatedAt DateTime @updatedAt
 }
 
+model Form {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  createdBy String 
+  form_title String
+  start_year DateTime @default(now())
+  end_year DateTime @default(now())
+  current_position DesignationType
+  expecting_appraisal String @default("0")
+  appraisal_form Json 
+  createdAt DateTime @default(now())
+  updatedBy DateTime @updatedAt 
+}   
+
 
 model AssociateProfessor{
   id String @id @default(auto()) @map("_id") @db.ObjectId
