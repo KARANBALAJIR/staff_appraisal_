@@ -69,7 +69,7 @@ async function emailTest(params:string) : Promise<boolean> {
 }
 
 async function findUserByEmail(params: string) : Promise<User | null>{
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
         where: {
             email: params,
         },

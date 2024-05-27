@@ -4,7 +4,7 @@ import { emailTest, findUserByEmail, isCorrectPassword } from "@/services/user.s
 const prisma = new PrismaClient()
 import jwt from 'jsonwebtoken'
 
-export default async function handle( req: NextApiRequest, res: NextApiResponse ) {
+export default async function handler( req: NextApiRequest, res: NextApiResponse ) {
     if(req.method === 'POST'){
         try{
             const {email, password} = req.body
