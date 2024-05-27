@@ -4,15 +4,17 @@ import assoStru from '@/lib/data/associateStructure.json'
 
 interface Associate_formProps {
     pagination: number;
+    associateData: Record<string, any> | null;
+    setAssociateData:Function;
 }
 
 const Associate_form = (props: Associate_formProps) => {
-    const { pagination } = props;
+    const { pagination , associateData , setAssociateData } = props;
 
-    const [associateData, setAssociateData] = useState<Record<string, any>>(assoStru);
-    useEffect(() => {
-        console.log(associateData)
-    }, [associateData])
+    // const [associateData, setAssociateData] = useState<Record<string, any>>(assoStru);
+    // useEffect(() => {
+    //     console.log(associateData)
+    // }, [associateData])
     const handleInputChange = (field: keyof typeof associateData, tableIndex: number, rowIndex: number, name: string, value: number) => {
         const newData: typeof associateData = { ...associateData };
         newData[field][tableIndex].data[rowIndex][name] = value;
@@ -55,9 +57,9 @@ const Associate_form = (props: Associate_formProps) => {
     return (
         <>
             {
-                (pagination === 1) ? <CommonComponent tableData={associateData["academics"]} field={"academics"} handleInputChange={handleInputChange} handleToggle={handleToggle} handleAddRow={handleAddRow} handleRemoveRow={handleRemoveRow} handleValidationChange={handleValidationChange} /> :
-                    (pagination === 2) ? <CommonComponent tableData={associateData["research"]} field={"research"} handleInputChange={handleInputChange} handleToggle={handleToggle} handleAddRow={handleAddRow} handleRemoveRow={handleRemoveRow} handleValidationChange={handleValidationChange} /> :
-                        (pagination === 3) ? <CommonComponent tableData={associateData["services"]} field={"services"} handleInputChange={handleInputChange} handleToggle={handleToggle} handleAddRow={handleAddRow} handleRemoveRow={handleRemoveRow} handleValidationChange={handleValidationChange} /> :
+                (pagination === 1) ? <CommonComponent tableData={associateData?.["academics"]} field={"academics"} handleInputChange={handleInputChange} handleToggle={handleToggle} handleAddRow={handleAddRow} handleRemoveRow={handleRemoveRow} handleValidationChange={handleValidationChange} /> :
+                    (pagination === 2) ? <CommonComponent tableData={associateData?.["research"]} field={"research"} handleInputChange={handleInputChange} handleToggle={handleToggle} handleAddRow={handleAddRow} handleRemoveRow={handleRemoveRow} handleValidationChange={handleValidationChange} /> :
+                        (pagination === 3) ? <CommonComponent tableData={associateData?.["services"]} field={"services"} handleInputChange={handleInputChange} handleToggle={handleToggle} handleAddRow={handleAddRow} handleRemoveRow={handleRemoveRow} handleValidationChange={handleValidationChange} /> :
                             <></>
             }
         </>

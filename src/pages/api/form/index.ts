@@ -3,28 +3,62 @@ import { checkAuthentication } from "../user";
 import { PrismaClient, User } from '@prisma/client';
 const {ObjectId} = require('mongoose');
 const prisma = new PrismaClient();
+import assoForm from '@/lib/data/associateStructure.json'
+import assiForm from '@/lib/data/Assistant_form_data.json'
+import professorForm from '@/lib/data/Professor_form_data.json'
 
 export default async function handler(req:NextApiRequest, res:NextApiResponse){
 
     await checkAuthentication(req,res , async function (){
         if (req.method === 'POST') {
             try {
-                console.log(req.body, req.user);
-                const { form_id, appraisal_form_data } = req.body;
-                let formId = new ObjectId(form_id); // Convert form_id to MongoDB ObjectId
-                formId = formId.toString();
-                const newData = await prisma.userCreationFormData.create({
+                const { form_title, start_year, current_position, expecting_appraisal, end_year } = req.body;
+                const newForm = await prisma.userCreationForm.create({
                     data: {
-                        formId:formId,
-                        appraisal_form_data: appraisal_form_data,
-                    },
-                });
-                console.log(newData);
-                return res
-                    .status(200)
-                    .json({ status: "success", message: "Successfully created form", data: newData });
-            } catch (error: any) {
-                return res.status(500).json({ status: "error", message: error.message });
+                        form_title,
+                        start_year,
+                        end_year,
+                        current_position,
+                        expecting_appraisal,
+                        createdBy: (req.user as { email: string }).email,
+                    }
+                })
+                
+                const designaiton = req.user?.designation;
+
+                if (designaiton === 'ASSISTANT_PROFESSOR'){
+                    const newFormData = await prisma.userCreationFormData.create({
+                        data: {
+                            formId: newForm.id,
+                            appraisal_form_data: assiForm,
+                        }
+                    });
+                    return res.status(200).json({ status: "success", message: "Successfully created form", data: newForm })
+                }
+
+                if (designaiton === 'ASSOCIATE_PROFESSOR') {
+                    const newFormData = await prisma.userCreationFormData.create({
+                        data: {
+                            formId: newForm.id,
+                            appraisal_form_data: assoForm,
+                        }
+                    });
+                    return res.status(200).json({ status: "success", message: "Successfully created form", data: newForm })
+                }
+
+                if (designaiton === 'PROFESSOR') {
+                    const newFormData = await prisma.userCreationFormData.create({
+                        data: {
+                            formId: newForm.id,
+                            appraisal_form_data: professorForm,
+                        }
+                    });
+                    return res.status(200).json({ status: "success", message: "Successfully created form", data: newForm })
+                }
+
+            }
+            catch (error: any) {
+                return res.status(500).json({ status: "error", message: error.message })
             }
         }
 
@@ -37,17 +71,16 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse){
                     }
                 });
                 if (forms.length === 0) {
-                    return res.status(404).json({ status: "error", message: "No forms found" })
+                    return res.status(404).json({ status: "failed", message: "No forms found" })
                 }
                 return res.status(200).json({ status: "success", message: "Successfully fetched forms", data: forms })
             }
             catch (error: any) {
-                return res.status(500).json({ status: "error", message: error.message })
+                return res.status(500).json({ status: "failed", message: error.message })
             }
         }
 
         if (req.method === 'DELETE') {
-            console.log('inccoming')
             try {
                 const { formId } = req.query;
                 await prisma.userCreationForm.delete({
@@ -55,12 +88,12 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse){
                         id: formId as string
                     }
                 }).then((data:any)=>{
-                    return res.status(200).json({ status: "success", message: "Successfully deleted form",data });
+                    return res.status(200).json({ status: "failed", message: "Successfully deleted form",data });
                 }).catch((error:any)=>{
-                    return res.status(404).json({ status: "error", message: error.message });
+                    return res.status(404).json({ status: "failed", message: error.message });
                 })
             } catch (error: any) {
-                return res.status(500).json({ status: "error", message: error.message });
+                return res.status(500).json({ status: "failed", message: error.message });
             }
         }
 
@@ -83,10 +116,10 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse){
                     return res.status(200).json({ status: "success", message: "Successfully updated form", data })
 
                 }).catch((error : any)=>{
-                    return res.status(404).json({ status: "error", message: error.message });
+                    return res.status(404).json({ status: "failed", message: error.message });
                 })
             } catch (error: any) {
-                return res.status(500).json({ status: "error", message: error.message });
+                return res.status(500).json({ status: "failed", message: error.message });
             }
         }
     })

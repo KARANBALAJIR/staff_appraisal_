@@ -147,7 +147,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                     <div className=' h-[calc(100vh)] overflow-hidden home no-scrollbar duration-200 ease-in scroll-smooth'>
                         <div className="h-full overflow-y-auto no-scrollbar">
                             <div className='flex flex-col bg-ghostWhite'>
-                                <div className='flex justify-between p-[12px] bg-white'>
+                                <div className='flex justify-between p-[12px] bg-white top-0 sticky z-30'>
                                     <div className="flex gap-[12px] items-center">
                                         {/* <div className='w-[40px] h-[40px] rounded-full bg-gray-400'>
 

@@ -75,6 +75,17 @@ enum SemesterType {
   NONE
 }
 
+enum UserFormStatus {
+  NOTSUBMITTED
+  SUBMITTED
+}
+
+enum FormStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model User{
   id String @id @default(auto()) @map("_id") @db.ObjectId
   username String? @default("")
@@ -108,13 +119,15 @@ model UserCreationForm {
   current_position DesignationType
   expecting_appraisal String @default("0")
   form_data_relation UserCreationFormData[]
+  user_form_status UserFormStatus @default(NOTSUBMITTED) 
+  form_status FormStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model UserCreationFormData {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  form_data_relation UserCreationForm @relation(fields: [formId], references: [id])
+  form_data_relation UserCreationForm @relation(fields: [formId], references: [id] , onDelete: Cascade)
   formId String @unique @db.ObjectId
   appraisal_form_data Json
   createdAt DateTime @default(now())
