@@ -7,9 +7,11 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export default function Page( { params } : { params: { formId : string } } ) {
     const [pagination, setPagination] = useState(1);
+    
     useEffect(()=>{
         console.log(params)
     },[params])
+
     function handleBack() {
         if (pagination > 1) {
             setPagination(pagination - 1)
@@ -41,6 +43,11 @@ export default function Page( { params } : { params: { formId : string } } ) {
             })
         }
     }
+
+    function handleFormSubmit() {
+        
+    }
+
     return (
         <div className=" h-full p-[12px]">
             <Toaster />
@@ -55,8 +62,14 @@ export default function Page( { params } : { params: { formId : string } } ) {
 
             <div className="border-t-1 border-t-gray-400">
                 <div className="flex justify-between items-center p-[10px]">
-                    <button className="rounded-xl border-2 hover:bg-gray-100 border-blue-400  px-[15px] py-[10px]" onClick={handleBack}>back</button>
-                    <button className="bg-impButton-default hover:bg-impButton-hover text-white px-[15px] py-[10px] rounded-xl" onClick={handleNext}>next</button>
+                    <button className="rounded-xl border-2 hover:bg-gray-100 border-primary-default text-primary-default  px-[15px] py-[10px]" onClick={handleBack}>back</button>
+                    {                    
+                        pagination !== 3 ?   
+                            <button className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl" onClick={handleNext}>next</button>
+                        :
+                            <button className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl" onClick={handleFormSubmit}>Submit</button>
+
+                    }                
                 </div>
             </div>
         </div>

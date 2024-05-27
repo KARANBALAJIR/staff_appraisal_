@@ -1,20 +1,30 @@
 "use client"
 import '@/styles/global.css'
-import { useEffect, useState , useRef, ChangeEvent, ChangeEventHandler } from 'react';
+import { useEffect, useState } from 'react';
 import toast , { Toaster } from 'react-hot-toast';
 import Link from "next/link";
+import axios from 'axios';
+import { getCookie } from '@/services/cookie.service';
 
-const TempCard = ({ formId } : {formId : number}) =>{
+const TempCard = ({ formId, details } : {formId : number , details: any}) =>{
     const colorArray = ["bg-blue-500","bg-green-500","bg-purple-500","bg-yellow-500"]
+    console.log(details)
     return(
-        <Link href={'/appraisal-form/'+formId}>
-            <div className={`h-[200px] rounded-[8px] shadow-lg  ${colorArray[formId%4]} hover:shadow-none duration-200 ease-in`}>
+        <Link href={'/appraisal-form/'+details.id}>
+            <div className={`h-[200px] flex flex-col gap-[16px] rounded-[8px] shadow-lg  ${colorArray[formId%4]} hover:shadow-none duration-200 ease-in p-[16px]`}>
+                <div className='flex justify-between'>
+                    <h1 className="text-2xl text-white">{details.form_title}</h1>
+                    <p className="text-white">{details.start_year} - {details.end_year}</p>
+                </div>
+                <div className='flex justify-between'>
+                    <p className="text-white">{details.current_position}</p>
+                </div>
             </div>
         </Link>
     )
 }
 
-const CreateForm  = ({ openCreateForm, setOpenCreateForm }: { openCreateForm: boolean, setOpenCreateForm  : Function}) => {
+const CreateForm = ({ openCreateForm, setOpenCreateForm, setuserForms }: { openCreateForm: boolean, setOpenCreateForm: Function, setuserForms :Function}) => {
     
     const [createFormData, setCreateFormData] = useState({
         form_title:"",
@@ -24,6 +34,8 @@ const CreateForm  = ({ openCreateForm, setOpenCreateForm }: { openCreateForm: bo
         expecting_appraisal:"",
     })
 
+    const token = getCookie('usertoken');
+
     const handleClickOutside = () => {
         setOpenCreateForm(false);
     };
@@ -32,6 +44,8 @@ const CreateForm  = ({ openCreateForm, setOpenCreateForm }: { openCreateForm: bo
         e.stopPropagation();
     };
 
+
+
     async function handleFormChange(e:React.ChangeEvent<HTMLInputElement>){
         const name = e.target.name;
         const value = e.target.value;        
@@ -39,13 +53,49 @@ const CreateForm  = ({ openCreateForm, setOpenCreateForm }: { openCreateForm: bo
             ...createFormData,
             [name]: value // Update the createFormData object with the input values
         }
-        console.log(name,value)
-        console.log(newData);
         setCreateFormData(newData)
-        console.log(createFormData)
     }
     async function handleCreateForm(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        try{
+            const response = await axios.post('/api/form', createFormData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = response.data;
+            
+            setuserForms((prev: Array<any>) => {
+                return [...prev, data.data];
+            })
+
+            if(data.status === 'success'){
+                toast.success(data.message,{
+                    duration: 2000,
+                    position: 'top-right',
+                    style: {
+                        minWidth: '250px',
+                        minHeight: '50px',
+                        padding: '10px',
+                    }
+                })
+            }else{
+                toast.error(data.message, {
+                    duration: 2000,
+                    position: 'top-right',
+                    style: {
+                        minWidth: '250px',
+                        minHeight: '50px',
+                        padding: '10px',
+                    }
+                })
+            }
+        }catch(err: any){
+            console.log(err)
+        }
+
         setOpenCreateForm(false);
     }
 
@@ -119,6 +169,28 @@ export default function Appraisal_Page() {
 
     const [pagination, setPagination] = useState(1);
     const [openCreateForm , setOpenCreateForm] = useState<boolean>(false);
+    const token = getCookie('usertoken')
+    const [userForms, setuserForms] = useState([]);
+
+    useEffect(() => {
+        getStaffForm();
+    }, [])
+
+    const getStaffForm = async () => {
+        try {
+            const response = await axios.get('/api/form', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const data = response.data;
+            console.log(data)
+            setuserForms(data.data)
+        } catch (err: any) {
+            console.log(err)
+        }
+    }
 
     useEffect(()=>{
         console.log(openCreateForm);
@@ -140,6 +212,7 @@ export default function Appraisal_Page() {
         }
     }
 
+    
     function handleNext(){
         if(pagination < 3 ){
             setPagination(pagination + 1 )
@@ -158,17 +231,17 @@ export default function Appraisal_Page() {
     return (
         
             <div className='flex flex-col gap-[16px] p-[12px]'>
-                <CreateForm openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm} />
+                <CreateForm openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm} setuserForms={setuserForms} />
                 <div className='flex justify-between'>   
                     <h1 className='font-semibold text-3xl'>Forms</h1>
                     <PlusIcon openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm}/>
                 </div>
                 <div className='flex flex-col gap-[16px] flex-wrap justify-between'>
                     {
-                        [1,2,3,4,5,6,7,8,9].map((item, index) => {
+                        userForms.map((item, index) => {
                             return(
                                 <>
-                                    <TempCard key={index} formId={index} />
+                                    <TempCard key={index} formId={index} details={item} />
                                 </>
                             )
                         })
