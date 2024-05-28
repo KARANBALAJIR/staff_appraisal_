@@ -428,8 +428,16 @@ const AdminDashboard: React.FC = () => {
             }
             {editUser && (
                 <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white p-8 rounded shadow-lg w-full max-w-md">
+                    <div className="bg-white p-8 rounded shadow-lg w-full max-w-md relative">
                         <h2 className="text-lg font-bold mb-4">User Form</h2>
+                        <button
+                            onClick={() => setEditUser(null)}
+                            className="absolute top-4 right-4 m-4 text-gray-500 hover:text-gray-700 focus:outline-none rounded-full border border-gray-400 p-1 hover:border-gray-700 transition-colors duration-300"
+                        >
+                            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-2">
                                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
