@@ -238,6 +238,9 @@ export default function Appraisal_Page() {
                 </div>
                 <div className='flex flex-col gap-[16px] flex-wrap justify-between'>
                     {
+
+                        userForms.length === 0 ? <>Loading ...</>
+                        :
                         userForms.map((item, index) => {
                             return(
                                 <>

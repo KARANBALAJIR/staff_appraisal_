@@ -35,7 +35,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
 
     useEffect(() => {
         const userAccess = allRoles[role];
-        router.push(`${userAccess[0]}`)
+        router.push(`http://localhost:3000/${userAccess[0]}`)
     }, [role])
 
     const checkRole = async () => {
@@ -99,7 +99,6 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                                     </span>
                                 </button>
                             </div>
-
                         </div>
                         <div className='flex mt-[20px]'>
                             <div className={`${sideBarOpen === true ? 'w-[180px]' : 'w-[65px]'} flex flex-col gap-y-4 items-center duration-200 ease-in`}>
@@ -147,7 +146,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                     <div className=' h-[calc(100vh)] overflow-hidden home no-scrollbar duration-200 ease-in scroll-smooth'>
                         <div className="h-full overflow-y-auto no-scrollbar">
                             <div className='flex flex-col bg-ghostWhite'>
-                                <div className='flex justify-between p-[12px] bg-white top-0 sticky z-30'>
+                                <div className='flex justify-between p-[12px] bg-white top-0 sticky z-10'>
                                     <div className="flex gap-[12px] items-center">
                                         {/* <div className='w-[40px] h-[40px] rounded-full bg-gray-400'>
 
