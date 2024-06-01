@@ -84,6 +84,7 @@ enum FormStatus {
   PENDING
   APPROVED
   REJECTED
+  NOT_VALID
 }
 
 model User{
@@ -120,9 +121,12 @@ model UserCreationForm {
   expecting_appraisal String @default("0")
   form_data_relation UserCreationFormData[]
   user_form_status UserFormStatus @default(NOTSUBMITTED) 
-  form_status FormStatus @default(PENDING)
+  // form_status FormStatus @default(PENDING)
+  hod_status FormStatus @default(PENDING)
+  master_status FormStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  hod_id String @db.ObjectId @default("")
 }
 
 model UserCreationFormData {
