@@ -14,9 +14,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if(req.method === 'GET'){
             try{
-                // const hod_request
+                const hod_mapped_applied_form = await prisma.userCreationForm.findMany({
+                    where:{
+                        hod_id : req.user.id,
+                    }
+                })
+                console.log(hod_mapped_applied_form)
             }catch(err : any){
-
+                return res.status(500).json({status:"error",message:err.message})
             }
         }
 
