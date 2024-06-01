@@ -427,37 +427,40 @@
             "flag": false
         }
     ],
-    "service":[
+    "services": [
         {
             "title": "1. Incharges for Accreditation Activities - NAAC,NBA, UGC, NIRF, AU etc.,",
-            "headers" : ["Sl. No", "Incharge of the Activity / File", "Points"],
-            "data": [
-                { "slno": 1, "inchargeofactivity": "","points":""},
-                { "slno": 2, "inchargeofactivity": "","points":""},
-                { "slno": 3, "inchargeofactivity": "","points":""}
+            "headers": [
+                "Sl. No",
+                "Incharge Of the Activity / File",
+                "Points"
             ],
-            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
-            "validation":{
-                "proofRequired": "",
-                "erpProof": "",
-                "selfEvaluation": "",
-                "hrEvaluation": "",
-                "hrComment": "",
-                "totalScore":""
-            },
-            "maxPoint": 5,
-            "flag": false
-        },
-        {
-            "title": "2. Branding of Institution",
-            "headers" : ["Sl. No", "Name of the Activity/Achievement", "Max. Marks","Points"],
             "data": [
-                { "slno": 1, "activity": "Publication in Newspaper","maxMark":3,"points":""},
-                { "slno": 2, "activity": "Social Service activity (Website for Society/ Projects  implemented for Agri and Society/Mobile app/etc.)","maxMark":2,"points":""},
-                { "slno": 3, "activity": "Youtube/Facebook/Instagram activities","maxMark":2,"points":""}
+                {
+                    "slno": 1,
+                    "inchargeofactivity": "",
+                    "points": ""
+                },
+                {
+                    "slno": 2,
+                    "inchargeofactivity": "",
+                    "points": ""
+                },
+                {
+                    "slno": 3,
+                    "inchargeofactivity": "",
+                    "points": ""
+                }
             ],
-            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
-            "validation":{
+            "fields": [
+                "proofRequired",
+                "erpProof",
+                "selfEvaluation",
+                "hrEvaluation",
+                "hrComment",
+                "totalScore"
+            ],
+            "validation": {
                 "proofRequired": "",
                 "erpProof": "",
                 "selfEvaluation": "",
@@ -469,35 +472,140 @@
             "flag": false
         },
         {
-            "title": "3. Membership in Professional Bodies - 2 Points",
-            "headers" : ["Sl. No", "Name of the Professional body", "Validity Status","Points"],
-            "data": [
-                { "slno": 1, "nameofprobody": "","validityStatus":"","points":""},
-                { "slno": 2, "nameofprobody": "","validityStatus":"","points":""},
-                { "slno": 3, "nameofprobody": "","validityStatus":"","points":""}
+            "title": " 2. Branding of Institution",
+            "headers": [
+                "Sl. No",
+                "Name of the Activity/Achievement",
+                "Max. Marks",
+                "Points"
             ],
-            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
-            "validation":{
+            "data": [
+                {
+                    "slno": 1,
+                    "activity": "Publication in Newspaper",
+                    "maxmarks": "3",
+                    "points": ""
+                },
+                {
+                    "slno": 2,
+                    "activity": "Social Service activity (Website for Society/ Projects implemented for Agri and Society/Mobile app/etc.)",
+                    "maxmarks": "2",
+                    "points": ""
+                },
+                {
+                    "slno": 3,
+                    "activity": "YouTube/Facebook/Instagram activities",
+                    "maxmarks": "2",
+                    "points": ""
+                }
+            ],
+            "fields": [
+                "proofRequired",
+                "erpProof",
+                "selfEvaluation",
+                "hrEvaluation",
+                "hrComment",
+                "averagePass"
+            ],
+            "validation": {
                 "proofRequired": "",
                 "erpProof": "",
                 "selfEvaluation": "",
                 "hrEvaluation": "",
                 "hrComment": "",
-                "totalScore": 0
+                "averagePass": ""
             },
-            "maxPoint": 3,
+            "maxPoint": 5,
+            "flag": false
+        },
+        {
+            "title": "3. Membership in Professional Bodies - 2 Points",
+            "headers": [
+                "Sl. No",
+                "Name of the Professional Body",
+                "Validity Status",
+                "Points"
+            ],
+            "data": [
+                {
+                    "slno": 1,
+                    "nameofprobody": "",
+                    "validitystatus": "",
+                    "points": ""
+                },
+                {
+                    "slno": 2,
+                    "nameofprobody": "",
+                    "validitystatus": "",
+                    "points": ""
+                },
+                {
+                    "slno": 3,
+                    "nameofprobody": "",
+                    "validitystatus": "",
+                    "points": ""
+                }
+            ],
+            "fields": [
+                "proofRequired",
+                "erpProof",
+                "selfEvaluation",
+                "hrEvaluation",
+                "hrComment",
+                "totalScore"
+            ],
+            "validation": {
+                "proofRequired": "",
+                "erpProof": "",
+                "selfEvaluation": "",
+                "hrEvaluation": "",
+                "hrComment": "",
+                "totalScore": ""
+            },
+            "maxPoint": 2,
             "flag": false
         },
         {
             "title": "4. Co-curricular and Outreach Programme",
-            "headers" : ["Sl. No", "date", "Name of the Program","Organized by","Acted as Resource person/ Participant"],
-            "data": [
-                { "slno": 1, "nameofprogram": "", "date":"","organizedBy":"","actedasresourceperson":""},
-                { "slno": 2, "nameofprogram": "", "date":"","organizedBy":"","actedasresourceperson":""},
-                { "slno": 3, "nameofprogram": "", "date":"","organizedBy":"","actedasresourceperson":""}
+            "headers": [
+                "Sl. No",
+                "Date",
+                "Name of the Program",
+                "Organized By",
+                "Acted as Resource person/Participant"
             ],
-            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
-            "validation":{
+            "data": [
+                {
+                    "slno": 1,
+                    "date": "",
+                    "nameofprogram": "",
+                    "organizedby": "",
+                    "actedasresourceperson": ""
+                },
+                {
+                    "slno": 2,
+                    "date": "",
+                    "nameofprogram": "",
+                    "organizedby": "",
+                    "actedasresourceperson": ""
+                },
+                {
+                    "slno": 3,
+                    "date": "",
+                    "nameofprogram": "",
+                    "organizedby": "",
+                    "actedasresourceperson": ""
+                }
+            ],
+            "fields": [
+                "proofRequired",
+                "erpProof",
+                "selfEvaluation",
+                "hrEvaluation",
+                "hrComment",
+                "totalScore"
+            ],
+            "validation": {
                 "proofRequired": "",
                 "erpProof": "",
                 "selfEvaluation": "",
@@ -510,34 +618,90 @@
         },
         {
             "title": "5. Assistance in General Administration (Assessed by HOD/Principal)",
-            "headers" : ["Sl. No","Name of Task"],
-            "data": [
-                { "slno": 1, "nameoftask": ""},
-                { "slno": 2, "nameoftask": ""},
-                { "slno": 3, "nameoftask": ""}
+            "headers": [
+                "Sl. No",
+                "Name of Task"
             ],
-            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
-            "validation":{
+            "data": [
+                {
+                    "slno": 1,
+                    "nameoftask": ""
+                },
+                {
+                    "slno": 2,
+                    "nameoftask": ""
+                },
+                {
+                    "slno": 3,
+                    "nameoftask": ""
+                }
+            ],
+            "fields": [
+                "proofRequired",
+                "erpProof",
+                "selfEvaluation",
+                "hrEvaluation",
+                "hrComment",
+                "totalScore"
+            ],
+            "validation": {
                 "proofRequired": "",
                 "erpProof": "",
                 "selfEvaluation": "",
                 "hrEvaluation": "",
                 "hrComment": "",
-                "totalScore":""
+                "totalScore": ""
             },
             "maxPoint": 5,
             "flag": false
         },
         {
             "title": "6. Organizing/Handling Training Programme for External Participants",
-            "fields" : ["proofRequired", "erpProof", "selfEvaluation", "hrEvaluation", "hrComment", "totalScore"],
-            "validation":{
+            "headers": [
+                "Sl. No",
+                "Name of the Programme",
+                "Date",
+                "Number of Participants",
+                "Feedback"
+            ],
+            "data": [
+                {
+                    "slno": 1,
+                    "nameofprogram": "",
+                    "date": "",
+                    "numofparticipants": "",
+                    "feedback": ""
+                },
+                {
+                    "slno": 2,
+                    "nameofprogram": "",
+                    "date": "",
+                    "numofparticipants": "",
+                    "feedback": ""
+                },
+                {
+                    "slno": 3,
+                    "nameofprogram": "",
+                    "date": "",
+                    "numofparticipants": "",
+                    "feedback": ""
+                }
+            ],
+            "fields": [
+                "proofRequired",
+                "erpProof",
+                "selfEvaluation",
+                "hrEvaluation",
+                "hrComment",
+                "totalScore"
+            ],
+            "validation": {
                 "proofRequired": "",
                 "erpProof": "",
                 "selfEvaluation": "",
                 "hrEvaluation": "",
                 "hrComment": "",
-                "totalScore": 0
+                "totalScore": ""
             },
             "maxPoint": 5,
             "flag": false
