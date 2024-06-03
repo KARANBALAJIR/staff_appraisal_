@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 })
 
                 if(!hodModel){
-                    return res.status(404).json({ status: "error", message: "HOD not found" })
+                    return res.status(404).json({ status: "failed", message: "HOD not found" })
                 }
     
                 const updatedStatus = await prisma.userCreationForm.update({
@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
             catch (error) {
                 console.error("An error occurred:", error);
-                return res.status(500).json({ success: false, message: "An error occurred while processing the request." });
+                return res.status(500).json({ success: "failed", message: "An error occurred while processing the request." });
             }
         }
     });
