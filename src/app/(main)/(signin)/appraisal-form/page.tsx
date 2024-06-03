@@ -251,7 +251,10 @@ export default function Appraisal_Page() {
             <div className='flex flex-col gap-[16px] p-[12px]'>
                 <CreateForm openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm} setuserForms={setuserForms} />
                 <div className='flex justify-between'>   
-                    <h1 className='font-semibold text-3xl'>Forms</h1>
+                    <div className='flex gap-4 p-2 duration-500'>
+                        <button className={`font-medium text-2xl ${(viewType === "default")?' border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("default")}}>Forms</button>
+                        <button className={`font-medium text-2xl ${(viewType === "SUBMITTED")?'border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("SUBMITTED")}}>Submitted</button>
+                    </div>
                     <PlusIcon openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm}/>
                 </div>
                 <div className='flex flex-col gap-[16px] flex-wrap justify-between'>
