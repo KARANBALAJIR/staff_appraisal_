@@ -6,7 +6,7 @@ import Link from "next/link";
 import axios from 'axios';
 import { getCookie } from '@/services/cookie.service';
 
-const TempCard = ({ formId, details } : {formId : number , details: any}) =>{
+export const TempCard = ({ formId, details } : {formId : number , details: any}) =>{
     const colorArray = ["bg-blue-500","bg-green-500","bg-purple-500","bg-yellow-500"]
     console.log(details)
     return(

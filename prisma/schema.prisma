@@ -126,7 +126,7 @@ model UserCreationForm {
   master_status FormStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  hod_id String @db.ObjectId @default("")
+  hod_id String? @db.ObjectId
 }
 
 model UserCreationFormData {
