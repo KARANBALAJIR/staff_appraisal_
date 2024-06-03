@@ -89,8 +89,7 @@ export default function Page( { params } : { params: { formId : string } } ) {
         const token = getCookie('usertoken')
         try {
             setFormState(SubmitStateEnum.SUBMITTING)
-            const response = await axios.patch('/api/form/appraisal_data', {
-                form_id:params.formId,
+            const response = await axios.post('/api/user/staff/form?form_id='+params.formId, {
                 appraisal_form_data: associateData
             },{
                 headers: {
@@ -99,6 +98,7 @@ export default function Page( { params } : { params: { formId : string } } ) {
                 }
             
             });
+            
             setFormState(SubmitStateEnum.SUBMITTED)
             toast.success('Submit Successful', {
                 duration: 2000,
