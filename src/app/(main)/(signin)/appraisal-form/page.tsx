@@ -171,10 +171,28 @@ export default function Appraisal_Page() {
     const [openCreateForm , setOpenCreateForm] = useState<boolean>(false);
     const token = getCookie('usertoken')
     const [userForms, setuserForms] = useState([]);
+    const [filteredForms, setFilteredForms] = useState([]);
+    const [viewType, setViewType] = useState<string>("submitted");
 
     useEffect(() => {
         getStaffForm();
     }, [])
+
+    useEffect(()=>{
+        if(viewType === 'default'){
+            setFilteredForms(userForms)
+        }else if(viewType === 'submitted'){
+            console.log("check hello world")
+            const tdata= userForms.filter((item: any) => item.user_form_status === 'SUBMITTED')
+            // console.log(first)
+            setFilteredForms(tdata)
+            // setFilteredForms(userForms.filter((item: any) => item.user_form_status === 'SUBMITED'))
+        }
+    },[userForms, viewType]);
+
+    useEffect(()=>{
+        console.log(filteredForms)  
+    },[filteredForms])
 
     const getStaffForm = async () => {
         try {
@@ -239,9 +257,9 @@ export default function Appraisal_Page() {
                 <div className='flex flex-col gap-[16px] flex-wrap justify-between'>
                     {
 
-                        userForms.length === 0 ? <>Loading ...</>
+                        filteredForms.length === 0 ? <>Loading ...</>
                         :
-                        userForms.map((item, index) => {
+                        filteredForms.map((item, index) => {
                             return(
                                 <>
                                     <TempCard key={index} formId={index} details={item} />
