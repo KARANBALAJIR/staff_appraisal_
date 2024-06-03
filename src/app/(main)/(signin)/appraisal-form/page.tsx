@@ -172,7 +172,7 @@ export default function Appraisal_Page() {
     const token = getCookie('usertoken')
     const [userForms, setuserForms] = useState([]);
     const [filteredForms, setFilteredForms] = useState([]);
-    const [viewType, setViewType] = useState<string>("submitted");
+    const [viewType, setViewType] = useState<string>("NOTSUBMITTED");
 
     useEffect(() => {
         getStaffForm();
@@ -181,12 +181,11 @@ export default function Appraisal_Page() {
     useEffect(()=>{
         if(viewType === 'default'){
             setFilteredForms(userForms)
-        }else if(viewType === 'submitted'){
-            console.log("check hello world")
-            const tdata= userForms.filter((item: any) => item.user_form_status === 'SUBMITTED')
-            // console.log(first)
-            setFilteredForms(tdata)
-            // setFilteredForms(userForms.filter((item: any) => item.user_form_status === 'SUBMITED'))
+        } else {
+            const tdata = userForms.filter((item: any) => item.user_form_status === viewType)
+            setFilteredForms((prev) => {
+                return [...tdata]
+            })
         }
     },[userForms, viewType]);
 
