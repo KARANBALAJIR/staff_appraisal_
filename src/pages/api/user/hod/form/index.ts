@@ -6,7 +6,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const prisma = new PrismaClient();
     await checkAuthentication(req, res, async function (){
         if(req.method === "POST"){
-            const {form_id} = req.query;
+            try{
+                const {form_id} = req.query;
             const {appraisal_form_data} = req.body;
 
             const form = await prisma.userCreationFormData.update({
@@ -27,6 +28,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     hod_status: FormStatus.NOT_VALID
                 }
             })
+            return res.status(200).json({ status: "success", message: "Successfully submitted form", data: updatedStatus })
+            }
+            catch (error) {
+                console.error("An error occurred:", error);
+                return res.status(500).json({ success: false, message: "An error occurred while processing the request." });
+            }
         }
     });
 }

@@ -124,7 +124,7 @@ const CommonComponent = (props: formComponentProps) => {
             {/* <h1 className="font-semibold text-3xl text-blueGray-700 text-center">{field.toLocaleUpperCase()}</h1> */}
             <div className="w-full">
                 <div className="relative flex flex-col gap-[16px] break-words" >
-                    {formData.map((table, index) => renderTable(table, index))}
+                    {(formData)?formData.map((table, index) => renderTable(table, index)):"Loading"}
                     {/* {showProjectDetails && renderTable(tableData[5], 5)}
                     {showPublicationDetails && renderTable(tableData[6], 6)} */}
                 </div>
