@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import '@/styles/global.css'
 import { useEffect, useState } from 'react';
@@ -5,6 +6,7 @@ import toast , { Toaster } from 'react-hot-toast';
 import Link from "next/link";
 import axios from 'axios';
 import { getCookie } from '@/services/cookie.service';
+import noDraft from '@/assets/noDraft.png';
 
 export const TempCard = ({ formId, details } : {formId : number , details: any}) =>{
     const colorArray = ["bg-blue-500","bg-green-500","bg-purple-500","bg-yellow-500"]
@@ -172,16 +174,18 @@ export default function Appraisal_Page() {
     const token = getCookie('usertoken')
     const [userForms, setuserForms] = useState([]);
     const [filteredForms, setFilteredForms] = useState([]);
-    const [viewType, setViewType] = useState<string>("NOTSUBMITTED");
+    const [viewType, setViewType] = useState<string>("DEFAULT");
 
     useEffect(() => {
         getStaffForm();
     }, [])
 
     useEffect(()=>{
-        if(viewType === 'default'){
+        console.log('incoming')
+        if(viewType === "DEFAULT"){
             setFilteredForms(userForms)
-        } else {
+        }
+        else{
             const tdata = userForms.filter((item: any) => item.user_form_status === viewType)
             setFilteredForms((prev) => {
                 return [...tdata]
@@ -190,8 +194,9 @@ export default function Appraisal_Page() {
     },[userForms, viewType]);
 
     useEffect(()=>{
-        console.log(filteredForms)  
-    },[filteredForms])
+        console.log(userForms)
+        console.log(filteredForms)
+    },[userForms,filteredForms])
 
     const getStaffForm = async () => {
         try {
@@ -251,7 +256,7 @@ export default function Appraisal_Page() {
                 <CreateForm openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm} setuserForms={setuserForms} />
                 <div className='flex justify-between'>   
                     <div className='flex gap-4 p-2 duration-500'>
-                        <button className={`font-medium text-2xl ${(viewType === "default")?' border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("default")}}>Forms</button>
+                        <button className={`font-medium text-2xl ${(viewType === "DEFAULT")?' border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("DEFAULT")}}>Forms</button>
                         <button className={`font-medium text-2xl ${(viewType === "SUBMITTED")?'border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("SUBMITTED")}}>Submitted</button>
                     </div>
                     <PlusIcon openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm}/>
@@ -259,7 +264,11 @@ export default function Appraisal_Page() {
                 <div className='flex flex-col gap-[16px] flex-wrap justify-between'>
                     {
 
-                        filteredForms.length === 0 ? <>Loading ...</>
+                        // eslint-disable-next-line react/jsx-no-comment-textnodes
+                        filteredForms.length === 0 ? <div className='h-[80vh]'>
+                            <img src={noDraft.src} alt="No Draft Form" className='mx-auto'/>
+                            <p className='text-center text-2xl font-semibold'>No Draft Form Found</p>
+                        </div>
                         :
                         filteredForms.map((item, index) => {
                             return(
