@@ -31,6 +31,7 @@ export default function Page( { params } : { params: { formId : string } } ) {
     const [associateData, setAssociateData] = useState<Record<string, any> | null>(null);
     const [saveState, setSaveState] = useState<SaveStateEnum>(SaveStateEnum.SAVE);
     const [formState,setFormState] = useState<SubmitStateEnum>(SubmitStateEnum.SUBMIT);
+    const [submitFormPopup, setSubmitFormPopup] = useState<boolean>(false)
 
     useEffect(()=>{
         const fetchData = async () => {
@@ -247,31 +248,43 @@ export default function Page( { params } : { params: { formId : string } } ) {
                     {                    
                         (pagination !== 3) ?   
                             <button className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl" onClick={handleNext}>next</button>
-                            : <>
-
-                                {
-                                    (formState === 0) ?
-                                    <button className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl" onClick={handleFormSubmit}>Submit</button>
-                                    :
-                                    (formState === 1) ?
-                                    <div className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl">
-                                        <TbFaceIdError className='text-[24px] text-white'/>
-                                    </div>
-                                    :         
-                                    (formState === 2) ?
-                                    <div className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl">
-                                        <GrCycle className='text-[24px] text-white' />
-                                    </div>
-                                    :
-                                    (formState === 3) ?
-                                    <div className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl">
-                                        <IoCloudDone className='text-[24px] text-white' />
-                                    </div>
-                                    :
-                                    <></>
-                                }
-                            </>
+                            : <button className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl" onClick={() => setSubmitFormPopup(true)}>Submit</button>
                     }                
+                </div>
+            </div>
+            {/* popup for confirm submit button */}
+            <div className={`fixed inset-0 z-50 bg-black bg-opacity-50 ${submitFormPopup ? 'block' : 'hidden'}`}>
+                <div className="absolute inset-0 flex justify-center items-center">
+                    <div className="bg-white p-[20px] rounded-xl w-[500px]">
+                        <h1 className="text-2xl font-semibold">Confirm Submit</h1>
+                        <p>Are you sure you want to submit this form?</p>
+                        <div className="flex justify-end items-center gap-[10px] mt-[20px]">
+                        <>
+                            {
+                                (formState === 0) ?
+                                <button className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl" onClick={handleFormSubmit}>Yes</button>
+                                :
+                                (formState === 1) ?
+                                <div className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl">
+                                    <i className="fa fa-circle-o-notch fa-spin"></i>
+                                </div>
+                                :         
+                                (formState === 2) ?
+                                <div className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl">
+                                    <i className="fa fa-circle-o-notch fa-spin"></i>
+                                </div>
+                                :
+                                (formState === 3) ?
+                                <div className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl">
+                                    <IoCloudDone className='text-[24px] text-white' />
+                                </div>
+                                :
+                                <></>
+                            }
+                            </>
+                            <button className="bg-impButton-default hover:bg-impButton-hover text-white bg-primary-default px-[15px] py-[10px] rounded-xl" onClick={() => setSubmitFormPopup(false)}>No</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
