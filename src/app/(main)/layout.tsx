@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { getCookie } from '@/services/cookie.service'
 import { useRouter } from 'next/navigation'
 import { Provider } from 'react-redux'
-import store from "@/redux/store";  
+import store from "@/utils/redux/store";  
 
 
 const SignupLayout = ({children}: Readonly<{ children: React.ReactNode;}>) => {

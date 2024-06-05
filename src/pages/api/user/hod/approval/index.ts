@@ -4,9 +4,11 @@ import { PrismaClient, FormStatus , UserFormStatus} from '@prisma/client';
 const { ObjectId } = require('mongoose');
 const prisma = new PrismaClient();
 
-import assoForm from '@/lib/data/associateStructure.json'
-import assiForm from '@/lib/data/Assistant_form_data.json'
-import professorForm from '@/lib/data/Professor_form_data.json'
+export const config = {
+    api: {
+        externalResolver: true,
+    },
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -36,8 +38,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (req.method === 'POST') {
             try {
                 const { form_id } = req.query;
-                const { appraisal_data ,  approval_status } = req.body;
-
+                const { approval_status } = req.body;
+                console.log('incoming')
                 const newFormData = await prisma.userCreationForm.update({
                     where: {
                         id: form_id as string,
@@ -46,17 +48,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         hod_status:approval_status,
                     }
                 });
+                console.log(newFormData)
+                // await prisma.userCreationFormData.update({
+                //     where:{
+                //         formId:form_id as string,
+                //     },
+                //     data:{
+                //         appraisal_form_data:appraisal_data
+                //     }
+                // })
 
-                await prisma.userCreationFormData.update({
-                    where:{
-                        formId:form_id as string,
-                    },
-                    data:{
-                        appraisal_form_data:appraisal_data
-                    }
-                })
-
-                return res.status(200).json({ status: "success", message: "User Status Updated" })
+                return res.status(200).json({ status: "success", message: "User Status Updated" , newFormData })
 
             }
             catch (error: any) {

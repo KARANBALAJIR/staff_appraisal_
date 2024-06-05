@@ -8,8 +8,9 @@ import { useRouter } from 'next/navigation'
 import toast, { Toaster , ToastBar } from 'react-hot-toast';
 import { deleteCookie, setCookie } from '@/services/cookie.service'
 
+
+
 const Page = () => {
-  
   const router = useRouter();
 
   const [email, setEmail] = useState('');

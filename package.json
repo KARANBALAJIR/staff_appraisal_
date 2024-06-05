@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.9",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.19",
     "@nextui-org/react": "^2.2.10",
     "@prisma/client": "^5.13.0",
     "@reduxjs/toolkit": "^2.2.2",
