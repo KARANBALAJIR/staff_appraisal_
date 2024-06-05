@@ -257,6 +257,7 @@ export default function Appraisal_Page() {
                 <div className='flex justify-between'>   
                     <div className='flex gap-4 p-2 duration-500'>
                         <button className={`font-medium text-2xl ${(viewType === "DEFAULT")?' border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("DEFAULT")}}>Forms</button>
+                    <button className={`font-medium text-2xl ${(viewType === "NOTSUBMITTED") ? ' border-b-2 border-primary-default' : 'opacity-25'}`} onClick={() => { setViewType("NOTSUBMITTED") }}>Pending</button>
                         <button className={`font-medium text-2xl ${(viewType === "SUBMITTED")?'border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("SUBMITTED")}}>Submitted</button>
                     </div>
                     <PlusIcon openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm}/>

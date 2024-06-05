@@ -1,17 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// interface InitialState {
-//     name: string,
-//     email: string,
-//     role: string,
-//     designation: string,
-//     department: string,
-//     phoneNo: string,
-//     gender: string,
-//     status: string,
-//     isFirst: boolean
-// }
-
 const initialState = {
     userDetails : {
         name: "",

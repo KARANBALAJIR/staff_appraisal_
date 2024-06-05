@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { deleteCookie, getCookie } from "@/services/cookie.service";
 import axios from "axios";
-import { updateUserDetails } from "@/redux/userSlice";
+import { updateUserDetails } from "@/utils/redux/userSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import '@/components/Styles/index.css'
 import '@/styles/global.css'
 import { UserType } from "@prisma/client";
 import { usePathname } from "next/navigation";
+import { useDispatch } from 'react-redux'
 
 export default function SignedInLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     const [sideBarOpen, setSideBarOpen] = useState(true);
@@ -20,9 +21,10 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
     const pathname = usePathname();
     const [defaultIndex, setDefaultIndex] = useState(0);
     const [loggedIn , setLoggedIn] = useState("loggedOut");
+    const dispatch = useDispatch();
     const allRoles: Record<UserType, string[]> = {
         'ANONYMOUS': ['anonymous'],
-        'STAFF': ['appraisal-form'],
+        'STAFF': ['appraisal-form','applied'],
         'HOD': ['appraisal-form', 'approval-form'],
         'MASTER': ['approval-form'],
         'ADMIN': ['user-management', 'approval-form'],
@@ -53,7 +55,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
             const userData = response.data.user;
             setRole(userData.role)
             setLoggedIn("loggedIn")
-            updateUserDetails(userData);
+            dispatch(updateUserDetails(userData));
         }
         catch (err: any) {
             setLoggedIn("loggedOut")
@@ -130,6 +132,12 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                                                     <Link title="anonymous" key={index} href="/anonymous" className={`px-[16px] py-[8px] 3 rounded-tr-xl rounded-br-xl  ${pathname === '/anonymous' ? 'bg-primary-default hover:bg-impButton-hover text-white' : 'bg-gray-100 text-gray-700'}   w-full flex flex-row gap-4 items-center duration-200 ease-in text-black`}>
                                                         <span className="material-icons-sharp">no_accounts</span>
                                                         <text className={` text-lg font-normal duration-200 ease-in ${sideBarOpen === true ? ' opacity-100 ' : ' opacity-0 '}`}>Anonymous</text>
+                                                    </Link> : <></>
+                                                }
+                                                {(item === 'applied') ?
+                                                    <Link title="anonymous" key={index} href="/applied" className={`px-[16px] py-[8px] 3 rounded-tr-xl rounded-br-xl  ${pathname === '/applied' ? 'bg-primary-default hover:bg-impButton-hover text-white' : 'bg-gray-100 text-gray-700'}   w-full flex flex-row gap-4 items-center duration-200 ease-in text-black`}>
+                                                        <span className="material-icons-sharp">approval</span>
+                                                        <text className={` text-lg font-normal duration-200 ease-in ${sideBarOpen === true ? ' opacity-100 ' : ' opacity-0 '}`}>Applied</text>
                                                     </Link> : <></>
                                                 }
                                             </>

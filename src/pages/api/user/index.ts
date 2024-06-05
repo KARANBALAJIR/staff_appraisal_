@@ -14,7 +14,7 @@ export async function checkAuthentication(req: NextApiRequest, res: NextApiRespo
         return res.status(401).json({success:false,message:'Provide a valid jwt token'})
     }
 
-    const BlackListToken =await prisma.blackListToken.findUnique({
+    const BlackListToken =await prisma.blackListToken.findFirst({
         where:{
             token,
         }

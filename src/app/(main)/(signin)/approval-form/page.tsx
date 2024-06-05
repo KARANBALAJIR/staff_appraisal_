@@ -1,47 +1,33 @@
 "use client"
 
 import axios from "axios"
-import { useEffect, useState  } from "react"
+import React, { useEffect, useState  } from "react"
 import { getCookie } from "@/services/cookie.service";
 import { TempCard } from "@/app/(main)/(signin)/appraisal-form/page";
-export default function ApprovalPage() {
+import { useSelector } from "react-redux";
+import { UserType } from "@prisma/client";
+import HodApproval from "@/components/HodApproval";
+import MasterApproval from "@/components/MasterApproval";
 
-    const [hodApprovalData , setHodApprovalData] = useState([]);
-        
+export default function Page() {
+    // const  
+    const userDetails = useSelector((store: any) => store.userDetails.userDetails)
+    const [role, setRole] = useState<UserType | null>(null)
     useEffect(()=>{
-        fetchHodApprovalData();
-    },[])    
+        setRole(userDetails.role)
+    },[userDetails])
 
-    const fetchHodApprovalData = async() =>{
-        const token = getCookie('usertoken')
-        try{
-            const response = await axios.get('http://localhost:3000/api/user/hod/approval',{
-                headers:{
-                    'Authorization': `Bearer ${token}`,
+    return(
+        <>  
+            <div className="p-[16px]">
+                {
+                    (role === UserType.HOD) ? <HodApproval /> :
+                        (role === UserType.MASTER) ? <MasterApproval /> :
+                            <h1>Not Authorized</h1>
+
                 }
-            })
-            setHodApprovalData(response.data.data)
-        } catch(err : any){
-            console.log(err.response)
-        }
-    }
-
-    return (
-        <>
-            <section id="approval forms for hod" className=" p-[16px]">
-                <div className="flex flex-col gap-[16px]">
-                    {
-                        hodApprovalData && hodApprovalData.map((data, index) => {
-                            return (
-                                <>
-                                    <TempCard formId={index} details={data} />
-                                </>
-                            )
-                        })
-                    }
-                </div>
-        </section>
-           
+            </div>
+            
         </>
     )
 }
