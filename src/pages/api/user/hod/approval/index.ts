@@ -21,6 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     where:{
                         hod_id : req.user?.id,
                         user_form_status:UserFormStatus.SUBMITTED,
+                        hod_status:FormStatus.PENDING,
                     }
                 })
 
