@@ -10,7 +10,7 @@ interface FormApprovalProps{
 }
 
 const FormApproval : React.FC<FormApprovalProps> = (props) =>{
-    const { form } = props;
+    const { form  } = props;
 
     const [ApprovalData, setApprovalData] = useState<FormStatus>(FormStatus.PENDING);
     const token = getCookie('usertoken')
@@ -65,7 +65,6 @@ const FormApproval : React.FC<FormApprovalProps> = (props) =>{
                 <div className="flex flex-row gap-[16px] items-center"> 
                     <button className="bg-green-500 text-white p-[8px] rounded-[8px]" onClick={handleAccecpt}>Approve</button>
                     <button className="bg-red-500 text-white p-[8px] rounded-[8px]" onClick={handleReject}>Reject</button>
-
                 </div>
 
             </div>

@@ -25,10 +25,9 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
     const allRoles: Record<UserType, string[]> = {
         'ANONYMOUS': ['anonymous'],
         'STAFF': ['appraisal-form','applied'],
-        'HOD': ['appraisal-form', 'approval-form'],
+        'HOD': ['appraisal-form', 'applied', 'approval-form'],
         'MASTER': ['approval-form'],
         'ADMIN': ['user-management', 'approval-form'],
-
     }
 
     useEffect(() => {
@@ -134,7 +133,8 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                                                         <text className={` text-lg font-normal duration-200 ease-in ${sideBarOpen === true ? ' opacity-100 ' : ' opacity-0 '}`}>Anonymous</text>
                                                     </Link> : <></>
                                                 }
-                                                {(item === 'applied') ?
+                                                {
+                                                (item === 'applied') ?
                                                     <Link title="anonymous" key={index} href="/applied" className={`px-[16px] py-[8px] 3 rounded-tr-xl rounded-br-xl  ${pathname === '/applied' ? 'bg-primary-default hover:bg-impButton-hover text-white' : 'bg-gray-100 text-gray-700'}   w-full flex flex-row gap-4 items-center duration-200 ease-in text-black`}>
                                                         <span className="material-icons-sharp">approval</span>
                                                         <text className={` text-lg font-normal duration-200 ease-in ${sideBarOpen === true ? ' opacity-100 ' : ' opacity-0 '}`}>Applied</text>

@@ -10,19 +10,38 @@ import noDraft from '@/assets/noDraft.png';
 
 export const TempCard = ({ formId, details } : {formId : number , details: any}) =>{
     const colorArray = ["bg-blue-500","bg-green-500","bg-purple-500","bg-yellow-500"]
-    console.log(details)
+    const token = getCookie('usertoken');
+    const handleFormDelete =async () =>{
+        try {
+            const response = await axios.delete(`/api/form?formId=${details.id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization':'Bearer '+getCookie('usertoken')
+                }
+            })
+            alert('form deleted')
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+
     return(
-        <Link href={'/appraisal-form/'+details.id}>
+        
             <div className={`h-[200px] flex flex-col gap-[16px] rounded-[8px] shadow-lg  ${colorArray[formId%4]} hover:shadow-none duration-200 ease-in p-[16px]`}>
-                <div className='flex justify-between'>
-                    <h1 className="text-2xl text-white">{details.form_title}</h1>
-                    <p className="text-white">{details.start_year} - {details.end_year}</p>
-                </div>
+                <Link href={'/appraisal-form/' + details.id}>
+                    <div className='flex justify-between'>
+                        <h1 className="text-2xl text-white">{details.form_title}</h1>
+                        <p className="text-white">{details.start_year} - {details.end_year}</p>
+                    </div>
+                </Link>
                 <div className='flex justify-between'>
                     <p className="text-white">{details.current_position}</p>
                 </div>
+                <div className='flex flex-row-reverse'>
+                    <button className='bg-white p-[16px] rounded-xl outline-0 border-0 hover:bg-gray-100 duration-200 ease-in' onClick={handleFormDelete}>Delete</button>
+                </div>
             </div>
-        </Link>
     )
 }
 
