@@ -5,10 +5,13 @@ import FormApproval from "../FormApproval";
 
 
 interface HodApprovalProps {
-
+    filterApproval:string;
+    setFilterApproval:Function;
 }
 
 const HodApproval: React.FC<HodApprovalProps> = (props) => {
+        const filterApproval = props.filterApproval;
+        const setFilterApproval = props.setFilterApproval;
 
         const [hodApprovalData, setHodApprovalData] = useState([]);
 
@@ -35,7 +38,7 @@ const HodApproval: React.FC<HodApprovalProps> = (props) => {
 
                     {
                         hodApprovalData.length === 0 ? <>No form found</> :
-                            hodApprovalData && hodApprovalData.map((data, index) => {
+                            hodApprovalData && hodApprovalData.filter((d)=>(d as {hod_status:string}).hod_status === filterApproval || filterApproval === "ALL").map((data, index) => {
                                 return (
                                     <>
                                         <FormApproval form={data} />
