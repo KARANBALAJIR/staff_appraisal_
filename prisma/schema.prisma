@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  ANONYMOUS
+  STAFF
+  HOD
+  MASTER
+  ADMIN
+}
+
+enum DesignationType {
+  NONE
+  ASSOCIATE_PROFESSOR
+  ASSISTANT_PROFESSOR
+  PROFESSOR
+}
+
+enum FormStatusType {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+
+enum StatusType {
+  ACTIVE
+  INACTIVE
+  BANNED
+}
+
+enum HrEvaluation {
+  NOTSUBMITTED
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum GenderType {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum PublicationIndexingSource {
+  NONE
+  SCI 
+  SCOPUS 
+  WOS
+}
+
+
+enum DepartmentType {
+  NONE
+  CSE
+  ECE
+  EEE
+  MECH
+  IT
+  AIDS
+  AIML
+  CCE
+  CSBS
+}
+
+enum SemesterType {
+  ODD 
+  EVEN
+  NONE
+}
+
+enum UserFormStatus {
+  NOTSUBMITTED
+  SUBMITTED
+}
+
+enum FormStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  NOT_VALID
+}
+
+model User{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  username String? @default("")
+  email String @unique
+  password String
+  role UserType? @default(ANONYMOUS)
+  designation DesignationType? @default(NONE)
+  department DepartmentType? @default(NONE)
+  phonenumber String? @default("000-000-0000")
+  gender GenderType? @default(OTHER)
+  formstatus FormStatusType? @default(PENDING)
+  status StatusType?  @default(INACTIVE)
+  isfirst Boolean? @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BlackListToken {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  token String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserCreationForm {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  createdBy String
+  form_title String
+  start_year String
+  end_year String
+  current_position DesignationType
+  expecting_appraisal String @default("0")
+  form_data_relation UserCreationFormData[]
+  user_form_status UserFormStatus @default(NOTSUBMITTED) 
+  // form_status FormStatus @default(PENDING)
+  hod_status FormStatus @default(PENDING)
+  master_status FormStatus @default(PENDING)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  hod_id String? @db.ObjectId
+}
+
+model UserCreationFormData {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  form_data_relation UserCreationForm @relation(fields: [formId], references: [id] , onDelete: Cascade)
+  formId String @unique @db.ObjectId
+  appraisal_form_data Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+

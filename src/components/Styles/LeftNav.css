@@ -1,0 +1,7 @@
+.left-nav-selected{
+    @apply bg-blue-400 w-full h-10 rounded-lg flex justify-center items-center text-white mt-4 shadow-md hover:shadow-none duration-200 ease-in
+}
+
+.left-nav{
+    @apply w-full h-10 rounded-lg flex justify-center items-center text-black mt-4 
+}

@@ -1,0 +1,53 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer utilities {
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+}
+
+
+@layer utilities{
+    
+    table{
+        @apply border-collapse w-full
+    }
+
+    table th, table td{
+        @apply !h-[40px] border-2 border-gray-500 
+    }
+
+    tbody tr td input{
+        @apply h-full outline-0 focus:outline-0 w-[90%]
+    }
+
+    table thead{
+        @apply bg-blue-300
+    }
+    .username-gradient{
+    background: hsla(208, 7%, 55%, 1);
+    
+        background: linear-gradient(90deg, hsla(208, 7%, 55%, 1) 0%, hsla(191, 5%, 40%, 1) 100%);
+    
+        background: -moz-linear-gradient(90deg, hsla(208, 7%, 55%, 1) 0%, hsla(191, 5%, 40%, 1) 100%);
+    
+        background: -webkit-linear-gradient(90deg, hsla(208, 7%, 55%, 1) 0%, hsla(191, 5%, 40%, 1) 100%);
+    
+        filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#858E96", endColorstr="#60696B", GradientType=1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+}
