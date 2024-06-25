@@ -122,7 +122,7 @@ model UserCreationForm {
   form_data_relation UserCreationFormData[]
   user_form_status UserFormStatus @default(NOTSUBMITTED) 
   // form_status FormStatus @default(PENDING)
-  hod_status FormStatus @default(PENDING)
+  hod_status FormStatus @default(PENDING) //not valid
   master_status FormStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
