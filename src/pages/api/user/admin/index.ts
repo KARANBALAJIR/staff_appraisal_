@@ -1,10 +1,10 @@
-import { verifyToken , findUserByEmail } from "@/services/user.service";
+import { verifyToken , findUserByEmail, hashPassword } from "@/services/user.service";
 import { PrismaClient , User } from '@prisma/client';
 import jwt from 'jsonwebtoken'
 const prisma = new PrismaClient();
 import { NextApiRequest, NextApiResponse } from "next";
 import { checkAuthentication } from "..";
-import bcrypt from 'bcrypt';
+
 
 
 
@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         else if(req.method === 'POST'){
             try{
                 const {email, username, department, designation, role, status,password} = req.body;
-                const hashedpassword=await bcrypt.hash(password,10);
+                const hashedPassword = await hashPassword(password)
 
                 if(!email){
                     return res.status(400).json({sucess:false, message: "invalid email"});
@@ -57,7 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         department: department,
                         designation: designation,
                         role: role,
-                        password:hashedpassword,
+                        password:hashedPassword,
                         status: status
                     }
                 })
