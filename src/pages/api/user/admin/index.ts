@@ -1,9 +1,11 @@
-import { verifyToken , findUserByEmail } from "@/services/user.service";
+import { verifyToken , findUserByEmail, hashPassword } from "@/services/user.service";
 import { PrismaClient , User } from '@prisma/client';
 import jwt from 'jsonwebtoken'
 const prisma = new PrismaClient();
 import { NextApiRequest, NextApiResponse } from "next";
 import { checkAuthentication } from "..";
+
+
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -34,7 +36,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         else if(req.method === 'POST'){
             try{
-                const {email, username, department, designation, role, status} = req.body;
+                const {email, username, department, designation, role, status,password} = req.body;
+                const hashedPassword = await hashPassword(password)
+
                 if(!email){
                     return res.status(400).json({sucess:false, message: "invalid email"});
                 }
@@ -53,7 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         department: department,
                         designation: designation,
                         role: role,
-                        password: "SECE",
+                        password:hashedPassword,
                         status: status
                     }
                 })
