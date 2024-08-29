@@ -4,6 +4,8 @@ import jwt from 'jsonwebtoken'
 const prisma = new PrismaClient();
 import { NextApiRequest, NextApiResponse } from "next";
 import { checkAuthentication } from "..";
+import bcrypt from 'bcrypt';
+
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -34,7 +36,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         else if(req.method === 'POST'){
             try{
-                const {email, username, department, designation, role, status} = req.body;
+                const {email, username, department, designation, role, status,password} = req.body;
+                const hashedpassword=await bcrypt.hash(password,10);
+
                 if(!email){
                     return res.status(400).json({sucess:false, message: "invalid email"});
                 }
@@ -53,7 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         department: department,
                         designation: designation,
                         role: role,
-                        password: "SECE",
+                        password:hashedpassword,
                         status: status
                     }
                 })
