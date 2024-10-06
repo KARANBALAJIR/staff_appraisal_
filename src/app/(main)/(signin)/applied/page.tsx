@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 
 export default function AppliedPage() {
   const [userForms, setUserForms] = useState<any>([]);
+    useEffect(() => {
+      getStaffForm();
+    }, []);
   const token = getCookie("usertoken");
     const router = useRouter();
 
@@ -16,9 +19,7 @@ export default function AppliedPage() {
     }
 
     //   console.log(`Building slug: ${slug}`);
-  useEffect(() => {
-    getStaffForm();
-  }, []);
+
 
   const getStaffForm = async () => {
     try {

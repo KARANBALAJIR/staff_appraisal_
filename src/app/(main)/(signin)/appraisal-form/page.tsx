@@ -205,14 +205,14 @@ export default function Page({slug} : any) {
     const [filteredForms, setFilteredForms] = useState([]);
     const [viewType, setViewType] = useState<string>("DEFAULT");
     const router = useRouter();
-
+    useEffect(() => {
+      getStaffForm();
+    }, []);
     if (router.isFallback) {
         <h1>Data is loading</h1>;
     }
       console.log(`Building slug: ${slug}`);
-    useEffect(() => {
-        getStaffForm();
-    }, [])
+
 
     useEffect(()=>{
         console.log('incoming')
