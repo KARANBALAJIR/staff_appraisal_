@@ -3,7 +3,6 @@
 import axios from "axios"
 import React, { useEffect, useState  } from "react"
 import { getCookie } from "@/services/cookie.service";
-import { TempCard } from "@/app/(main)/(signin)/appraisal-form/page";
 import { useSelector } from "react-redux";
 import { UserType } from "@prisma/client";
 import HodApproval from "@/components/HodApproval";
