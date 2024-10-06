@@ -2,15 +2,12 @@
 "use client"
 import '@/styles/global.css'
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import toast , { Toaster } from 'react-hot-toast';
 import Link from "next/link";
 import axios from 'axios';
 import { getCookie } from '@/services/cookie.service';
 import noDraft from '@/assets/noDraft.png';
-import  img1 from '@/assets/1.png'
-import  img2 from '@/assets/2.png'
-import  img3 from '@/assets/3.png'
-import img4 from '@/assets/4.png'
 import { TempCard } from './TempCard';
 
 // export const TempCard = ({ formId, details } : {formId : number , details: any}) =>{
@@ -199,7 +196,7 @@ const PlusIcon = ({ openCreateForm, setOpenCreateForm }: { openCreateForm: boole
 }
 
 
-export default function Page() {
+export default function Page({slug} : any) {
 
     const [pagination, setPagination] = useState(1);
     const [openCreateForm , setOpenCreateForm] = useState<boolean>(false);
@@ -207,7 +204,12 @@ export default function Page() {
     const [userForms, setuserForms] = useState([]);
     const [filteredForms, setFilteredForms] = useState([]);
     const [viewType, setViewType] = useState<string>("DEFAULT");
+    const router = useRouter();
 
+    if (router.isFallback) {
+        <h1>Data is loading</h1>;
+    }
+      console.log(`Building slug: ${slug}`);
     useEffect(() => {
         getStaffForm();
     }, [])
@@ -283,35 +285,83 @@ export default function Page() {
         }
     }
     return (
-        
-            <div className='flex flex-col gap-[16px] p-[12px]'>
-                <CreateForm openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm} setuserForms={setuserForms} />
-                <div className='flex justify-between'>   
-                    <div className='flex gap-4 p-2 duration-500'>
-                        <button className={`font-medium text-2xl ${(viewType === "DEFAULT")?' border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("DEFAULT")}}>Forms</button>
-                    <button className={`font-medium text-2xl ${(viewType === "NOTSUBMITTED") ? ' border-b-2 border-primary-default' : 'opacity-25'}`} onClick={() => { setViewType("NOTSUBMITTED") }}>Pending</button>
-                        <button className={`font-medium text-2xl ${(viewType === "SUBMITTED")?'border-b-2 border-primary-default':'opacity-25'}`} onClick={()=>{setViewType("SUBMITTED")}}>Submitted</button>
-                    </div>
-                    <PlusIcon openCreateForm={openCreateForm} setOpenCreateForm={setOpenCreateForm}/>
-                </div>
-                <div className='flex flex-col gap-[16px] flex-wrap justify-between'>
-                    {
-
-                        // eslint-disable-next-line react/jsx-no-comment-textnodes
-                        filteredForms.length === 0 ? <div className='h-[80vh]'>
-                            <img src={noDraft.src} alt="No Draft Form" className='mx-auto'/>
-                            <p className='text-center text-2xl font-semibold'>No Draft Form Found</p>
-                        </div>
-                        :
-                        filteredForms.map((item, index) => {
-                            return(
-                                <>
-                                    <TempCard key={index} formId={index} details={item} />
-                                </>
-                            )
-                        })
-                    }
-                </div>
+      <>
+        <div className="flex flex-col gap-[16px] p-[12px]">
+          <CreateForm
+            openCreateForm={openCreateForm}
+            setOpenCreateForm={setOpenCreateForm}
+            setuserForms={setuserForms}
+          />
+          <div className="flex justify-between">
+            <div className="flex gap-4 p-2 duration-500">
+              <button
+                className={`font-medium text-2xl ${
+                  viewType === "DEFAULT"
+                    ? " border-b-2 border-primary-default"
+                    : "opacity-25"
+                }`}
+                onClick={() => {
+                  setViewType("DEFAULT");
+                }}
+              >
+                Forms
+              </button>
+              <button
+                className={`font-medium text-2xl ${
+                  viewType === "NOTSUBMITTED"
+                    ? " border-b-2 border-primary-default"
+                    : "opacity-25"
+                }`}
+                onClick={() => {
+                  setViewType("NOTSUBMITTED");
+                }}
+              >
+                Pending
+              </button>
+              <button
+                className={`font-medium text-2xl ${
+                  viewType === "SUBMITTED"
+                    ? "border-b-2 border-primary-default"
+                    : "opacity-25"
+                }`}
+                onClick={() => {
+                  setViewType("SUBMITTED");
+                }}
+              >
+                Submitted
+              </button>
             </div>
-    )
+            <PlusIcon
+              openCreateForm={openCreateForm}
+              setOpenCreateForm={setOpenCreateForm}
+            />
+          </div>
+          <div className="flex flex-col gap-[16px] flex-wrap justify-between">
+            {
+              // eslint-disable-next-line react/jsx-no-comment-textnodes
+              filteredForms.length === 0 ? (
+                <div className="h-[80vh]">
+                  <img
+                    src={noDraft.src}
+                    alt="No Draft Form"
+                    className="mx-auto"
+                  />
+                  <p className="text-center text-2xl font-semibold">
+                    No Draft Form Found
+                  </p>
+                </div>
+              ) : (
+                filteredForms.map((item, index) => {
+                  return (
+                    <>
+                      <TempCard key={index} formId={index} details={item} />
+                    </>
+                  );
+                })
+              )
+            }
+          </div>
+        </div>
+      </>
+    );
 }

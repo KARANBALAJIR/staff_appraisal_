@@ -1,51 +1,50 @@
-"use client"
+"use client";
 
-import FormFlow from "@/components/FormFlow"
+import FormFlow from "@/components/FormFlow";
 import { getCookie } from "@/services/cookie.service";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/router";
 
+export default function AppliedPage() {
+  const [userForms, setUserForms] = useState<any>([]);
+  const token = getCookie("usertoken");
+    const router = useRouter();
 
-export default function Page(){
-
-    const [userForms, setUserForms] = useState<any>([])
-
-    const token = getCookie('usertoken');
-
-    useEffect(()=>{
-        getStaffForm();
-    },[])
-
-
-
-    const getStaffForm = async () => {
-        try {
-            const response = await axios.get('/api/form', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            const data = response.data;
-            console.log(data)
-            setUserForms(data.data)
-        } catch (err: any) {
-            console.log(err)
-        }
+    if (router.isFallback) {
+    return <h1>Data is loading</h1>;
     }
 
-    return(
-        <div className="p-[16px]"> 
-            {/* <div></div> */}
-            {
-                userForms.map((form: any) => {
-                    return (
-                        <div key={form.id}>
-                            <FormFlow form={form} />
-                        </div>
-                    )
-                })
-            } 
+    //   console.log(`Building slug: ${slug}`);
+  useEffect(() => {
+    getStaffForm();
+  }, []);
+
+  const getStaffForm = async () => {
+    try {
+      const response = await axios.get("/api/form", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data;
+      setUserForms(data.data);
+    } catch (err: any) {
+      console.error(
+        "Error fetching forms:",
+        err.response ? err.response.data : err?.message
+      );
+    }
+  };
+
+  return (
+    <div className="p-[16px]">
+      {userForms.map((form: any) => (
+        <div key={form.id}>
+          <FormFlow form={form} />
         </div>
-    )
+      ))}
+    </div>
+  );
 }

@@ -1,6 +1,5 @@
 "use client"
 
-import axios from "axios"
 import React, { useEffect, useState  } from "react"
 import { getCookie } from "@/services/cookie.service";
 import { useSelector } from "react-redux";
