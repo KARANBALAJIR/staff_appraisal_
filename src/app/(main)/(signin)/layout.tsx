@@ -30,6 +30,8 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
         'ADMIN': ['user-management', 'approval-form'],
     }
 
+    const [username, setUsername] = useState('')
+
     useEffect(() => {
         checkRole();
     }, [])
@@ -53,6 +55,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
 
             const userData = response.data.user;
             setRole(userData.role)
+            setUsername(userData.username)
             setLoggedIn("loggedIn")
             dispatch(updateUserDetails(userData));
         }
@@ -159,7 +162,7 @@ export default function SignedInLayout({ children }: Readonly<{ children: React.
                                         {/* <div className='w-[40px] h-[40px] rounded-full bg-gray-400'>
 
                                         </div> */}
-                                        <h1 className='font-bold text-3xl username-gradient'>Cibiyanna P</h1>
+                                        <h1 className='font-bold text-3xl username-gradient'>Welcome {username} !</h1>
                                     </div>
                                     <div className='flex flex-row gap-[30px] items-center'>
                                         <div className='flex flex-row gap-[8px] items-center justify-center'>
