@@ -1,14 +1,3 @@
-import nextPlugin from 'eslint-config-next';
+import nextConfig from 'eslint-config-next';
 
-export default [
-  {
-    ignores: [
-      '**/node_modules/**',
-      '**/.next/**',
-      '**/out/**',
-      '**/build/**',
-      '**/dist/**',
-    ],
-  },
-  ...nextPlugin,
-];
+export default nextConfig;
